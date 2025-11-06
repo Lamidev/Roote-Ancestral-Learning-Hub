@@ -4,12 +4,12 @@ export const quizConfig = {
   totalQuestions: 8,
   passingScore: {
     beginner: { min: 0, max: 2 },
-    intermediate: { min: 3, max: 5 },
+    middle: { min: 3, max: 5 },
     advanced: { min: 6, max: 8 }
   },
   wiseUrls: {
     beginner: "https://roote.wise.live/beginner",
-    intermediate: "https://roote.wise.live/intermediate", 
+    middle: "https://roote.wise.live/middle", 
     advanced: "https://roote.wise.live/advanced"
   },
   questions: [
@@ -107,8 +107,8 @@ export const quizConfig = {
 export const calculateLevel = (score) => {
   if (score >= quizConfig.passingScore.advanced.min) {
     return { level: 'advanced', url: quizConfig.wiseUrls.advanced };
-  } else if (score >= quizConfig.passingScore.intermediate.min) {
-    return { level: 'intermediate', url: quizConfig.wiseUrls.intermediate };
+  } else if (score >= quizConfig.passingScore.middle.min) {
+    return { level: 'middle', url: quizConfig.wiseUrls.middle };
   } else {
     return { level: 'beginner', url: quizConfig.wiseUrls.beginner };
   }

@@ -1,5 +1,7 @@
+
+
 const QuizResult = require('../models/quizResults');
-const { sendWelcomeEmail } = require('./emailController');
+const { sendWelcomeEmail, sendAdminNotification } = require('./emailController');
 
 // Save quiz result and trigger welcome email
 const saveQuizResult = async (req, res) => {
@@ -30,7 +32,7 @@ const saveQuizResult = async (req, res) => {
     await quizResult.save();
     console.log('💾 Quiz result saved with ID:', quizResult._id);
 
-    // Send welcome email (non-blocking)
+    // Send welcome email to student AND admin notification (non-blocking)
     sendWelcomeEmailAsync({
       studentEmail,
       fullName,
@@ -38,6 +40,16 @@ const saveQuizResult = async (req, res) => {
       wiseUrl,
       score,
       quizResultId: quizResult._id
+    });
+
+    // Send admin notification
+    sendAdminNotificationAsync({
+      studentEmail,
+      fullName,
+      level,
+      score,
+      quizResultId: quizResult._id,
+      totalQuestions: 8 // Since you have 8 questions
     });
 
     res.status(201).json({
@@ -70,7 +82,7 @@ const saveQuizResult = async (req, res) => {
   }
 };
 
-// Non-blocking email sending
+// Non-blocking email sending to student
 const sendWelcomeEmailAsync = async (data) => {
   try {
     await sendWelcomeEmail(data);
@@ -80,6 +92,17 @@ const sendWelcomeEmailAsync = async (data) => {
     await QuizResult.findByIdAndUpdate(data.quizResultId, { emailSent: true });
   } catch (emailError) {
     console.error('❌ Failed to send welcome email:', emailError);
+    // Don't throw error - quiz result is already saved
+  }
+};
+
+// Non-blocking email sending to admin
+const sendAdminNotificationAsync = async (data) => {
+  try {
+    await sendAdminNotification(data);
+    console.log('✅ Admin notification sent for:', data.studentEmail);
+  } catch (emailError) {
+    console.error('❌ Failed to send admin notification:', emailError);
     // Don't throw error - quiz result is already saved
   }
 };

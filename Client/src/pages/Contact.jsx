@@ -585,6 +585,9 @@ const Contact = () => {
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
+  // ✅ Get API URL from Vite environment variables
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:7090';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -600,7 +603,8 @@ const ContactForm = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:7090/api/contact', {
+      // ✅ Use the correct API_BASE_URL with Vite environment variable
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -686,7 +690,7 @@ const ContactForm = () => {
             <SelectContent>
               <SelectItem value="not-sure">Not Sure</SelectItem>
               <SelectItem value="beginner">Beginner</SelectItem>
-              <SelectItem value="Middle">Middle</SelectItem>
+              <SelectItem value="middle">Middle</SelectItem>
               <SelectItem value="advanced">Advanced</SelectItem>
             </SelectContent>
           </Select>

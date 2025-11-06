@@ -46,7 +46,7 @@ const quizResultSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: {
-      values: ['beginner', 'Middle', 'advanced'],
+      values: ['beginner', 'middle', 'advanced'],
       message: '{VALUE} is not a valid level'
     }
   },
