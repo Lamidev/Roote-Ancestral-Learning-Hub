@@ -68,23 +68,28 @@ mongoose
     const PORT = process.env.PORT || 7090;
 
     // Middleware
-    app.use(
-      cors({
-        origin: ["http://localhost:5173"],
-        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-        allowedHeaders: [
-          "Content-Type",
-          "Authorization",
-          "X-Requested-With",
-          "Accept",
-          "Cache-Control",
-          "Expires",
-          "Pragma"
-        ],
-        credentials: true,
-        exposedHeaders: ['Set-Cookie']
-      })
-    );
+  app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", 
+      "https://rooteancestrallearninghub.com",
+       "https://www.rooteancestrallearninghub.com" 
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Cache-Control",
+      "Expires",
+      "Pragma"
+    ],
+    credentials: true,
+    exposedHeaders: ["Set-Cookie"]
+  })
+);
+
 
     // Middleware
     app.use(express.json());
