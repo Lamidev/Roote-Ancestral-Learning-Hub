@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QuizProvider } from './contexts/quizContext';
-import Layout from './components/Layout/Layout';
+import Layout from './components/layoutView/Layout'
 import Home from './pages/Home';
 import About from './pages/About';
 import Classes from './pages/Classes';
