@@ -83,7 +83,7 @@
 //     switch (level) {
 //       case 'beginner':
 //         return 'from-green-400 to-blue-400';
-//       case 'intermediate':
+//       case 'middle':
 //         return 'from-blue-400 to-purple-400';
 //       case 'advanced':
 //         return 'from-purple-400 to-indigo-400';
@@ -200,11 +200,14 @@ const QuizResult = () => {
   const { state, dispatch } = useQuiz();
   const { currentScore, studentInfo, answers } = state;
 
-  const [isProcessing, setIsProcessing] = useState(true); // Only track loading state
-  const savingRef = useRef(false); // ✅ prevents duplicate triggers
+  const [isProcessing, setIsProcessing] = useState(true);
+  const savingRef = useRef(false);
 
   const result = calculateLevel(currentScore);
   const { level, url } = result;
+
+  // ✅ Get API URL from Vite environment variables
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:7090';
 
   const saveQuizResult = useCallback(async () => {
     if (savingRef.current) {
@@ -212,7 +215,7 @@ const QuizResult = () => {
       return;
     }
 
-    savingRef.current = true; // ✅ lock before running async work
+    savingRef.current = true;
     try {
       dispatch({ type: 'SET_LEVEL', payload: result });
 
@@ -231,7 +234,8 @@ const QuizResult = () => {
 
       console.log('📤 Sending quiz result:', quizData);
 
-      const response = await fetch('http://localhost:7090/api/quiz/results', {
+      // ✅ Use the correct API_BASE_URL
+      const response = await fetch(`${API_BASE_URL}/api/quiz/results`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(quizData),
@@ -242,7 +246,6 @@ const QuizResult = () => {
       if (data.success) {
         console.log('✅ Quiz result saved successfully');
         
-        // ✅ SUCCESS TOAST with Sonner (auto-dismisses after 5 seconds)
         toast.success('Welcome email sent!', {
           description: 'Check your inbox for class details and next steps.',
           duration: 5000,
@@ -251,28 +254,26 @@ const QuizResult = () => {
       } else {
         console.error('❌ Server error:', data.error);
         
-        // ✅ ERROR TOAST with Sonner (auto-dismisses after 5 seconds)
         toast.error('Failed to save results', {
           description: data.error || 'Something went wrong. Your level has been determined.',
           duration: 5000,
           position: 'top-center',
         });
-        savingRef.current = false; // allow retry
+        savingRef.current = false;
       }
     } catch (err) {
       console.error('❌ Network error:', err);
       
-      // ✅ NETWORK ERROR TOAST with Sonner (auto-dismisses after 5 seconds)
       toast.error('Network error', {
         description: 'Could not connect to server. Your level has been determined.',
         duration: 5000,
         position: 'top-center',
       });
-      savingRef.current = false; // allow retry
+      savingRef.current = false;
     } finally {
-      setIsProcessing(false); // Always stop loading regardless of outcome
+      setIsProcessing(false);
     }
-  }, [dispatch, result, studentInfo, currentScore, answers, level, url]);
+  }, [dispatch, result, studentInfo, currentScore, answers, level, url, API_BASE_URL]);
 
   useEffect(() => {
     if (studentInfo?.email && !savingRef.current) {
@@ -288,7 +289,7 @@ const QuizResult = () => {
     switch (level) {
       case 'beginner':
         return 'from-green-400 to-blue-400';
-      case 'intermediate':
+      case 'middle':
         return 'from-blue-400 to-purple-400';
       case 'advanced':
         return 'from-purple-400 to-indigo-400';
@@ -319,7 +320,6 @@ const QuizResult = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Only show loading state, no success/error alerts */}
               {isProcessing && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <div className="flex items-center justify-center text-blue-800">
