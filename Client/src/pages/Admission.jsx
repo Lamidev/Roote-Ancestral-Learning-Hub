@@ -28,7 +28,7 @@ const Admission = () => {
       step: "2", 
       title: "Discover Your Level",
       description: "Get your personalized class placement",
-      details: "Based on your results, we'll place you in the perfect Beginner, Intermediate, or Advanced class."
+      details: "Based on your results, we'll place you in the perfect Beginner, Middle, or Advanced class."
     },
     {
       step: "3",

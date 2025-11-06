@@ -16,12 +16,12 @@ const Classes = () => {
         "Yoruba alphabet and pronunciation",
         "Cultural basics and etiquette"
       ],
-      icon: "🌱",
-      gradient: "from-indigo-50 to-blue-50",
-      border: "border-indigo-200"
+      linear: "from-indigo-50 to-blue-50",
+      border: "border-indigo-200",
+      numberColor: "from-green-400 to-blue-400"
     },
     {
-      title: "Intermediate", 
+      title: "Middle", 
       description: "Build conversational skills and grammar knowledge",
       features: [
         "Everyday conversations",
@@ -30,9 +30,9 @@ const Classes = () => {
         "Reading and writing practice",
         "Cultural proverbs and stories"
       ],
-      icon: "🌿",
-      gradient: "from-blue-50 to-purple-50",
-      border: "border-blue-200"
+      linear: "from-blue-50 to-purple-50",
+      border: "border-blue-200",
+      numberColor: "from-blue-400 to-purple-400"
     },
     {
       title: "Advanced",
@@ -44,9 +44,9 @@ const Classes = () => {
         "Cultural context and history",
         "Teaching methodologies"
       ],
-      icon: "🌳",
-      gradient: "from-purple-50 to-indigo-50",
-      border: "border-purple-200"
+      linear: "from-purple-50 to-indigo-50",
+      border: "border-purple-200",
+      numberColor: "from-purple-400 to-indigo-400"
     }
   ];
 
@@ -99,10 +99,10 @@ const Classes = () => {
         >
           {levels.map((level, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className={`border-2 ${level.border} linear-to-br ${level.gradient} hover:shadow-lg transition-all duration-300 group h-full`}>
+              <Card className={`border-2 ${level.border} bg-linear-to-br ${level.linear} hover:shadow-lg transition-all duration-300 group h-full`}>
                 <CardHeader className="text-center">
-                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {level.icon}
+                  <div className={`w-16 h-16 bg-linear-to-r ${level.numberColor} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="text-2xl text-white font-bold">{index + 1}</span>
                   </div>
                   <CardTitle className="text-2xl font-outfit text-indigo-900">{level.title}</CardTitle>
                   <CardDescription className="text-gray-600">{level.description}</CardDescription>
@@ -136,7 +136,7 @@ const Classes = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <Card className="text-center border-indigo-200 linear-to-r from-indigo-50 to-amber-50">
+          <Card className="text-center border-indigo-200 bg-linear-to-r from-indigo-50 to-amber-50">
             <CardHeader>
               <CardTitle className="font-outfit">Not Sure Which Level is Right for You?</CardTitle>
               <CardDescription className="text-gray-600">
