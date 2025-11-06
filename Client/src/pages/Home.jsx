@@ -249,7 +249,7 @@ const Home = () => {
                 color: "from-green-400 to-blue-400"
               },
               {
-                level: "Intermediate", 
+                level: "Middle", 
                 description: "Building on existing knowledge",
                 features: ["Conversational skills", "Reading practice", "Folktales & stories", "Basic writing"],
                 color: "from-blue-400 to-purple-400"

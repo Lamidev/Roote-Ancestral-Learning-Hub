@@ -22,7 +22,7 @@ const contactSchema = new mongoose.Schema({
   interestLevel: {
     type: String,
     enum: {
-      values: ['beginner', 'Middle', 'advanced', 'not-sure'],
+      values: ['beginner', 'middle', 'advanced', 'not-sure'],
       message: '{VALUE} is not a valid interest level'
     },
     default: 'not-sure'
