@@ -191,7 +191,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
-import { useQuiz } from '@/contexts/QuizContext';
+import { useQuiz } from '@/contexts/quizContext';
 import { quizConfig, calculateLevel } from '@/config/quizConfig';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
