@@ -259,7 +259,7 @@ const About = () => {
           </Card>
         </motion.div>
 
-        {/* Founders Section */}
+        {/* Founder Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -269,31 +269,21 @@ const About = () => {
         >
           <Card className="border-indigo-100">
             <CardHeader className="text-center">
-              <CardTitle className="font-outfit text-indigo-900">Meet the Founders</CardTitle>
+              <CardTitle className="font-outfit text-indigo-900">Meet Our Founder</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-linear-to-r from-indigo-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group hover:scale-105 transition-transform duration-300">
-                    <span className="text-white font-bold text-2xl font-outfit">TJ</span>
-                  </div>
-                  <h3 className="font-semibold text-lg font-outfit text-indigo-900">Engr. Tunde Jimoh</h3>
-                  <p className="text-gray-600 mb-3">Co-founder & Technical Director</p>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    Bringing technical excellence and passion for cultural preservation together to create 
-                    innovative learning experiences for diaspora children.
-                  </p>
-                </div>
-                
-                <div className="text-center">
+              <div className="flex justify-center">
+                <div className="text-center max-w-md">
                   <div className="w-24 h-24 bg-linear-to-r from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 group hover:scale-105 transition-transform duration-300">
                     <span className="text-white font-bold text-2xl font-outfit">OO</span>
                   </div>
-                  <h3 className="font-semibold text-lg font-outfit text-indigo-900">Mrs. Olujoke Olofinlade</h3>
-                  <p className="text-gray-600 mb-3">Co-founder & Educational Director</p>
+                  <h3 className="font-semibold text-lg font-outfit text-indigo-900">Olujoke Opeyemi</h3>
+                  <p className="text-gray-600 mb-3">Founder & Educational Director</p>
                   <p className="text-sm text-gray-500 leading-relaxed">
                     Dedicated to making Yoruba language education accessible, engaging, and meaningful 
-                    for children growing up in the diaspora.
+                    for children growing up in the diaspora. With a passion for cultural preservation 
+                    and innovative teaching methods, Olujoke leads our mission to keep Yoruba heritage 
+                    alive for future generations.
                   </p>
                 </div>
               </div>
