@@ -7,7 +7,7 @@ import About from './pages/About';
 import Classes from './pages/Classes';
 import Admission from './pages/Admission';
 import Contact from './pages/Contact';
-import ThankYou from './pages/ThankYou';
+import ThankYou from './pages/Thankyou';
 // import './styles/App.css';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
             <Route path="contact" element={<Contact />} />
           </Route>
                     {/* Add this new route outside Layout (clean standalone page) */}
-          <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/thank-you" element={<ThankYou/>} />
 
         </Routes>
       </Router>
