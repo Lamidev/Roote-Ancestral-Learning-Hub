@@ -8,10 +8,10 @@ export const quizConfig = {
     advanced: { min: 6, max: 8 }
   },
   wiseUrls: {
-    beginner: "https://roote.wise.live/beginner",
-    middle: "https://roote.wise.live/middle", 
-    advanced: "https://roote.wise.live/advanced"
-  },
+  beginner: "https://roote-ancestral-learning.wise.live/courses/yoruba-beginner-level-roote-ancestral-6910a010761b0cdcd91c64c8",
+  middle: "https://roote-ancestral-learning.wise.live/courses/yoruba-middle-level-roote-ancestral-6910a0eef5bf0ae539340512", 
+  advanced: "https://roote-ancestral-learning.wise.live/courses/yoruba-advanced-level-roote-ancestral-6910a124e28bf640efc4c592"
+},
   questions: [
     {
       id: 1,

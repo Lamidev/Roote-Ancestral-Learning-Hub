@@ -379,8 +379,8 @@ const Contact = () => {
       icon: <Mail className="w-5 h-5" />,
       title: "Email Us",
       description: "We'll respond quickly",
-      details: "info@rooteancestrallearninghub.com",
-      link: "mailto:info@rooteancestrallearninghub.com",
+      details: "admin@rooteancestrallearninghub.com",
+      link: "mailto:admin@rooteancestrallearninghub.com",
       type: "email"
     },
     {
