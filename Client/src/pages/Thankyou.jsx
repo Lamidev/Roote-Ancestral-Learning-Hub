@@ -8,7 +8,7 @@ export default function ThankYou() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-white to-indigo-50 px-6">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-amber-50 via-white to-indigo-50 px-6">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
