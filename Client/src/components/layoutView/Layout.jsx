@@ -39,11 +39,10 @@ export default function Layout() {
       <div className="fixed bottom-6 right-6 z-40">
         <Button
           onClick={handleSupportClick}
-          className="bg-green-600 hover:bg-green-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 group"
-          size="lg"
+          className="bg-green-600 hover:bg-green-700 text-white rounded-full p-5 shadow-lg hover:shadow-xl transition-all duration-300 group"
+          size="icon"
         >
-          <MessageCircle className="w-6 h-6 mr-2 group-hover:scale-110 transition-transform" />
-          <span className="font-outfit">Support</span>
+          <MessageCircle className="w-8 h-8 group-hover:scale-110 transition-transform" />
         </Button>
       </div>
     </div>
