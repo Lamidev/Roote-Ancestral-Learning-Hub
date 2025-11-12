@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, MessageCircle, Instagram } from 'lucide-react';
 
 const Contact = () => {
   const contactInfo = [
@@ -43,6 +43,14 @@ const Contact = () => {
       type: "whatsapp"
     },
     {
+      icon: <Instagram className="w-5 h-5" />,
+      title: "Instagram",
+      description: "Follow for Yoruba content",
+      details: "@yoruba_made_fun",
+      link: "https://www.instagram.com/yoruba_made_fun?igsh=eHltYnk1N256M2dz&utm_source=qr",
+      type: "instagram"
+    },
+    {
       icon: <MapPin className="w-5 h-5" />,
       title: "Office Address",
       description: "Visit our location",
@@ -68,6 +76,8 @@ const Contact = () => {
         return 'hover:bg-blue-50 hover:border-blue-200 text-blue-700';
       case 'email':
         return 'hover:bg-indigo-50 hover:border-indigo-200 text-indigo-700';
+      case 'instagram':
+        return 'hover:bg-pink-50 hover:border-pink-200 text-pink-700';
       case 'address':
         return 'hover:bg-purple-50 hover:border-purple-200 text-purple-700';
       default:
@@ -100,7 +110,6 @@ const Contact = () => {
   return (
     <div className="min-h-screen py-8 px-4 sm:py-12">
       <div className="container mx-auto max-w-6xl">
-        {/* Header */}
         <motion.div 
           className="text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -116,7 +125,6 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Contact Information */}
           <div className="lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -135,8 +143,8 @@ const Contact = () => {
                     <motion.a
                       key={index}
                       href={item.link}
-                      target={item.type === 'whatsapp' || item.type === 'address' ? '_blank' : '_self'}
-                      rel={item.type === 'whatsapp' || item.type === 'address' ? 'noopener noreferrer' : ''}
+                      target={item.type === 'whatsapp' || item.type === 'address' || item.type === 'instagram' ? '_blank' : '_self'}
+                      rel={item.type === 'whatsapp' || item.type === 'address' || item.type === 'instagram' ? 'noopener noreferrer' : ''}
                       className={`flex items-start space-x-3 p-3 sm:p-4 rounded-lg border border-gray-100 transition-all duration-300 group ${getContactStyle(item.type)}`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -145,6 +153,7 @@ const Contact = () => {
                         item.type === 'whatsapp' ? 'text-green-600' :
                         item.type === 'phone' ? 'text-blue-600' :
                         item.type === 'email' ? 'text-indigo-600' :
+                        item.type === 'instagram' ? 'text-pink-600' :
                         item.type === 'address' ? 'text-purple-600' :
                         'text-indigo-600'
                       }`}>
@@ -166,7 +175,6 @@ const Contact = () => {
             </motion.div>
           </div>
 
-          {/* Contact Form Section */}
           <div className="lg:col-span-2">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -174,7 +182,6 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
               className="space-y-6 sm:space-y-8"
             >
-              {/* Contact Form Card */}
               <Card className="border-indigo-100 shadow-sm sm:shadow-md">
                 <CardHeader className="pb-4">
                   <CardTitle className="font-outfit text-xl sm:text-2xl">Send us a Message</CardTitle>
@@ -187,7 +194,6 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* Quick Action Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -225,11 +231,9 @@ const Contact = () => {
   );
 };
 
-// Contact Form Component
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  // ✅ Get API URL from Vite environment variables
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:7090';
 
   const handleSubmit = async (e) => {
@@ -247,7 +251,6 @@ const ContactForm = () => {
     };
 
     try {
-      // ✅ Use the correct API_BASE_URL with Vite environment variable
       const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: {
@@ -286,7 +289,6 @@ const ContactForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        {/* Full Name */}
         <div className="space-y-2">
           <Label htmlFor="fullName" className="font-outfit text-sm sm:text-base">Full Name *</Label>
           <Input
@@ -298,7 +300,6 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Email */}
         <div className="space-y-2">
           <Label htmlFor="email" className="font-outfit text-sm sm:text-base">Email Address *</Label>
           <Input
@@ -313,7 +314,6 @@ const ContactForm = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        {/* Country */}
         <div className="space-y-2">
           <Label htmlFor="country" className="font-outfit text-sm sm:text-base">Country/Location</Label>
           <Input
@@ -324,7 +324,6 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Interest Level */}
         <div className="space-y-2">
           <Label htmlFor="interestLevel" className="font-outfit text-sm sm:text-base">Your Current Level</Label>
           <Select name="interestLevel">
@@ -341,7 +340,6 @@ const ContactForm = () => {
         </div>
       </div>
 
-      {/* Referral Source */}
       <div className="space-y-2">
         <Label htmlFor="referralSource" className="font-outfit text-sm sm:text-base">How did you hear about us?</Label>
         <Select name="referralSource">
@@ -358,7 +356,6 @@ const ContactForm = () => {
         </Select>
       </div>
 
-      {/* Message */}
       <div className="space-y-2">
         <Label htmlFor="message" className="font-outfit text-sm sm:text-base">Message *</Label>
         <Textarea
@@ -371,7 +368,6 @@ const ContactForm = () => {
         />
       </div>
 
-      {/* Submit Button */}
       <Button 
         type="submit" 
         className="w-full bg-indigo-600 hover:bg-indigo-700 font-outfit text-sm sm:text-base"
