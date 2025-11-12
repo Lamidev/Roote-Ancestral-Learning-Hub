@@ -17,7 +17,7 @@ export const quizConfig = {
   instituteCode: "roote-ancestral-learning",
   courseIds: {
     beginner: "643218529",
-    middle: "154209784",
+    middle: "968954470",
     advanced: "179756668"
   },
   questions: [

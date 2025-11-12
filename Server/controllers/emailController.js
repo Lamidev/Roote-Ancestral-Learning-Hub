@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const courseIds = {
   beginner: "643218529",
-  middle: "154209784", 
+  middle: "968954470", 
   advanced: "179756668"
 };
 
