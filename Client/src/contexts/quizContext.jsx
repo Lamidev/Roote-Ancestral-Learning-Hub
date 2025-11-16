@@ -7,15 +7,35 @@ const quizReducer = (state, action) => {
     case 'SET_STUDENT_INFO':
       return { ...state, studentInfo: action.payload };
     case 'SET_ANSWER':
-      const newAnswers = { ...state.answers, [action.payload.questionId]: action.payload };
-      const newScore = Object.values(newAnswers).reduce((total, answer) => total + answer.score, 0);
+      // Store answers as array instead of object
+      const answerIndex = state.answers.findIndex(a => a.questionId === action.payload.questionId);
+      let newAnswers;
+      
+      if (answerIndex >= 0) {
+        // Update existing answer
+        newAnswers = [...state.answers];
+        newAnswers[answerIndex] = action.payload;
+      } else {
+        // Add new answer
+        newAnswers = [...state.answers, action.payload];
+      }
+      
+      // Calculate score from array
+      const newScore = newAnswers.reduce((total, answer) => total + (answer.score || 0), 0);
+      
+      console.log('📊 Score calculation:', {
+        answers: newAnswers,
+        totalScore: newScore,
+        answerCount: newAnswers.length
+      });
+      
       return { ...state, answers: newAnswers, currentScore: newScore };
     case 'SET_LEVEL':
       return { ...state, placementLevel: action.payload };
     case 'RESET_QUIZ':
       return { 
         studentInfo: {},
-        answers: {}, 
+        answers: [], // Initialize as empty array
         currentScore: 0, 
         placementLevel: null
       };
@@ -27,7 +47,7 @@ const quizReducer = (state, action) => {
 export const QuizProvider = ({ children }) => {
   const [state, dispatch] = useReducer(quizReducer, {
     studentInfo: {},
-    answers: {},
+    answers: [], // Initialize as empty array
     currentScore: 0,
     placementLevel: null
   });

@@ -275,9 +275,9 @@ const About = () => {
               <div className="flex justify-center">
                 <div className="text-center max-w-md">
                   <div className="w-24 h-24 bg-linear-to-r from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 group hover:scale-105 transition-transform duration-300">
-                    <span className="text-white font-bold text-2xl font-outfit">OO</span>
+                    <span className="text-white font-bold text-2xl font-outfit">O</span>
                   </div>
-                  <h3 className="font-semibold text-lg font-outfit text-indigo-900">Olujoke Opeyemi</h3>
+                  <h3 className="font-semibold text-lg font-outfit text-indigo-900">Opeyemi</h3>
                   <p className="text-gray-600 mb-3">Founder & Educational Director</p>
                   <p className="text-sm text-gray-500 leading-relaxed">
                     Dedicated to making Yoruba language education accessible, engaging, and meaningful 

@@ -201,7 +201,7 @@ const Home = () => {
       </section>
 
       {/* Rest of your sections remain exactly the same */}
-      <section className="py-16 px-4 bg-amber-50">
+      <section className="py-16 px-4 bg-indigo-50">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
