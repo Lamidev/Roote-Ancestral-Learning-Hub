@@ -1,86 +1,241 @@
 
 
+// const QuizResult = require('../models/quizResults');
+// const { sendWelcomeEmail, sendAdminNotification, courseIds, instituteCode } = require('./emailController');
+
+// const saveQuizResult = async (req, res) => {
+//   try {
+//     const { studentEmail, fullName, score, level, wiseUrl, answers } = req.body;
+
+//     if (!studentEmail || !fullName || score === undefined || !level || !wiseUrl) {
+//       return res.status(400).json({
+//         success: false,
+//         error: 'Missing required fields: studentEmail, fullName, score, level, wiseUrl'
+//       });
+//     }
+
+//     const courseId = courseIds[level] || courseIds.beginner;
+
+//     const quizResult = new QuizResult({
+//       studentEmail,
+//       fullName,
+//       score,
+//       level,
+//       wiseUrl,
+//       courseId,
+//       instituteCode,
+//       answers: answers || []
+//     });
+
+//     await quizResult.save();
+
+//     sendWelcomeEmailAsync({
+//       studentEmail,
+//       fullName,
+//       level,
+//       wiseUrl,
+//       score,
+//       courseId,
+//       instituteCode,
+//       quizResultId: quizResult._id
+//     });
+
+//     sendAdminNotificationAsync({
+//       studentEmail,
+//       fullName,
+//       level,
+//       score,
+//       courseId,
+//       instituteCode,
+//       quizResultId: quizResult._id,
+//       totalQuestions: 8
+//     });
+
+//     res.status(201).json({
+//       success: true,
+//       message: 'Quiz result saved successfully',
+//       quizResultId: quizResult._id,
+//       courseId: courseId,
+//       instituteCode: instituteCode,
+//       data: { 
+//         id: quizResult._id, 
+//         level, 
+//         score, 
+//         wiseUrl,
+//         courseId,
+//         instituteCode
+//       }
+//     });
+
+//   } catch (error) {
+//     console.error('❌ Error saving quiz result:', error);
+//     res.status(500).json({ success: false, error: 'Failed to save quiz result' });
+//   }
+// };
+
+// const sendWelcomeEmailAsync = async (data) => {
+//   try {
+//     await sendWelcomeEmail(data);
+//     await QuizResult.findByIdAndUpdate(data.quizResultId, { emailSent: true });
+//     console.log('✅ Welcome email sent successfully to:', data.studentEmail);
+//   } catch (error) {
+//     console.error('❌ Failed to send welcome email:', error);
+//   }
+// };
+
+// const sendAdminNotificationAsync = async (data) => {
+//   try {
+//     await sendAdminNotification(data);
+//     console.log('✅ Admin notification sent for:', data.studentEmail);
+//   } catch (error) {
+//     console.error('❌ Failed to send admin notification:', error);
+//   }
+// };
+
+// const getQuizAnalytics = async (req, res) => {
+//   try {
+//     const levelDistribution = await QuizResult.aggregate([
+//       { $group: { _id: '$level', count: { $sum: 1 } } }
+//     ]);
+
+//     const totalSubmissions = await QuizResult.countDocuments();
+//     const averageScore = await QuizResult.aggregate([
+//       { $group: { _id: null, average: { $avg: '$score' } } }
+//     ]);
+
+//     const recentSubmissions = await QuizResult.find()
+//       .sort({ createdAt: -1 })
+//       .limit(10)
+//       .select('studentEmail level score createdAt emailSent courseId instituteCode');
+
+//     res.json({
+//       success: true,
+//       data: { levelDistribution, totalSubmissions, averageScore: averageScore[0]?.average || 0, recentSubmissions }
+//     });
+
+//   } catch (error) {
+//     console.error('❌ Error fetching quiz analytics:', error);
+//     res.status(500).json({ success: false, error: 'Failed to fetch analytics' });
+//   }
+// };
+
+// module.exports = {
+//   saveQuizResult,
+//   getQuizAnalytics
+// };
 
 const QuizResult = require('../models/quizResults');
-const { sendWelcomeEmail, sendAdminNotification, courseIds, instituteCode } = require('./emailController');
+const { sendAdminNotification, courseIds, instituteCode, sendWelcomeEmail } = require('./emailController');
 
 const saveQuizResult = async (req, res) => {
   try {
-    const { studentEmail, fullName, score, level, wiseUrl, answers } = req.body;
+    const { studentEmail, fullName, score, level, wiseUrl, answers, courseId } = req.body;
 
-    if (!studentEmail || !fullName || score === undefined || !level || !wiseUrl) {
+    console.log('📥 Received quiz submission:', { studentEmail, fullName, score, level, courseId });
+
+    if (!studentEmail || !fullName || score === undefined || !level || !wiseUrl || !courseId) {
       return res.status(400).json({
         success: false,
-        error: 'Missing required fields: studentEmail, fullName, score, level, wiseUrl'
+        error: 'Missing required fields: studentEmail, fullName, score, level, wiseUrl, courseId'
       });
     }
 
-    const courseId = courseIds[level] || courseIds.beginner;
+    const validatedCourseId = courseId;
+    
+    if (!validatedCourseId) {
+      console.error('❌ No courseId provided:', courseId);
+      return res.status(400).json({
+        success: false,
+        error: 'Course ID is required'
+      });
+    }
+
+    console.log('🎯 Using course ID from frontend:', validatedCourseId, 'for level:', level);
+
+    const validatedAnswers = Array.isArray(answers) 
+      ? answers.map((answer, index) => ({
+          questionId: answer.questionId || index + 1,
+          answerId: answer.answerId || "",
+          score: answer.score || 0,
+        }))
+      : [];
 
     const quizResult = new QuizResult({
-      studentEmail,
-      fullName,
-      score,
-      level,
-      wiseUrl,
-      courseId,
-      instituteCode,
-      answers: answers || []
+      studentEmail: studentEmail.toLowerCase().trim(),
+      fullName: fullName.trim(),
+      score: Math.max(0, Math.min(8, score)),
+      level: level,
+      wiseUrl: wiseUrl,
+      courseId: validatedCourseId,
+      instituteCode: instituteCode,
+      answers: validatedAnswers,
+      paymentStatus: 'pending',
+      emailSent: false
     });
 
     await quizResult.save();
+    console.log('✅ Quiz result saved to database. Level:', level, 'CourseID:', validatedCourseId, 'Score:', score);
 
-    sendWelcomeEmailAsync({
-      studentEmail,
-      fullName,
-      level,
-      wiseUrl,
-      score,
-      courseId,
-      instituteCode,
-      quizResultId: quizResult._id
-    });
+    try {
+      await sendWelcomeEmail({
+        studentEmail: studentEmail,
+        fullName: fullName,
+        level: level,
+        wiseUrl: wiseUrl,
+        score: score,
+        courseId: validatedCourseId,
+        instituteCode: instituteCode,
+        quizResultId: quizResult._id,
+        paymentConfirmed: false
+      });
+      console.log('✅ Welcome email sent to student after quiz:', studentEmail);
+    } catch (emailError) {
+      console.error('❌ Failed to send welcome email after quiz:', emailError);
+    }
 
     sendAdminNotificationAsync({
-      studentEmail,
-      fullName,
-      level,
-      score,
-      courseId,
-      instituteCode,
+      studentEmail: studentEmail,
+      fullName: fullName,
+      level: level,
+      score: score,
+      courseId: validatedCourseId,
+      instituteCode: instituteCode,
       quizResultId: quizResult._id,
-      totalQuestions: 8
+      totalQuestions: 8,
+      paymentStatus: 'pending'
     });
 
     res.status(201).json({
       success: true,
-      message: 'Quiz result saved successfully',
+      message: 'Quiz result saved successfully - Complete payment to receive course access',
       quizResultId: quizResult._id,
-      courseId: courseId,
-      instituteCode: instituteCode,
+      paymentRequired: true,
+      paymentUrl: wiseUrl,
       data: { 
         id: quizResult._id, 
         level, 
         score, 
-        wiseUrl,
-        courseId,
+        paymentUrl: wiseUrl,
+        courseId: validatedCourseId,
         instituteCode
       }
     });
 
   } catch (error) {
     console.error('❌ Error saving quiz result:', error);
-    res.status(500).json({ success: false, error: 'Failed to save quiz result' });
-  }
-};
-
-const sendWelcomeEmailAsync = async (data) => {
-  try {
-    await sendWelcomeEmail(data);
-    await QuizResult.findByIdAndUpdate(data.quizResultId, { emailSent: true });
-    console.log('✅ Welcome email sent successfully to:', data.studentEmail);
-  } catch (error) {
-    console.error('❌ Failed to send welcome email:', error);
+    
+    if (error.name === 'ValidationError') {
+      console.error('Validation errors:', Object.keys(error.errors).map(key => ({
+        field: key,
+        message: error.errors[key].message
+      })));
+    }
+    
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to save quiz result',
+      details: error.message 
+    });
   }
 };
 
@@ -104,14 +259,24 @@ const getQuizAnalytics = async (req, res) => {
       { $group: { _id: null, average: { $avg: '$score' } } }
     ]);
 
+    const paymentStats = await QuizResult.aggregate([
+      { $group: { _id: '$paymentStatus', count: { $sum: 1 } } }
+    ]);
+
     const recentSubmissions = await QuizResult.find()
       .sort({ createdAt: -1 })
       .limit(10)
-      .select('studentEmail level score createdAt emailSent courseId instituteCode');
+      .select('studentEmail level score createdAt emailSent courseId instituteCode paymentStatus');
 
     res.json({
       success: true,
-      data: { levelDistribution, totalSubmissions, averageScore: averageScore[0]?.average || 0, recentSubmissions }
+      data: { 
+        levelDistribution, 
+        totalSubmissions, 
+        averageScore: averageScore[0]?.average || 0, 
+        paymentStats,
+        recentSubmissions 
+      }
     });
 
   } catch (error) {

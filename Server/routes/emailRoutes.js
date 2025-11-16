@@ -9,3 +9,4 @@ router.post('/welcome', sendWelcomeEmail);
 router.post('/admin-notification', sendAdminNotification); 
 
 module.exports = router;
+

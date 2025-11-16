@@ -1,13 +1,11 @@
-
-
 export const quizConfig = {
   title: "Yoruba Placement Assessment",
   description: "Discover your perfect Yoruba class level",
   totalQuestions: 8,
   passingScore: {
-    beginner: { min: 0, max: 2 },
-    middle: { min: 3, max: 5 },
-    advanced: { min: 6, max: 8 }
+    beginner: { min: 0, max: 3 },
+    middle: { min: 4, max: 6 },
+    advanced: { min: 7, max: 8 }
   },
   wiseUrls: {
     beginner: "https://roote-ancestral-learning.wise.live/download",
@@ -113,8 +111,16 @@ export const quizConfig = {
 };
 
 export const calculateLevel = (score) => {
-  const level = score >= quizConfig.passingScore.advanced.min ? 'advanced' :
-               score >= quizConfig.passingScore.middle.min ? 'middle' : 'beginner';
+  let level;
+  if (score >= quizConfig.passingScore.advanced.min) {
+    level = 'advanced';
+  } else if (score >= quizConfig.passingScore.middle.min) {
+    level = 'middle';
+  } else {
+    level = 'beginner';
+  }
+  
+  console.log(`🎯 Score: ${score}, Level: ${level}, CourseID: ${quizConfig.courseIds[level]}`);
   
   return { 
     level: level,
