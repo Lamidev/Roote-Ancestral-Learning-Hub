@@ -199,7 +199,7 @@ const processStripePayment = async (session) => {
       throw new Error('Student email required');
     }
 
-    // ✅ FIX: Find the MOST RECENT quiz record for this email
+    //  Find the MOST RECENT quiz record for this email
     let quizResult = await QuizResult.findOne({ 
       studentEmail: studentEmail.toLowerCase().trim() 
     }).sort({ createdAt: -1 }); // Get the newest record
