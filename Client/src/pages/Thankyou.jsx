@@ -32,7 +32,7 @@ export default function ThankYou() {
           <br /><br />
           <strong>When you're ready to join your class:</strong>
           <br />
-          1. Check your email for your enrollment codes
+          1. Make payment of CAD $100 and check your email for your enrollment codes
           <br />
           2. Download the Wise.live app
           <br />
