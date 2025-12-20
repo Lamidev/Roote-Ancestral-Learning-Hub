@@ -21,90 +21,82 @@ export const quizConfig = {
   questions: [
     {
       id: 1,
-      question: "How do you say 'Good morning' in Yoruba?",
+      question: "What is 'good morning' in Yoruba?",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "E kaaro", score: 1 },
-        { id: "b", text: "E kaale", score: 0 },
-        { id: "c", text: "E ku irole", score: 0 },
-        { id: "d", text: "E ku otutu", score: 0 }
+        { id: "a", text: "E wa jẹun", score: 0 },
+        { id: "b", text: "O ti sun", score: 0 },
+        { id: "c", text: "E kaaro", score: 1 }
       ]
     },
     {
       id: 2,
-      question: "What does 'E se' mean in English?",
+      question: "How is 'dog' written in Yoruba?",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "Thank you", score: 1 },
-        { id: "b", text: "Goodbye", score: 0 },
-        { id: "c", text: "Please", score: 0 },
-        { id: "d", text: "Sorry", score: 0 }
+        { id: "a", text: "koko", score: 0 },
+        { id: "b", text: "aja", score: 1 },
+        { id: "c", text: "ẹran", score: 0 }
       ]
     },
     {
       id: 3,
-      question: "How would you respond to 'Bawo ni?'",
+      question: "Two children born by same mother at the same time are called ...",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "Dada ni", score: 1 },
-        { id: "b", text: "O dabo", score: 0 },
-        { id: "c", text: "Mo wa daadaa", score: 0 },
-        { id: "d", text: "E ku ise", score: 0 }
+        { id: "a", text: "Alejo", score: 0 },
+        { id: "b", text: "Ibeji", score: 1 },
+        { id: "c", text: "omode", score: 0 }
       ]
     },
     {
       id: 4,
-      question: "What is the Yoruba word for 'water'?",
+      question: "Complete this proverb: 'Ba mi na ọmọ mi ....'",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "Omi", score: 1 },
-        { id: "b", text: "Iye", score: 0 },
-        { id: "c", text: "Odo", score: 0 },
-        { id: "d", text: "Oja", score: 0 }
+        { id: "a", text: "O ma sunkun", score: 0 },
+        { id: "b", text: "Baba o ni gba", score: 0 },
+        { id: "c", text: "Ko de inú olomo", score: 1 }
       ]
     },
     {
       id: 5,
-      question: "Which phrase means 'See you later'?",
+      question: "First day of the week in Yoruba is ...",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "O dab o", score: 1 },
-        { id: "b", text: "E kaaro", score: 0 },
-        { id: "c", text: "E seun", score: 0 },
-        { id: "d", text: "Kilode", score: 0 }
+        { id: "a", text: "Ibusun", score: 0 },
+        { id: "b", text: "Àìkú", score: 1 },
+        { id: "c", text: "Ìṣẹ́gun", score: 0 }
       ]
     },
     {
       id: 6,
-      question: "What does 'Joko' mean?",
+      question: "What is pounded yam called in Yoruba?",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "Stand up", score: 0 },
-        { id: "b", text: "Sit down", score: 1 },
-        { id: "c", text: "Come here", score: 0 },
-        { id: "d", text: "Go away", score: 0 }
+        { id: "a", text: "Okele", score: 0 },
+        { id: "b", text: "Iyan", score: 1 },
+        { id: "c", text: "Ounje", score: 0 }
       ]
     },
     {
       id: 7,
-      question: "How do you say 'I don't understand' in Yoruba?",
+      question: "Orange is called ____ in Yoruba.",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "Mo gbo", score: 0 },
-        { id: "b", text: "Ko ye mi", score: 1 },
-        { id: "c", text: "Mo fe", score: 0 },
-        { id: "d", text: "Ma gbo", score: 0 }
+        { id: "a", text: "osan", score: 1 },
+        { id: "b", text: "Ojú", score: 0 },
+        { id: "c", text: "Àpótí", score: 0 }
       ]
     },
     {
       id: 8,
-      question: "What is the correct response to 'E ku ise'?",
+      question: "Translate this: My mother went out.",
       type: "multiple_choice",
       options: [
-        { id: "a", text: "Oun naa ni", score: 0 },
-        { id: "b", text: "E seun", score: 1 },
-        { id: "c", text: "E kaale", score: 0 },
-        { id: "d", text: "Bawo ni", score: 0 }
+        { id: "a", text: "Mama jade.", score: 0 },
+        { id: "b", text: "Mama mi jade", score: 1 },
+        { id: "c", text: "Mama mi n sun.", score: 0 }
       ]
     }
   ]
