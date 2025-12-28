@@ -516,9 +516,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, BookOpen, Star, Heart, DollarSign, Shield, Clock, Calendar, Clock as ClockIcon, ExternalLink } from 'lucide-react';
+import { Users, BookOpen, Star, Heart, DollarSign, Shield, Clock, Calendar, Clock as ClockIcon, ExternalLink, ChevronDown } from 'lucide-react';
 import heroImg from '@/assets/heroImg.jpg';
 import StudentReviewsCarousel from '@/components/layoutView/ReviewCarousel';
+import OnboardingSteps from '@/components/layoutView/OnboardingSteps';
 
 const Home = () => {
   const containerVariants = {
@@ -596,6 +597,13 @@ const Home = () => {
     "Cultural traditions and etiquette"
   ];
 
+  const scrollToOnboarding = () => {
+    const element = document.getElementById('onboarding-steps');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div>
       <section className="bg-linear-to-br from-indigo-50 via-white to-indigo-50 py-8 sm:py-12 px-4 overflow-hidden">
@@ -661,9 +669,22 @@ const Home = () => {
                         </div>
                       </div>
                       <p className="text-indigo-700 text-sm mb-3">{freeClassInfo.description}</p>
-                      <Button asChild size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                        <Link to={freeClassInfo.registrationLink}>Register for Free Class</Link>
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Button asChild size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                          <Link to={freeClassInfo.registrationLink}>Register for Free Class</Link>
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="border-indigo-300 text-indigo-700 hover:bg-indigo-50"
+                          onClick={scrollToOnboarding}
+                        >
+                          <span className="flex items-center gap-1">
+                            How to Join
+                            <ChevronDown className="w-4 h-4" />
+                          </span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -835,6 +856,18 @@ const Home = () => {
                     <Link to={freeClassInfo.registrationLink}>
                       Register Now - It's Free!
                     </Link>
+                  </Button>
+                  <Button 
+                    asChild 
+                    variant="outline" 
+                    size="lg" 
+                    className="border-indigo-300 text-indigo-700 hover:bg-indigo-50"
+                    onClick={scrollToOnboarding}
+                  >
+                    <div className="flex items-center justify-center gap-2 cursor-pointer">
+                      <span>How to Join</span>
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
                   </Button>
                   <Button asChild variant="outline" size="lg" className="border-indigo-300 text-indigo-700 hover:bg-indigo-50">
                     <a href={freeClassInfo.googleCalendarLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
@@ -1207,7 +1240,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Student Reviews Carousel Section */}
+      <OnboardingSteps />
+
       <StudentReviewsCarousel />
 
       <section className="bg-linear-to-r from-indigo-600 to-indigo-700 text-white py-12 sm:py-16 px-4">
