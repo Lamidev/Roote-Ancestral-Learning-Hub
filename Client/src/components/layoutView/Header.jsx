@@ -38,7 +38,7 @@ const Header = () => {
           <motion.img
             src={rooteLogo}
             alt="Roote Logo"
-            className="h-15 w-auto md:h-16 object-contain" 
+            className="h-13 w-auto md:h-13 object-contain" 
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           />

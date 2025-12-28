@@ -569,11 +569,19 @@ const sendWelcomeEmail = async (data) => {
 
     const ctaButton = paymentConfirmed || freePeriodActive ? `
       <div style="text-align:center; margin:30px 0;">
-        <a href="https://roote-ancestral-learning.wise.live/download" class="cta-button">Download Roote Ancestral Learning Hub App</a>
+        <a href="https://roote-ancestral-learning.wise.live/download" 
+           class="cta-button"
+           style="background:#4f46e5; color:#ffffff !important; padding:16px 32px; text-decoration:none; border-radius:8px; font-weight:bold; display:inline-block; font-size:16px; text-align:center; border:2px solid #3730a3; width:100%; max-width:300px; box-sizing:border-box;">
+          📲 Download Roote Ancestral Learning Hub App
+        </a>
       </div>
     ` : `
       <div style="text-align:center; margin:30px 0;">
-        <a href="${wiseUrl}" class="cta-button" style="background:#f59e0b;">💳 Complete Payment (CAD 100)</a>
+        <a href="${wiseUrl}" 
+           class="cta-button"
+           style="background:#f59e0b; color:#ffffff !important; padding:16px 32px; text-decoration:none; border-radius:8px; font-weight:bold; display:inline-block; font-size:16px; text-align:center; border:2px solid #d97706; width:100%; max-width:300px; box-sizing:border-box;">
+          💳 Complete Payment (CAD 100)
+        </a>
       </div>
     `;
 
@@ -655,7 +663,28 @@ const sendWelcomeEmail = async (data) => {
         .enrollment-codes { background:#f0f9ff; border:2px solid #4f46e5; padding:25px; border-radius:12px; margin:25px 0; }
         .code-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
         .code-item { background:white; padding:20px; border-radius:8px; border:1px solid #4f46e5; text-align:center; }
-        .cta-button { background:#4f46e5; color:white; padding:16px 32px; text-decoration:none; border-radius:8px; font-weight:bold; display:inline-block; font-size:16px; text-align:center; border:none; cursor:pointer; width:100%; max-width:300px; box-sizing:border-box; }
+        .cta-button { 
+          background:#4f46e5; 
+          color:#ffffff !important; 
+          padding:16px 32px; 
+          text-decoration:none; 
+          border-radius:8px; 
+          font-weight:bold; 
+          display:inline-block; 
+          font-size:16px; 
+          text-align:center; 
+          border:2px solid #3730a3; 
+          cursor:pointer; 
+          width:100%; 
+          max-width:300px; 
+          box-sizing:border-box; 
+        }
+        .cta-button:hover {
+          opacity:0.9;
+          transform:translateY(-2px);
+          box-shadow:0 6px 12px rgba(0,0,0,0.15);
+          transition:all 0.3s ease;
+        }
         .features { margin-bottom:30px; }
         .next-steps { background:#f8fafc; padding:25px; border-radius:8px; margin-bottom:30px; }
         @media only screen and (max-width:600px){ 
