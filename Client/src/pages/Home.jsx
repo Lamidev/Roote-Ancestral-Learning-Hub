@@ -518,6 +518,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, BookOpen, Star, Heart, DollarSign, Shield, Clock, Calendar, Clock as ClockIcon, ExternalLink } from 'lucide-react';
 import heroImg from '@/assets/heroImg.jpg';
+import StudentReviewsCarousel from '@/components/layoutView/ReviewCarousel';
 
 const Home = () => {
   const containerVariants = {
@@ -1205,6 +1206,9 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Student Reviews Carousel Section */}
+      <StudentReviewsCarousel />
 
       <section className="bg-linear-to-r from-indigo-600 to-indigo-700 text-white py-12 sm:py-16 px-4">
         <motion.div 

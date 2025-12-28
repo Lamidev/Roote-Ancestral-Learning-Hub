@@ -16,7 +16,7 @@ const Footer = () => {
               <img 
                 src={rooteLogo} 
                 alt="Roote Logo" 
-                className="h-16 w-auto object-contain"
+                className="h-13 w-auto md:h-13 object-contain" 
               />
             </Link>
             <p className="text-gray-600 max-w-md leading-relaxed pl-4 md:pl-0">
