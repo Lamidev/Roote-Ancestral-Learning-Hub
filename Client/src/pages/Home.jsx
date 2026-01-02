@@ -605,8 +605,8 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <section className="bg-linear-to-br from-indigo-50 via-white to-indigo-50 py-8 sm:py-12 px-4 overflow-hidden">
+    <div className="overflow-x-hidden">
+      <section className="bg-linear-to-br from-indigo-50 via-white to-indigo-50 py-8 sm:py-12 px-4">
         <motion.div 
           className="container mx-auto max-w-6xl"
           initial="hidden"
@@ -614,9 +614,9 @@ const Home = () => {
           variants={containerVariants}
         >
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="order-2 lg:order-1">
               <motion.h1 
-                className="text-4xl sm:text-5xl md:text-6xl font-bold text-indigo-900 mb-6 leading-tight font-outfit"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-indigo-900 mb-4 sm:mb-6 leading-tight font-outfit"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
@@ -629,7 +629,7 @@ const Home = () => {
                 >Roote Ancestral</motion.span>
               </motion.h1>
               <motion.p 
-                className="text-lg sm:text-xl text-gray-700 mb-6 leading-relaxed"
+                className="text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6 leading-relaxed"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -637,7 +637,7 @@ const Home = () => {
                 Where Kids Discover the Beauty of Yoruba Language and Culture!
               </motion.p>
               <motion.p 
-                className="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed"
+                className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -653,8 +653,8 @@ const Home = () => {
               >
                 <div className="bg-linear-to-r from-indigo-50 to-indigo-100 rounded-xl p-4 border-2 border-indigo-300 shadow-lg">
                   <div className="flex items-start gap-3">
-                    <div className="bg-indigo-500 rounded-lg p-2">
-                      <Calendar className="w-6 h-6 text-white" />
+                    <div className="bg-indigo-500 rounded-lg p-2 shrink-0">
+                      <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-indigo-800 font-outfit">Free Yoruba Language Class!</h3>
@@ -698,7 +698,7 @@ const Home = () => {
               >
                 <div className="bg-white rounded-lg p-4 border-2 border-indigo-200 shadow-sm">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
+                    <div className="flex-1">
                       <h3 className="text-lg font-bold text-indigo-900 font-outfit">Affordable Quality Education</h3>
                       <p className="text-gray-600 text-sm">All classes include cultural materials & resources</p>
                     </div>
@@ -723,8 +723,9 @@ const Home = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400 }}
+                  className="w-full sm:w-auto"
                 >
-                  <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
+                  <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full">
                     <Link to="/admission">Start Learning Today</Link>
                   </Button>
                 </motion.div>
@@ -732,8 +733,9 @@ const Home = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400 }}
+                  className="w-full sm:w-auto"
                 >
-                  <Button asChild variant="outline" size="lg" className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg transition-all duration-300 w-full sm:w-auto">
+                  <Button asChild variant="outline" size="lg" className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg transition-all duration-300 w-full">
                     <Link to="/classes">View Classes</Link>
                   </Button>
                 </motion.div>
@@ -741,14 +743,14 @@ const Home = () => {
             </motion.div>
             
             <motion.div 
-              className="relative"
+              className="relative order-1 lg:order-2 mb-8 lg:mb-0"
               variants={imageVariants}
               animate={floatingAnimation}
             >
               <motion.img 
                 src={heroImg} 
                 alt="Children learning Yoruba language and culture" 
-                className="w-full h-auto rounded-2xl shadow-2xl object-cover"
+                className="w-full h-auto rounded-2xl shadow-2xl object-cover max-h-[500px]"
                 whileHover={{ 
                   scale: 1.02,
                   transition: { duration: 0.3 }
@@ -784,6 +786,10 @@ const Home = () => {
         </motion.div>
       </section>
 
+      <section id="onboarding-steps" className="py-12 sm:py-16 px-4 bg-white">
+        <OnboardingSteps />
+      </section>
+
       <section className="py-12 sm:py-16 px-4 bg-linear-to-r from-indigo-50 to-indigo-100">
         <div className="container mx-auto max-w-6xl">
           <motion.div
@@ -813,7 +819,7 @@ const Home = () => {
                 
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="bg-indigo-100 p-3 rounded-lg">
+                    <div className="bg-indigo-100 p-3 rounded-lg shrink-0">
                       <Calendar className="w-6 h-6 text-indigo-600" />
                     </div>
                     <div>
@@ -824,7 +830,7 @@ const Home = () => {
                   </div>
                   
                   <div className="flex items-start gap-4">
-                    <div className="bg-indigo-100 p-3 rounded-lg">
+                    <div className="bg-indigo-100 p-3 rounded-lg shrink-0">
                       <BookOpen className="w-6 h-6 text-indigo-600" />
                     </div>
                     <div>
@@ -841,7 +847,7 @@ const Home = () => {
                   </div>
                   
                   <div className="flex items-start gap-4">
-                    <div className="bg-indigo-100 p-3 rounded-lg">
+                    <div className="bg-indigo-100 p-3 rounded-lg shrink-0">
                       <Users className="w-6 h-6 text-indigo-600" />
                     </div>
                     <div>
@@ -870,11 +876,7 @@ const Home = () => {
                     </div>
                   </Button>
                   <Button asChild variant="outline" size="lg" className="border-indigo-300 text-indigo-700 hover:bg-indigo-50">
-                    <a href={freeClassInfo.googleCalendarLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      <span className="hidden sm:inline">Add to Calendar</span>
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
+                
                   </Button>
                 </div>
                 
@@ -898,7 +900,7 @@ const Home = () => {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2">
+                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
                         <Star className="w-5 h-5 text-indigo-600" />
                       </div>
                       <div>
@@ -908,7 +910,7 @@ const Home = () => {
                     </div>
                     
                     <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2">
+                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
                         <Heart className="w-5 h-5 text-indigo-600" />
                       </div>
                       <div>
@@ -918,7 +920,7 @@ const Home = () => {
                     </div>
                     
                     <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2">
+                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
                         <DollarSign className="w-5 h-5 text-indigo-600" />
                       </div>
                       <div>
@@ -928,7 +930,7 @@ const Home = () => {
                     </div>
                     
                     <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2">
+                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
                         <Shield className="w-5 h-5 text-indigo-600" />
                       </div>
                       <div>
@@ -1239,8 +1241,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <OnboardingSteps />
 
       <StudentReviewsCarousel />
 

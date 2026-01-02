@@ -681,9 +681,101 @@ const sendWelcomeEmail = async (data) => {
 };
 
 
+// const sendAdminNotification = async (data) => {
+//   try {
+//     const { studentEmail, fullName, level, score, paymentStatus, transactionId, amount, enrollmentType } = data;
+
+//     console.log('📧 Sending admin notification for:', studentEmail);
+
+//     const subject = enrollmentType === 'free_period' 
+//       ? `🎉 Free Class: ${fullName} - ${level} Level`
+//       : paymentStatus === 'completed' 
+//         ? `✅ Paid: ${fullName} - ${level} Level`
+//         : `📊 New Quiz: ${fullName} - ${level} Level`;
+
+//     const emailHtml = `
+//     <!DOCTYPE html>
+//     <html>
+//     <head>
+//       <meta charset="utf-8">
+//       <style>
+//         body { font-family: Arial, sans-serif; }
+//         .container { max-width: 600px; margin: auto; }
+//         .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 25px; }
+//         .header { border-bottom: 2px solid #4f46e5; padding-bottom: 15px; margin-bottom: 20px; }
+//         .stats { display: flex; gap: 20px; margin: 20px 0; }
+//         .stat { flex: 1; text-align: center; padding: 15px; background: #f8fafc; border-radius: 6px; }
+//       </style>
+//     </head>
+//     <body>
+//       <div class="container">
+//         <div class="card">
+//           <div class="header">
+//             <h2>${subject}</h2>
+//             <p>${new Date().toLocaleString()}</p>
+//           </div>
+          
+//           <div class="stats">
+//             <div class="stat">
+//               <h3>Student</h3>
+//               <p><strong>${fullName}</strong><br>${studentEmail}</p>
+//             </div>
+//             <div class="stat">
+//               <h3>Assessment</h3>
+//               <p><strong>Score:</strong> ${score}/8<br><strong>Level:</strong> ${level}</p>
+//             </div>
+//           </div>
+          
+//           <div style="background: #f0f9ff; padding: 15px; border-radius: 6px; margin: 20px 0;">
+//             <h3>Payment Status</h3>
+//             <p>
+//               <strong>Type:</strong> ${enrollmentType === 'free_period' ? 'Free Class (Jan 3rd, 2026)' : 'Regular'}<br>
+//               <strong>Status:</strong> ${enrollmentType === 'free_period' ? 'Free Access Granted' : (paymentStatus === 'completed' ? 'Paid' : 'Pending')}
+//               ${transactionId ? `<br><strong>Transaction:</strong> ${transactionId}` : ''}
+//               ${amount ? `<br><strong>Amount:</strong> ${amount}` : ''}
+//             </p>
+//           </div>
+          
+//           <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #666;">
+//             <p>Roote Assessment System • Auto-generated notification</p>
+//           </div>
+//         </div>
+//       </div>
+//     </body>
+//     </html>
+//     `;
+
+//     const { data: emailData, error } = await resend.emails.send({
+//       from: 'Roote Assessment System <contact@updates.rooteancestrallearninghub.com>',
+//       to: process.env.ADMIN_EMAIL,
+//       subject: subject,
+//       html: emailHtml
+//     });
+
+//     if (error) throw error;
+//     console.log('✅ Admin notification sent');
+
+//   } catch (error) {
+//     console.error('❌ Error in sendAdminNotification:', error);
+//     throw error;
+//   }
+// };
+
 const sendAdminNotification = async (data) => {
   try {
-    const { studentEmail, fullName, level, score, paymentStatus, transactionId, amount, enrollmentType } = data;
+    const { 
+      studentEmail, 
+      fullName, 
+      level, 
+      score, 
+      totalQuestions = 8,
+      paymentStatus, 
+      transactionId, 
+      amount, 
+      currency = 'CAD',
+      enrollmentType,
+      quizResultId
+    } = data;
 
     console.log('📧 Sending admin notification for:', studentEmail);
 
@@ -693,51 +785,130 @@ const sendAdminNotification = async (data) => {
         ? `✅ Paid: ${fullName} - ${level} Level`
         : `📊 New Quiz: ${fullName} - ${level} Level`;
 
+    const formattedDate = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
     const emailHtml = `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
-        body { font-family: Arial, sans-serif; }
-        .container { max-width: 600px; margin: auto; }
-        .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 25px; }
-        .header { border-bottom: 2px solid #4f46e5; padding-bottom: 15px; margin-bottom: 20px; }
-        .stats { display: flex; gap: 20px; margin: 20px 0; }
-        .stat { flex: 1; text-align: center; padding: 15px; background: #f8fafc; border-radius: 6px; }
+        body { 
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+          line-height: 1.6; 
+          color: #374151; 
+          margin: 0; 
+          padding: 0; 
+          background: #f9fafb; 
+        }
+        .container { 
+          max-width: 600px; 
+          margin: 0 auto; 
+          padding: 20px; 
+        }
+        .card { 
+          background: white; 
+          border-radius: 8px; 
+          padding: 25px; 
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+        }
+        .header { 
+          border-bottom: 2px solid #e5e7eb; 
+          padding-bottom: 15px; 
+          margin-bottom: 20px; 
+        }
+        .info-section { 
+          margin: 20px 0; 
+        }
+        .status-badge {
+          display: inline-block;
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 5px 0;
+        }
+        .highlight-box {
+          background: #f0fdf4;
+          border: 1px solid #bbf7d0;
+          padding: 15px;
+          border-radius: 6px;
+          margin: 15px 0;
+        }
+        @media only screen and (max-width: 600px) {
+          .container { padding: 10px; }
+          .card { padding: 20px; }
+        }
       </style>
     </head>
     <body>
       <div class="container">
         <div class="card">
           <div class="header">
-            <h2>${subject}</h2>
-            <p>${new Date().toLocaleString()}</p>
+            <h1 style="color:#4f46e5; margin:0 0 10px 0; font-size:24px;">${subject}</h1>
+            <p style="color:#6b7280; margin:0; font-size:14px;">${formattedDate}</p>
           </div>
           
-          <div class="stats">
-            <div class="stat">
-              <h3>Student</h3>
-              <p><strong>${fullName}</strong><br>${studentEmail}</p>
-            </div>
-            <div class="stat">
-              <h3>Assessment</h3>
-              <p><strong>Score:</strong> ${score}/8<br><strong>Level:</strong> ${level}</p>
+          <div class="info-section">
+            <h3 style="color:#4f46e5; margin:0 0 10px 0; font-size:18px;">👤 Student Information</h3>
+            <p style="margin:8px 0;"><strong>Name:</strong> ${fullName}</p>
+            <p style="margin:8px 0;"><strong>Email:</strong> ${studentEmail}</p>
+            <p style="margin:8px 0;"><strong>Level:</strong> ${level.charAt(0).toUpperCase() + level.slice(1)}</p>
+            ${quizResultId ? `<p style="margin:8px 0;"><strong>Assessment ID:</strong> ${quizResultId}</p>` : ''}
+          </div>
+          
+          <div class="info-section">
+            <h3 style="color:#4f46e5; margin:0 0 10px 0; font-size:18px;">🎯 Assessment Results</h3>
+            <p style="margin:8px 0;"><strong>Score:</strong> ${score}/${totalQuestions} (${Math.round((score/totalQuestions)*100)}%)</p>
+            <div class="status-badge" style="background:#${level === 'beginner' ? '3b82f6' : level === 'middle' ? '8b5cf6' : '7c3aed'}; color:white;">
+              ${level.charAt(0).toUpperCase() + level.slice(1)} Level
             </div>
           </div>
           
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 6px; margin: 20px 0;">
-            <h3>Payment Status</h3>
-            <p>
-              <strong>Type:</strong> ${enrollmentType === 'free_period' ? 'Free Class (Jan 3rd, 2026)' : 'Regular'}<br>
-              <strong>Status:</strong> ${enrollmentType === 'free_period' ? 'Free Access Granted' : (paymentStatus === 'completed' ? 'Paid' : 'Pending')}
-              ${transactionId ? `<br><strong>Transaction:</strong> ${transactionId}` : ''}
-              ${amount ? `<br><strong>Amount:</strong> ${amount}` : ''}
+          <div class="info-section">
+            <h3 style="color:#4f46e5; margin:0 0 10px 0; font-size:18px;">💰 Payment Status</h3>
+            ${enrollmentType === 'free_period' ? `
+              <div class="highlight-box">
+                <p style="margin:0; color:#065f46;"><strong>🎉 Free Class Enrollment</strong></p>
+                <p style="margin:5px 0 0 0; color:#065f46; font-size:14px;">Date: January 3, 2026 • Time: 12:00 PM CST</p>
+              </div>
+            ` : paymentStatus === 'completed' ? `
+              <div class="highlight-box">
+                <p style="margin:0; color:#065f46;"><strong>✅ Payment Completed</strong></p>
+                <p style="margin:5px 0 0 0; color:#065f46; font-size:14px;">Amount: ${amount} ${currency}</p>
+                ${transactionId ? `<p style="margin:5px 0 0 0; color:#065f46; font-size:14px;">Transaction: ${transactionId}</p>` : ''}
+              </div>
+            ` : `
+              <p style="margin:8px 0; color:#92400e;">⏳ Payment Pending - Awaiting completion</p>
+            `}
+          </div>
+          
+          <div class="info-section">
+            <h3 style="color:#4f46e5; margin:0 0 10px 0; font-size:18px;">📋 Summary</h3>
+            <ul style="color:#374151; margin:0; padding-left:20px;">
+              <li>Welcome email sent to student</li>
+              <li>Assessment completed and scored</li>
+              ${enrollmentType === 'free_period' 
+                ? '<li>Free class access granted</li>'
+                : paymentStatus === 'completed' 
+                  ? '<li>Payment processed successfully</li><li>Course access activated</li>'
+                  : '<li>Payment link sent to student</li>'
+              }
+              <li>Student record saved to database</li>
+            </ul>
+          </div>
+          
+          <div style="margin-top:25px; padding-top:15px; border-top:1px solid #e5e7eb;">
+            <p style="color:#6b7280; margin:0; font-size:14px; text-align:center;">
+              Roote Assessment System • Auto-generated notification
             </p>
-          </div>
-          
-          <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #666;">
-            <p>Roote Assessment System • Auto-generated notification</p>
           </div>
         </div>
       </div>
