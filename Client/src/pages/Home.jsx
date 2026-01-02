@@ -516,7 +516,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, BookOpen, Star, Heart, DollarSign, Shield, Clock, Calendar, Clock as ClockIcon, ExternalLink, ChevronDown } from 'lucide-react';
+import {  Calendar, Clock as ClockIcon, ChevronDown } from 'lucide-react';
 import heroImg from '@/assets/heroImg.jpg';
 import StudentReviewsCarousel from '@/components/layoutView/ReviewCarousel';
 import OnboardingSteps from '@/components/layoutView/OnboardingSteps';
@@ -614,7 +614,7 @@ const Home = () => {
           variants={containerVariants}
         >
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <motion.div variants={itemVariants} className="order-2 lg:order-1">
+            <motion.div variants={itemVariants} className="lg:order-1">
               <motion.h1 
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-indigo-900 mb-4 sm:mb-6 leading-tight font-outfit"
                 initial={{ y: 50, opacity: 0 }}
@@ -743,7 +743,7 @@ const Home = () => {
             </motion.div>
             
             <motion.div 
-              className="relative order-1 lg:order-2 mb-8 lg:mb-0"
+              className="relative lg:order-2"
               variants={imageVariants}
               animate={floatingAnimation}
             >
@@ -790,263 +790,6 @@ const Home = () => {
         <OnboardingSteps />
       </section>
 
-      <section className="py-12 sm:py-16 px-4 bg-linear-to-r from-indigo-50 to-indigo-100">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-900 mb-4 font-outfit">
-              Free Introductory Yoruba Class
-            </h2>
-            <p className="text-base sm:text-lg text-indigo-700 max-w-3xl mx-auto px-4">
-              Join us for a special free class and experience our teaching methodology firsthand!
-            </p>
-          </motion.div>
-          
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border-2 border-indigo-200">
-                <h3 className="text-xl sm:text-2xl font-bold text-indigo-900 mb-4 sm:mb-6 font-outfit">Class Details</h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-indigo-100 p-3 rounded-lg shrink-0">
-                      <Calendar className="w-6 h-6 text-indigo-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-indigo-800">Date & Time</h4>
-                      <p className="text-gray-700">{freeClassInfo.date} at {freeClassInfo.time}</p>
-                      <p className="text-sm text-gray-500 mt-1">Central Standard Time (CST)</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-4">
-                    <div className="bg-indigo-100 p-3 rounded-lg shrink-0">
-                      <BookOpen className="w-6 h-6 text-indigo-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-indigo-800">What to Expect</h4>
-                      <ul className="mt-2 space-y-2">
-                        {freeClassInfo.features.map((feature, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <span className="text-indigo-500 text-sm mt-1">✓</span>
-                            <span className="text-gray-700 text-sm sm:text-base">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-4">
-                    <div className="bg-indigo-100 p-3 rounded-lg shrink-0">
-                      <Users className="w-6 h-6 text-indigo-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-indigo-800">Who Should Attend</h4>
-                      <p className="text-gray-700 text-sm sm:text-base">Children ages 2-18 and their parents who want to learn Yoruba or enhance their cultural connection</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-4">
-                  <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white flex-1">
-                    <Link to={freeClassInfo.registrationLink}>
-                      Register Now - It's Free!
-                    </Link>
-                  </Button>
-                  <Button 
-                    asChild 
-                    variant="outline" 
-                    size="lg" 
-                    className="border-indigo-300 text-indigo-700 hover:bg-indigo-50"
-                    onClick={scrollToOnboarding}
-                  >
-                    <div className="flex items-center justify-center gap-2 cursor-pointer">
-                      <span>How to Join</span>
-                      <ChevronDown className="w-4 h-4" />
-                    </div>
-                  </Button>
-                  <Button asChild variant="outline" size="lg" className="border-indigo-300 text-indigo-700 hover:bg-indigo-50">
-                
-                  </Button>
-                </div>
-                
-                <p className="text-sm text-gray-500 mt-4 text-center">
-                  Limited spots available. Registration required.
-                </p>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="space-y-6 sm:space-y-8"
-            >
-              <Card className="border-indigo-200 bg-white">
-                <CardHeader>
-                  <CardTitle className="text-indigo-900 font-outfit text-lg sm:text-xl">Why Join This Free Class?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
-                        <Star className="w-5 h-5 text-indigo-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-indigo-800 text-sm sm:text-base">Experience Our Teaching Style</h4>
-                        <p className="text-gray-600 text-xs sm:text-sm">See how we make Yoruba fun and engaging for kids</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
-                        <Heart className="w-5 h-5 text-indigo-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-indigo-800 text-sm sm:text-base">Meet Our Teachers</h4>
-                        <p className="text-gray-600 text-xs sm:text-sm">Interact with our experienced Yoruba language instructors</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
-                        <DollarSign className="w-5 h-5 text-indigo-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-indigo-800 text-sm sm:text-base">Special Enrollment Offer</h4>
-                        <p className="text-gray-600 text-xs sm:text-sm">Attendees get exclusive discounts on regular classes</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <div className="bg-indigo-100 rounded-full p-2 shrink-0">
-                        <Shield className="w-5 h-5 text-indigo-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-indigo-800 text-sm sm:text-base">No Commitment</h4>
-                        <p className="text-gray-600 text-xs sm:text-sm">Try it out risk-free with no obligation to enroll</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="border-indigo-200 bg-linear-to-r from-indigo-600 to-indigo-700 text-white">
-                <CardContent className="p-6">
-                  <h4 className="text-lg sm:text-xl font-bold mb-2 font-outfit">All-Inclusive Monthly Fee</h4>
-                  <p className="mb-4 text-sm sm:text-base">Get access to all levels, materials, and cultural resources</p>
-                  <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-2xl sm:text-3xl font-bold">CAD $100</span>
-                    <span className="text-indigo-200 text-sm sm:text-base">per month</span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-indigo-200 text-center mt-2">No hidden fees • Cancel anytime</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 sm:py-16 px-4 bg-indigo-50">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-900 mb-4 font-outfit">
-              Simple, Transparent Pricing
-            </h2>
-            <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-4">
-              Quality Yoruba education at an affordable price. Everything your child needs to succeed.
-            </p>
-          </motion.div>
-          <div className="grid md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <Card className="border-indigo-200 bg-white h-full">
-                <CardHeader className="pb-4">
-                  <DollarSign className="w-10 h-10 sm:w-12 sm:h-12 text-indigo-600 mx-auto mb-4" />
-                  <CardTitle className="text-indigo-900 font-outfit text-lg sm:text-xl">Affordable</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl sm:text-3xl font-bold text-indigo-600 mb-2">CAD $100</p>
-                  <p className="text-gray-600 text-sm sm:text-base">per month</p>
-                  <p className="text-gray-500 text-xs sm:text-sm mt-2">All levels included</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <Card className="border-indigo-200 bg-white h-full">
-                <CardHeader className="pb-4">
-                  <Clock className="w-10 h-10 sm:w-12 sm:h-12 text-indigo-600 mx-auto mb-4" />
-                  <CardTitle className="text-indigo-900 font-outfit text-lg sm:text-xl">Flexible</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 text-sm sm:text-base">Weekly classes</p>
-                  <p className="text-gray-500 text-sm sm:text-base mt-2">Multiple time slots available</p>
-                  <p className="text-gray-500 text-xs sm:text-sm">Cancel anytime</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <Card className="border-indigo-200 bg-white h-full">
-                <CardHeader className="pb-4">
-                  <Shield className="w-10 h-10 sm:w-12 sm:h-12 text-indigo-600 mx-auto mb-4" />
-                  <CardTitle className="text-indigo-900 font-outfit text-lg sm:text-xl">All-Inclusive</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 text-sm sm:text-base">Materials included</p>
-                  <p className="text-gray-500 text-sm sm:text-base mt-2">No extra costs</p>
-                  <p className="text-gray-500 text-xs sm:text-sm">Cultural resources provided</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-6 sm:mt-8"
-          >
-            <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg">
-              <Link to="/admission">Enroll Now - CAD $100/month</Link>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
       <section className="py-12 sm:py-16 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <motion.div
@@ -1057,109 +800,28 @@ const Home = () => {
             className="text-center mb-8 sm:mb-12"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-900 mb-4 font-outfit">
-              Why Choose Roote Ancestral?
+              What Your Child Will Learn
             </h2>
             <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-4">
-              We combine expert teaching with cultural immersion to create a truly authentic learning experience
+              From greetings and folktales to Oriki, proverbs, and essay writing in Yoruba
             </p>
           </motion.div>
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-12 sm:mb-16">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl sm:text-2xl font-bold text-indigo-900 mb-4 sm:mb-6 font-outfit">Expert Yoruba Teachers</h3>
-              <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                Our tutors are well-trained Yoruba language teachers with over a decade of teaching experience. They bring authentic pronunciation, cultural insights, and proven teaching methodologies to every class.
-              </p>
-              <div className="space-y-3">
-                <motion.div 
-                  className="flex items-center gap-3"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <span className="text-indigo-600 text-lg shrink-0">✓</span>
-                  <span className="text-gray-700 text-sm sm:text-base">Native speakers with authentic accent</span>
-                </motion.div>
-                <motion.div 
-                  className="flex items-center gap-3"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <span className="text-indigo-600 text-lg shrink-0">✓</span>
-                  <span className="text-gray-700 text-sm sm:text-base">10+ years teaching experience</span>
-                </motion.div>
-                <motion.div 
-                  className="flex items-center gap-3"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <span className="text-indigo-600 text-lg shrink-0">✓</span>
-                  <span className="text-gray-700 text-sm sm:text-base">Certified in language education</span>
-                </motion.div>
-                <motion.div 
-                  className="flex items-center gap-3"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <span className="text-indigo-600 text-lg shrink-0">✓</span>
-                  <span className="text-gray-700 text-sm sm:text-base">Only CAD $100 per month</span>
-                </motion.div>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-2 gap-4"
-            >
-              <Card className="border-indigo-100 text-center p-4 sm:p-6">
-                <Users className="w-8 h-8 sm:w-12 sm:h-12 text-indigo-600 mx-auto mb-2 sm:mb-4" />
-                <h4 className="font-semibold text-indigo-900 mb-1 sm:mb-2 text-sm sm:text-base">Small Class Sizes</h4>
-                <p className="text-xs sm:text-sm text-gray-600">Personalized attention for every child</p>
-              </Card>
-              <Card className="border-indigo-100 text-center p-4 sm:p-6">
-                <BookOpen className="w-8 h-8 sm:w-12 sm:h-12 text-indigo-600 mx-auto mb-2 sm:mb-4" />
-                <h4 className="font-semibold text-indigo-900 mb-1 sm:mb-2 text-sm sm:text-base">Cultural Immersion</h4>
-                <p className="text-xs sm:text-sm text-gray-600">Learn through stories and traditions</p>
-              </Card>
-              <Card className="border-indigo-100 text-center p-4 sm:p-6">
-                <Star className="w-8 h-8 sm:w-12 sm:h-12 text-indigo-600 mx-auto mb-2 sm:mb-4" />
-                <h4 className="font-semibold text-indigo-900 mb-1 sm:mb-2 text-sm sm:text-base">Progress Tracking</h4>
-                <p className="text-xs sm:text-sm text-gray-600">Monitor your child's development</p>
-              </Card>
-              <Card className="border-indigo-100 text-center p-4 sm:p-6">
-                <Heart className="w-8 h-8 sm:w-12 sm:h-12 text-indigo-600 mx-auto mb-2 sm:mb-4" />
-                <h4 className="font-semibold text-indigo-900 mb-1 sm:mb-2 text-sm sm:text-base">Passionate Teachers</h4>
-                <p className="text-xs sm:text-sm text-gray-600">Dedicated to cultural preservation</p>
-              </Card>
-            </motion.div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="bg-linear-to-r from-indigo-50 to-indigo-100 rounded-2xl p-6 sm:p-8"
-          >
-            <h3 className="text-xl sm:text-2xl font-bold text-indigo-900 mb-4 sm:mb-6 text-center font-outfit">What Your Child Will Learn</h3>
-            <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
+          
+          <div className="bg-linear-to-r from-indigo-50 to-indigo-100 rounded-2xl p-6 sm:p-8">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
               {learningAreas.map((area, index) => (
                 <motion.div 
                   key={index} 
-                  className="flex items-center gap-3"
+                  className="flex items-start gap-3"
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
-                  <span className="text-indigo-600 text-lg shrink-0">✓</span>
+                  <span className="text-indigo-600 text-lg shrink-0 mt-0.5">✓</span>
                   <span className="text-gray-700 text-sm sm:text-base">{area}</span>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -1176,14 +838,10 @@ const Home = () => {
               Right Level for Every Child
             </h2>
             <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-4">
-              From greetings and folktales to Oriki, proverbs, and essay writing in Yoruba, every class is designed to help your child grow in confidence and stay connected to their roots.
+              All levels included for just CAD $100 per month
             </p>
-            <div className="mt-4 bg-white rounded-lg p-4 inline-block border-2 border-indigo-200 max-w-full mx-4">
-              <p className="text-base sm:text-lg font-semibold text-indigo-900">
-                All levels: <span className="text-indigo-600">CAD $100 per month</span>
-              </p>
-            </div>
           </motion.div>
+          
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
@@ -1239,6 +897,18 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-8 sm:mt-12"
+          >
+            <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg">
+              <Link to="/admission">Enroll Now - CAD $100/month</Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
