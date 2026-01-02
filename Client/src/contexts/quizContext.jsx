@@ -23,11 +23,11 @@ const quizReducer = (state, action) => {
       // Calculate score from array
       const newScore = newAnswers.reduce((total, answer) => total + (answer.score || 0), 0);
       
-      console.log('📊 Score calculation:', {
-        answers: newAnswers,
-        totalScore: newScore,
-        answerCount: newAnswers.length
-      });
+      // console.log('📊 Score calculation:', {
+      //   answers: newAnswers,
+      //   totalScore: newScore,
+      //   answerCount: newAnswers.length
+      // });
       
       return { ...state, answers: newAnswers, currentScore: newScore };
     case 'SET_LEVEL':
