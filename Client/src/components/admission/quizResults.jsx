@@ -483,7 +483,6 @@ const QuizResult = () => {
       setHasRedirected(true);
       window.open(browserUrl, "_blank");
       
-      // Reset quiz state after redirect
       setTimeout(() => {
         dispatch({ type: "RESET_QUIZ" });
         toast.info("Quiz completed! Feel free to take it again or explore our site.");
@@ -511,13 +510,13 @@ const QuizResult = () => {
 
   if (isProcessing) {
     return (
-      <div className="py-12 px-4">
-        <div className="container mx-auto max-w-2xl">
+      <div className="py-8 sm:py-12 px-4 min-h-screen bg-linear-to-b from-indigo-50 to-white">
+        <div className="container mx-auto max-w-md sm:max-w-lg">
           <Card className="border-indigo-100 shadow-xl text-center">
-            <CardContent className="p-12">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mx-auto mb-6"></div>
-              <h3 className="text-xl font-semibold text-indigo-900 mb-2">Preparing Your Access</h3>
-              <p className="text-gray-600">Creating your personalized learning account...</p>
+            <CardContent className="p-8 sm:p-12">
+              <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-b-2 border-indigo-600 mx-auto mb-4 sm:mb-6"></div>
+              <h3 className="text-lg sm:text-xl font-semibold text-indigo-900 mb-2 font-outfit">Preparing Your Access</h3>
+              <p className="text-sm sm:text-base text-gray-600">Creating your personalized learning account...</p>
             </CardContent>
           </Card>
         </div>
@@ -526,127 +525,128 @@ const QuizResult = () => {
   }
 
   return (
-    <div className="py-12 px-4 bg-linear-to-b from-indigo-50 to-white min-h-screen">
-      <div className="container mx-auto max-w-3xl">
+    <div className="py-8 sm:py-12 px-4 bg-linear-to-b from-indigo-50 to-white min-h-screen">
+      <div className="container mx-auto max-w-lg sm:max-w-2xl lg:max-w-3xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
         >
-          <Card className="border-indigo-200 shadow-2xl">
-            <CardHeader className="text-center pb-6">
+          <Card className="border-indigo-200 shadow-2xl overflow-hidden">
+            <CardHeader className="text-center pb-6 sm:pb-8 bg-linear-to-r from-purple-50 to-indigo-50">
               <div className="flex flex-col items-center">
-                <div className="w-20 h-20 bg-linear-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mb-6">
-                  <CheckCircle className="w-10 h-10 text-white" />
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
+                  <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                 </div>
-                <CardTitle className="text-3xl font-outfit text-indigo-900">
+                <CardTitle className="text-2xl sm:text-3xl lg:text-4xl font-outfit text-indigo-900 font-bold">
                   Assessment Complete! 🎉
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-lg mt-2">
+                <CardDescription className="text-base sm:text-lg text-gray-600 mt-2 max-w-md mx-auto">
                   Your free class access is ready
                 </CardDescription>
               </div>
             </CardHeader>
             
-            <CardContent className="p-6">
+            <CardContent className="p-6 sm:p-8">
               {/* Level Display */}
-              <div className="text-center mb-8">
-                <div className={`inline-block bg-linear-to-r ${getLevelColor(level)} text-white rounded-xl px-6 py-3 shadow-lg`}>
-                  <h2 className="text-xl font-bold">Level: {level.charAt(0).toUpperCase() + level.slice(1)}</h2>
-                  <p className="opacity-90">Score: {currentScore} out of {quizConfig.totalQuestions}</p>
+              <div className="text-center mb-6 sm:mb-8">
+                <div className={`inline-block bg-linear-to-r ${getLevelColor(level)} text-white rounded-xl px-4 sm:px-6 py-2 sm:py-3 shadow-lg`}>
+                  <h2 className="text-lg sm:text-xl font-bold">Level: {level.charAt(0).toUpperCase() + level.slice(1)}</h2>
+                  <p className="text-sm sm:text-base opacity-90">Score: {currentScore} out of {quizConfig.totalQuestions}</p>
                 </div>
               </div>
 
               {/* Main Action Button */}
-              <div className="mb-8">
+              <div className="mb-6 sm:mb-8">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <Button
                     size="lg"
-                    className="w-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-6 text-xl font-bold shadow-lg rounded-lg"
+                    className="w-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-4 sm:py-6 text-base sm:text-xl font-bold shadow-lg rounded-lg h-auto"
                     onClick={handleStartLearning}
                     disabled={hasRedirected}
                   >
-                    <ExternalLink className="mr-2 w-6 h-6" />
+                    <ExternalLink className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
                     {hasRedirected ? "Class Opened!" : "Start Learning Now"}
                   </Button>
                 </motion.div>
                 {hasRedirected && (
-                  <p className="text-center text-purple-600 text-sm mt-2">
+                  <p className="text-center text-purple-600 text-xs sm:text-sm mt-2">
                     Your class has been opened in a new tab. You can close this page.
                   </p>
                 )}
               </div>
 
               {/* Class Details */}
-              <div className="mb-8 p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
-                <h3 className="text-lg font-bold text-purple-900 mb-3 flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-purple-600" />
+              <div className="mb-6 sm:mb-8 p-4 sm:p-5 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
+                <h3 className="text-base sm:text-lg font-bold text-purple-900 mb-3 sm:mb-4 flex items-center gap-2 font-outfit">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 shrink-0" />
                   Free Class Details
                 </h3>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex-1 p-3 bg-white rounded border border-purple-100">
-                    <div className="flex items-center gap-2 mb-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="p-3 sm:p-4 bg-white rounded border border-purple-100 text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
                       <Calendar className="w-4 h-4 text-purple-600" />
-                      <span className="font-semibold text-purple-800">Date</span>
+                      <span className="font-semibold text-purple-800 text-xs sm:text-sm">Date</span>
                     </div>
-                    <p className="text-lg font-bold text-purple-900">{freeClassDate}</p>
+                    <p className="text-base sm:text-lg font-bold text-purple-900">{freeClassDate}</p>
                   </div>
-                  <div className="flex-1 p-3 bg-white rounded border border-purple-100">
-                    <div className="flex items-center gap-2 mb-1">
+                  <div className="p-3 sm:p-4 bg-white rounded border border-purple-100 text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
                       <Clock className="w-4 h-4 text-purple-600" />
-                      <span className="font-semibold text-purple-800">Time</span>
+                      <span className="font-semibold text-purple-800 text-xs sm:text-sm">Time</span>
                     </div>
-                    <p className="text-lg font-bold text-purple-900">{freeClassTime}</p>
+                    <p className="text-base sm:text-lg font-bold text-purple-900">{freeClassTime}</p>
                   </div>
                 </div>
               </div>
 
               {/* Access Codes */}
-              <div className="mb-8">
-                <h3 className="text-lg font-bold text-gray-800 mb-3">Your Access Information</h3>
+              <div className="mb-6 sm:mb-8">
+                <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-5 font-outfit">Your Access Information</h3>
                 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <Key className="w-4 h-4 text-purple-600" />
-                        <span className="font-bold text-purple-800">Institute Code</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="p-3 sm:p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <Key className="w-4 h-4 text-purple-600 shrink-0" />
+                        <span className="font-bold text-purple-800 text-sm sm:text-base truncate">Institute Code</span>
                       </div>
                       <Button
                         size="sm"
                         variant="ghost"
                         onClick={() => handleCopyCode(instituteCode, "Institute Code")}
-                        className="h-8 px-2 text-purple-700 hover:bg-purple-50"
+                        className="h-8 px-2 ml-2 text-purple-700 hover:bg-purple-100 shrink-0"
                       >
                         <Copy className="w-4 h-4" />
                       </Button>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-mono font-bold text-purple-800 bg-white p-2 rounded border border-purple-300">
+                      <div className="text-lg sm:text-xl font-mono font-bold text-purple-800 bg-white p-2 sm:p-3 rounded border border-purple-300 inline-block min-w-[200px]">
                         {instituteCode}
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-4 bg-linear-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-indigo-600" />
-                        <span className="font-bold text-indigo-800">Course ID</span>
+                  <div className="p-3 sm:p-4 bg-linear-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <Mail className="w-4 h-4 text-indigo-600 shrink-0" />
+                        <span className="font-bold text-indigo-800 text-sm sm:text-base truncate">Course ID</span>
                       </div>
                       <Button
                         size="sm"
                         variant="ghost"
                         onClick={() => handleCopyCode(courseId, "Course ID")}
-                        className="h-8 px-2 text-indigo-700 hover:bg-indigo-50"
+                        className="h-8 px-2 ml-2 text-indigo-700 hover:bg-indigo-100 shrink-0"
                       >
                         <Copy className="w-4 h-4" />
                       </Button>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-mono font-bold text-indigo-800 bg-white p-2 rounded border border-indigo-300">
+                      <div className="text-lg sm:text-xl font-mono font-bold text-indigo-800 bg-white p-2 sm:p-3 rounded border border-indigo-300 inline-block min-w-[200px]">
                         {courseId}
                       </div>
                     </div>
@@ -655,23 +655,23 @@ const QuizResult = () => {
               </div>
 
               {/* Email Confirmation */}
-              <div className="p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
+              <div className="p-4 sm:p-5 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200 mb-6 sm:mb-8">
                 <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-purple-600 mt-0.5" />
-                  <div>
-                    <p className="font-bold text-purple-800">Email Sent</p>
-                    <p className="text-purple-700 text-sm">
-                      Complete instructions sent to <strong>{studentInfo.email}</strong>
+                  <Mail className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="font-bold text-purple-800 text-sm sm:text-base font-outfit">Email Sent</p>
+                    <p className="text-purple-700 text-xs sm:text-sm truncate">
+                      Complete instructions sent to <strong>{studentInfo?.email}</strong>
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Navigation Options */}
-              <div className="mt-8 grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4">
                 <Button
                   variant="outline"
-                  className="border-purple-200 text-purple-700 hover:bg-purple-50"
+                  className="border-purple-200 text-purple-700 hover:bg-purple-50 text-sm sm:text-base h-12"
                   onClick={handleReturnHome}
                 >
                   <Home className="mr-2 w-4 h-4" />
@@ -679,7 +679,7 @@ const QuizResult = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-indigo-200 text-indigo-700 hover:bg-indigo-50"
+                  className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 text-sm sm:text-base h-12"
                   onClick={() => {
                     dispatch({ type: "RESET_QUIZ" });
                     navigate("/admission");
@@ -690,14 +690,20 @@ const QuizResult = () => {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
 
-        {/* Support Section */}
-        <div className="mt-8 text-center">
-          <p className="text-gray-600 text-sm">
-            Need help? Email <a href="mailto:admin@rooteancestrallearninghub.com" className="text-purple-600 hover:underline">admin@rooteancestrallearninghub.com</a>
-          </p>
-        </div>
+          {/* Support Section */}
+          <div className="mt-6 sm:mt-8 text-center">
+            <p className="text-gray-600 text-xs sm:text-sm">
+              Need help? Email{' '}
+              <a 
+                href="mailto:admin@rooteancestrallearninghub.com" 
+                className="text-purple-600 hover:underline font-medium"
+              >
+                admin@rooteancestrallearninghub.com
+              </a>
+            </p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
