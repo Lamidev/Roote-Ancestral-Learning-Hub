@@ -516,7 +516,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {  Calendar, Clock as ClockIcon, ChevronDown } from 'lucide-react';
+import { Calendar, Clock as ClockIcon, ChevronDown, LogIn, Smartphone, Monitor } from 'lucide-react';
 import heroImg from '@/assets/heroImg.jpg';
 import StudentReviewsCarousel from '@/components/layoutView/ReviewCarousel';
 import OnboardingSteps from '@/components/layoutView/OnboardingSteps';
@@ -597,11 +597,19 @@ const Home = () => {
     "Cultural traditions and etiquette"
   ];
 
-  const scrollToOnboarding = () => {
-    const element = document.getElementById('onboarding-steps');
+  const scrollToExistingStudents = () => {
+    const element = document.getElementById('existing-students');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleDirectLogin = () => {
+    window.open('https://roote-ancestral-learning.wise.live/login', '_blank');
+  };
+
+  const handleDownloadApp = () => {
+    window.open('https://roote-ancestral-learning.wise.live/download', '_blank');
   };
 
   return (
@@ -677,10 +685,10 @@ const Home = () => {
                           size="sm" 
                           variant="outline" 
                           className="border-indigo-300 text-indigo-700 hover:bg-indigo-50"
-                          onClick={scrollToOnboarding}
+                          onClick={scrollToExistingStudents}
                         >
                           <span className="flex items-center gap-1">
-                            How to Join
+                            Already a Student?
                             <ChevronDown className="w-4 h-4" />
                           </span>
                         </Button>
@@ -908,6 +916,104 @@ const Home = () => {
             <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg">
               <Link to="/admission">Enroll Now - CAD $100/month</Link>
             </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="existing-students" className="py-12 sm:py-16 px-4 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-8 sm:mb-12"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-900 mb-4 font-outfit">
+              Already a Student?
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-4">
+              Quick access to your Yoruba learning platform
+            </p>
+          </motion.div>
+          
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <Card className="border-indigo-100 h-full hover:shadow-lg transition-all duration-300">
+                <CardHeader className="text-center">
+                  <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Monitor className="w-8 h-8 text-indigo-600" />
+                  </div>
+                  <CardTitle className="text-indigo-900 font-outfit text-xl">Browser Access</CardTitle>
+                  <CardDescription>Login directly through your web browser</CardDescription>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-600 mb-6">Perfect for desktop, laptop, or mobile browser use</p>
+                  <Button 
+                    onClick={handleDirectLogin} 
+                    size="lg" 
+                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+                  >
+                    <LogIn className="w-5 h-5 mr-2" />
+                    Login to Classroom
+                  </Button>
+                  <p className="text-sm text-gray-500 mt-3">
+                    Use the same email you registered with
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <Card className="border-indigo-100 h-full hover:shadow-lg transition-all duration-300">
+                <CardHeader className="text-center">
+                  <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Smartphone className="w-8 h-8 text-indigo-600" />
+                  </div>
+                  <CardTitle className="text-indigo-900 font-outfit text-xl">Mobile App</CardTitle>
+                  <CardDescription>Access classes on-the-go</CardDescription>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-600 mb-6">Download our app for the best mobile experience</p>
+                  <Button 
+                    onClick={handleDownloadApp} 
+                    size="lg" 
+                    variant="outline"
+                    className="w-full border-indigo-200 text-indigo-700 hover:bg-indigo-50"
+                  >
+                    <Smartphone className="w-5 h-5 mr-2" />
+                    Download Mobile App
+                  </Button>
+                  <p className="text-sm text-gray-500 mt-3">
+                    Available for iOS and Android devices
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center mt-8 sm:mt-12"
+          >
+            <div className="bg-white rounded-lg p-4 border-2 border-indigo-200 inline-block max-w-2xl">
+              <p className="text-indigo-700">
+                <strong>Need help logging in?</strong> Contact us at admin@rooteancestrallearninghub.com
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
