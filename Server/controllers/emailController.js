@@ -2,9 +2,9 @@ const { Resend } = require('resend');
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const classUrls = {
-  beginner: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/beginner/home?invite=695be53d1017099e89f77002",
-  middle: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/middle-class/home?invite=695be5677c638a94320c9d3f",
-  advanced: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/advanced-class/home?invite=695be586c22e3be091999a60"
+  beginner: "https://learning.rooteancestrallearninghub.com/communities/groups/beginner/home?invite=695d46543289ed25c07b1f56",
+  middle: "https://learning.rooteancestrallearninghub.com/communities/groups/middle-class/home?invite=695d46ad3289ed25c07bbd0e",
+  advanced: "https://learning.rooteancestrallearninghub.com/communities/groups/advanced-class/home?invite=695d46cf92dffd120de3ccb5"
 };
 
 const sendWelcomeEmail = async (data) => {
