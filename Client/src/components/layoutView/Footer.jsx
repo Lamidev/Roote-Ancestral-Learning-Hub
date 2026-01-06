@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Instagram, Linkedin, MessageCircle } from 'lucide-react';
 import rooteLogo from '@/assets/rooteLogo.jpg';
 
 const Footer = () => {
@@ -53,6 +54,56 @@ const Footer = () => {
         </div>
         <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-500 px-4 md:px-0">
           <p>&copy; {new Date().getFullYear()} Roote Ancestral Learning Hub. All rights reserved.</p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="mt-6 pt-6 border-t border-gray-100"
+          >
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2">
+              <p className="text-sm text-gray-600">
+                Crafted with <span className="text-red-500">❤️</span> by{' '}
+                <span className="font-bold text-indigo-600">Lamidev</span>
+              </p>
+              <span className="hidden sm:inline text-gray-300">•</span>
+              <div className="flex items-center gap-3">
+                <motion.a
+                  href="https://www.linkedin.com/in/akinyemi-oluwatosin-95519130b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-blue-600 transition-colors duration-300"
+                  title="Connect on LinkedIn"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Linkedin className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  href="https://www.instagram.com/thisslami?igsh=MWRtNmwydnBzbnhuaw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-pink-600 transition-colors duration-300"
+                  title="Follow on Instagram"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Instagram className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  href="https://wa.me/2347056501913?text=Hello%20Lamidev,%20I%20saw%20your%20work%20on%20Roote%20Ancestral%20and%20I'd%20like%20to%20connect!"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-green-600 transition-colors duration-300"
+                  title="Chat on WhatsApp"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <MessageCircle className="w-5 h-5" />
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </footer>
