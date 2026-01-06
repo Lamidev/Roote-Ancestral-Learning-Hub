@@ -24,12 +24,12 @@ const OnboardingSteps = () => {
       icon: Calendar,
       title: "Join Class",
       description: "Attend free Yoruba class",
-      details: ["January 3, 2026", "12:00 PM CST", "100% free"]
+      details: ["January 16, 2026", "12:00 PM CST", "100% free"]
     }
   ];
 
   return (
-    <section id="onboarding-steps" className="py-12 sm:py-16 px-4 bg-white">
+    <section id="onboarding-steps" className="py-8 sm:py-16 md:py-24 px-4 bg-white">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -101,7 +101,7 @@ const OnboardingSteps = () => {
               Ready to Start Learning?
             </h3>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              Join our free class on January 3, 2026 or get instant access to materials
+              Join our free class on January 16, 2026 or get instant access to materials
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a

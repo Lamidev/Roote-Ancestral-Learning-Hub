@@ -208,7 +208,7 @@
 //       console.log('⚠️ No quiz record found, creating from payment metadata.');
 //       const levelFromStripe = session.metadata.course_level || 'beginner';
 //       const courseIdFromStripe = session.metadata.course_id || getDefaultCourseId(levelFromStripe);
-      
+
 //       quizResult = new QuizResult({
 //         studentEmail: studentEmail.toLowerCase().trim(),
 //         fullName: studentName || 'Student',
@@ -227,11 +227,11 @@
 //       console.log('✅ Created new student record from Stripe payment. Level:', quizResult.level, 'CourseID:', quizResult.courseId);
 //     } else {
 //       console.log('✅ Updating existing quiz record. Original Level:', quizResult.level, 'Original CourseID:', quizResult.courseId, 'Original Score:', quizResult.score, 'Created At:', quizResult.createdAt);
-      
+
 //       quizResult.paymentStatus = 'completed';
 //       quizResult.transactionId = transactionId;
 //       quizResult.paidAt = new Date();
-      
+
 //       await quizResult.save();
 //       console.log('✅ Stripe payment confirmed. Preserved Level:', quizResult.level, 'Preserved CourseID:', quizResult.courseId, 'Preserved Score:', quizResult.score);
 //     }
@@ -241,14 +241,14 @@
 //         studentEmail: quizResult.studentEmail,
 //         fullName: quizResult.fullName,
 //         level: quizResult.level,
-//         wiseUrl: quizResult.wiseUrl,
-//         score: quizResult.score,
+// //         score: quizResult.score,
+// phoneNumber: quizResult.phoneNumber,
 //         courseId: quizResult.courseId,
 //         instituteCode: quizResult.instituteCode,
 //         quizResultId: quizResult._id,
 //         paymentConfirmed: true
 //       });
-      
+
 //       await QuizResult.findByIdAndUpdate(quizResult._id, { emailSent: true });
 //       console.log('✅ Welcome email sent. Level:', quizResult.level, 'CourseID:', quizResult.courseId, 'Score:', quizResult.score);
 //     } catch (emailError) {
@@ -261,6 +261,7 @@
 //         fullName: quizResult.fullName,
 //         level: quizResult.level,
 //         score: quizResult.score,
+// phoneNumber: quizResult.phoneNumber,
 //         courseId: quizResult.courseId,
 //         instituteCode: quizResult.instituteCode,
 //         quizResultId: quizResult._id,
@@ -286,7 +287,7 @@
 // const updatePaymentStatus = async (req, res) => {
 //   try {
 //     const { studentEmail, paymentStatus, transactionId, amount, currency } = req.body;
-    
+
 //     const quizResult = await QuizResult.findOneAndUpdate(
 //       { studentEmail: studentEmail.toLowerCase().trim() },
 //       { 
@@ -309,8 +310,8 @@
 //         studentEmail: quizResult.studentEmail,
 //         fullName: quizResult.fullName,
 //         level: quizResult.level,
-//         wiseUrl: quizResult.wiseUrl,
-//         score: quizResult.score,
+// //         score: quizResult.score,
+// phoneNumber: quizResult.phoneNumber,
 //         courseId: quizResult.courseId,
 //         instituteCode: quizResult.instituteCode,
 //         quizResultId: quizResult._id,
@@ -324,6 +325,7 @@
 //         fullName: quizResult.fullName,
 //         level: quizResult.level,
 //         score: quizResult.score,
+// phoneNumber: quizResult.phoneNumber,
 //         courseId: quizResult.courseId,
 //         instituteCode: quizResult.instituteCode,
 //         quizResultId: quizResult._id,
@@ -346,7 +348,7 @@
 // const checkEmailStatus = async (req, res) => {
 //   try {
 //     const { session_id, email } = req.query;
-    
+
 //     const quizResult = await QuizResult.findOne({
 //       $or: [
 //         { transactionId: session_id },
@@ -375,7 +377,7 @@
 // };
 
 
-const QuizResult = require('../models/quizResults'); 
+const QuizResult = require('../models/quizResults');
 const { sendWelcomeEmail, sendAdminNotification } = require('./emailController');
 const { isFreePeriodActive } = require('./freeDayController');
 
@@ -386,14 +388,6 @@ if (process.env.STRIPE_SECRET_KEY) {
   console.log('⚠️ STRIPE_SECRET_KEY not found - Stripe functionality disabled');
 }
 
-const getDefaultCourseId = (level) => {
-  const courseIds = {
-    beginner: "643218529",
-    middle: "968954470", 
-    advanced: "179756668"
-  };
-  return courseIds[level] || courseIds.beginner;
-};
 
 const createCheckoutSession = async (req, res) => {
   try {
@@ -401,7 +395,7 @@ const createCheckoutSession = async (req, res) => {
     if (freePeriodActive) {
       return res.status(400).json({
         error: 'Free period active',
-        message: 'No payment required during free period (Register today until Jan 3rd, 2026). You have been automatically enrolled in the January 3rd, 2026 class at 12 PM CST.'
+        message: 'No payment required during free period (Register today until Jan 16th, 2026). You have been automatically enrolled in the January 16th, 2026 class at 12 PM CST.'
       });
     }
 
@@ -416,14 +410,12 @@ const createCheckoutSession = async (req, res) => {
       studentEmail,
       studentName,
       level,
-      courseId,
       amount,
       currency,
       successUrl,
       cancelUrl
     } = req.body;
 
-    const validatedCourseId = courseId || getDefaultCourseId(level);
     const baseFrontendUrl = process.env.FRONTEND_URL || `http://localhost:5173`;
 
     const session = await stripe.checkout.sessions.create({
@@ -434,10 +426,9 @@ const createCheckoutSession = async (req, res) => {
             currency: currency || 'cad',
             product_data: {
               name: `Yoruba ${level.charAt(0).toUpperCase() + level.slice(1)} Level Course`,
-              description: `Roote Ancestral Learning - Course ID: ${validatedCourseId}`,
+              description: `Roote Ancestral Learning - Level: ${level}`,
               metadata: {
                 course_level: level,
-                course_id: validatedCourseId,
                 student_email: studentEmail
               }
             },
@@ -453,8 +444,7 @@ const createCheckoutSession = async (req, res) => {
       metadata: {
         student_email: studentEmail,
         student_name: studentName,
-        course_level: level,
-        course_id: validatedCourseId
+        course_level: level
       },
       expires_at: Math.floor(Date.now() / 1000) + (30 * 60),
     });
@@ -476,7 +466,7 @@ const createCheckoutSession = async (req, res) => {
 const verifyPaymentStatus = async (req, res) => {
   try {
     const freePeriodActive = isFreePeriodActive();
-    
+
     if (!stripe && !freePeriodActive) {
       return res.status(500).json({
         success: false,
@@ -488,7 +478,7 @@ const verifyPaymentStatus = async (req, res) => {
 
     if (freePeriodActive && !sessionId) {
       const studentEmail = email?.toLowerCase().trim();
-      const quizResult = await QuizResult.findOne({ 
+      const quizResult = await QuizResult.findOne({
         studentEmail: studentEmail,
         enrollmentType: 'free_period'
       });
@@ -499,7 +489,6 @@ const verifyPaymentStatus = async (req, res) => {
         freePeriodActive: true,
         student: quizResult ? {
           email: quizResult.studentEmail,
-          courseId: quizResult.courseId,
           level: quizResult.level,
           enrollmentType: quizResult.enrollmentType
         } : null
@@ -517,7 +506,7 @@ const verifyPaymentStatus = async (req, res) => {
 
     if (session.payment_status === 'paid') {
       const studentEmail = email || session.customer_email;
-      const quizResult = await QuizResult.findOne({ 
+      const quizResult = await QuizResult.findOne({
         studentEmail: studentEmail.toLowerCase().trim(),
         paymentStatus: 'completed'
       });
@@ -533,7 +522,6 @@ const verifyPaymentStatus = async (req, res) => {
         },
         student: quizResult ? {
           email: quizResult.studentEmail,
-          courseId: quizResult.courseId,
           level: quizResult.level,
           enrollmentType: quizResult.enrollmentType
         } : null
@@ -562,9 +550,9 @@ const handlePaymentWebhook = async (req, res) => {
   try {
     const freePeriodActive = isFreePeriodActive();
     if (freePeriodActive) {
-      return res.json({ 
-        received: true, 
-        message: 'Free period active - webhook processing not required' 
+      return res.json({
+        received: true,
+        message: 'Free period active - webhook processing not required'
       });
     }
 
@@ -614,23 +602,26 @@ const processStripePayment = async (session) => {
       throw new Error('Student email required');
     }
 
-    let quizResult = await QuizResult.findOne({ 
-      studentEmail: studentEmail.toLowerCase().trim() 
+    let quizResult = await QuizResult.findOne({
+      studentEmail: studentEmail.toLowerCase().trim()
     }).sort({ createdAt: -1 });
 
     if (!quizResult) {
       console.log('⚠️ No quiz record found, creating from payment metadata.');
       const levelFromStripe = session.metadata.course_level || 'beginner';
-      const courseIdFromStripe = session.metadata.course_id || getDefaultCourseId(levelFromStripe);
-      
+
+      const classUrls = {
+        beginner: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/beginner/home?invite=695be53d1017099e89f77002",
+        middle: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/middle-class/home?invite=695be5677c638a94320c9d3f",
+        advanced: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/advanced-class/home?invite=695be586c22e3be091999a60"
+      };
+
       quizResult = new QuizResult({
         studentEmail: studentEmail.toLowerCase().trim(),
         fullName: studentName || 'Student',
         score: 0,
         level: levelFromStripe,
-        wiseUrl: 'https://roote-ancestral-learning.wise.live/download',
-        courseId: courseIdFromStripe,
-        instituteCode: 'roote-ancestral-learning',
+        classUrl: classUrls[levelFromStripe] || classUrls.beginner,
         answers: [],
         paymentStatus: 'completed',
         transactionId: transactionId,
@@ -639,17 +630,17 @@ const processStripePayment = async (session) => {
         enrollmentType: 'regular'
       });
       await quizResult.save();
-      console.log('✅ Created new student record from Stripe payment. Level:', quizResult.level, 'CourseID:', quizResult.courseId);
+      console.log('✅ Created new student record from Stripe payment. Level:', quizResult.level);
     } else {
-      console.log('✅ Updating existing quiz record. Original Level:', quizResult.level, 'Original CourseID:', quizResult.courseId, 'Original Score:', quizResult.score, 'Created At:', quizResult.createdAt);
-      
+      console.log('✅ Updating existing quiz record. Original Level:', quizResult.level, 'Original Score:', quizResult.score, 'Created At:', quizResult.createdAt);
+
       quizResult.paymentStatus = 'completed';
       quizResult.transactionId = transactionId;
       quizResult.paidAt = new Date();
       quizResult.enrollmentType = 'regular';
-      
+
       await quizResult.save();
-      console.log('✅ Stripe payment confirmed. Preserved Level:', quizResult.level, 'Preserved CourseID:', quizResult.courseId, 'Preserved Score:', quizResult.score);
+      console.log('✅ Stripe payment confirmed. Preserved Level:', quizResult.level, 'Preserved Score:', quizResult.score);
     }
 
     try {
@@ -657,17 +648,15 @@ const processStripePayment = async (session) => {
         studentEmail: quizResult.studentEmail,
         fullName: quizResult.fullName,
         level: quizResult.level,
-        wiseUrl: quizResult.wiseUrl,
         score: quizResult.score,
-        courseId: quizResult.courseId,
-        instituteCode: quizResult.instituteCode,
+        phoneNumber: quizResult.phoneNumber,
         quizResultId: quizResult._id,
         paymentConfirmed: true,
         freePeriodActive: false
       });
-      
+
       await QuizResult.findByIdAndUpdate(quizResult._id, { emailSent: true });
-      console.log('✅ Welcome email sent. Level:', quizResult.level, 'CourseID:', quizResult.courseId, 'Score:', quizResult.score);
+      console.log('✅ Welcome email sent. Level:', quizResult.level, 'Score:', quizResult.score);
     } catch (emailError) {
       console.error('❌ Failed to send welcome email after payment:', emailError);
     }
@@ -678,8 +667,7 @@ const processStripePayment = async (session) => {
         fullName: quizResult.fullName,
         level: quizResult.level,
         score: quizResult.score,
-        courseId: quizResult.courseId,
-        instituteCode: quizResult.instituteCode,
+        phoneNumber: quizResult.phoneNumber,
         quizResultId: quizResult._id,
         totalQuestions: 8,
         paymentStatus: 'completed',
@@ -693,7 +681,7 @@ const processStripePayment = async (session) => {
       console.error('❌ Failed to send admin notification:', adminEmailError);
     }
 
-    console.log('🎉 Stripe payment processed successfully. Student:', studentEmail, 'Level:', quizResult.level, 'CourseID:', quizResult.courseId, 'Score:', quizResult.score);
+    console.log('🎉 Stripe payment processed successfully. Student:', studentEmail, 'Level:', quizResult.level, 'Score:', quizResult.score);
 
   } catch (error) {
     console.error('❌ Error processing Stripe payment:', error);
@@ -713,10 +701,10 @@ const updatePaymentStatus = async (req, res) => {
     }
 
     const { studentEmail, paymentStatus, transactionId, amount, currency } = req.body;
-    
+
     const quizResult = await QuizResult.findOneAndUpdate(
       { studentEmail: studentEmail.toLowerCase().trim() },
-      { 
+      {
         paymentStatus: paymentStatus || 'completed',
         transactionId: transactionId,
         paidAt: paymentStatus === 'completed' ? new Date() : null
@@ -736,10 +724,8 @@ const updatePaymentStatus = async (req, res) => {
         studentEmail: quizResult.studentEmail,
         fullName: quizResult.fullName,
         level: quizResult.level,
-        wiseUrl: quizResult.wiseUrl,
         score: quizResult.score,
-        courseId: quizResult.courseId,
-        instituteCode: quizResult.instituteCode,
+        phoneNumber: quizResult.phoneNumber,
         quizResultId: quizResult._id,
         paymentConfirmed: true,
         freePeriodActive: false
@@ -752,8 +738,7 @@ const updatePaymentStatus = async (req, res) => {
         fullName: quizResult.fullName,
         level: quizResult.level,
         score: quizResult.score,
-        courseId: quizResult.courseId,
-        instituteCode: quizResult.instituteCode,
+        phoneNumber: quizResult.phoneNumber,
         quizResultId: quizResult._id,
         totalQuestions: 8,
         paymentStatus: 'completed',
@@ -775,7 +760,7 @@ const updatePaymentStatus = async (req, res) => {
 const checkEmailStatus = async (req, res) => {
   try {
     const { session_id, email } = req.query;
-    
+
     const quizResult = await QuizResult.findOne({
       $or: [
         { transactionId: session_id },

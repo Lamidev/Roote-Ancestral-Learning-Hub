@@ -105,13 +105,13 @@ export default function ThankYou() {
         <p className="text-gray-600 leading-relaxed mb-6 font-outfit text-sm sm:text-base">
           We've sent your Yoruba level assessment results and class enrollment instructions to your email.
           <br /><br />
-          <strong>Important:</strong> Please check your email (including spam folder) for your enrollment codes and class details.
+          <strong>Important:</strong> Please check your email (including spam folder) for your direct class link and session details.
           <br /><br />
           <strong>To access your class:</strong>
           <br />
-          1. Download the Wise.live app from your email
+          1. Open the enrollment email sent to you
           <br />
-          2. Use the Institute Code and Course ID provided in your email
+          2. Click the direct link to your assigned level
           <br />
           3. Join your class at the scheduled time
         </p>
@@ -137,7 +137,7 @@ export default function ThankYou() {
 
         <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 wrap-break-word">
           <p className="text-blue-800 text-xs sm:text-sm font-outfit leading-snug">
-            💡 <strong>Can't find the email?</strong> Check your spam folder or 
+            💡 <strong>Can't find the email?</strong> Check your spam folder or
             contact us at{" "}
             <span className="whitespace-nowrap">admin@rooteancestrallearninghub.com</span>
           </p>

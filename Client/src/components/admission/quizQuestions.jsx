@@ -25,7 +25,7 @@ const QuizQuestions = () => {
     if (!selectedAnswer) return;
 
     const selectedOption = currentQuestion.options.find(opt => opt.id === selectedAnswer);
-    
+
     dispatch({
       type: 'SET_ANSWER',
       payload: {
@@ -52,7 +52,7 @@ const QuizQuestions = () => {
   };
 
   return (
-    <div className="py-12 px-4">
+    <div className="py-8 sm:py-16 md:py-24 px-4 min-h-screen bg-linear-to-b from-indigo-50 to-white">
       <div className="container mx-auto max-w-2xl">
         <Card className="border-indigo-100 shadow-lg">
           <CardHeader>
@@ -63,7 +63,7 @@ const QuizQuestions = () => {
               <span className="text-sm text-gray-600 font-outfit">{Math.round(progress)}% Complete</span>
             </div>
             <div className="w-full bg-indigo-100 rounded-full h-3">
-              <motion.div 
+              <motion.div
                 className="bg-indigo-600 h-3 rounded-full transition-all duration-500"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
@@ -85,22 +85,22 @@ const QuizQuestions = () => {
                 <h3 className="text-xl font-semibold text-gray-800 font-outfit">
                   {currentQuestion.question}
                 </h3>
-                
+
                 <RadioGroup value={selectedAnswer} onValueChange={handleAnswerSelect}>
                   {currentQuestion.options.map((option) => (
-                    <motion.div 
-                      key={option.id} 
+                    <motion.div
+                      key={option.id}
                       className="flex items-center space-x-3 p-4 border border-indigo-100 rounded-lg hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200 cursor-pointer"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <RadioGroupItem 
-                        value={option.id} 
-                        id={option.id} 
+                      <RadioGroupItem
+                        value={option.id}
+                        id={option.id}
                         className="text-indigo-600 border-indigo-300"
                       />
-                      <Label 
-                        htmlFor={option.id} 
+                      <Label
+                        htmlFor={option.id}
                         className="flex-1 cursor-pointer text-gray-700 font-outfit"
                       >
                         {option.text}
@@ -109,8 +109,8 @@ const QuizQuestions = () => {
                   ))}
                 </RadioGroup>
 
-                <Button 
-                  onClick={handleNext} 
+                <Button
+                  onClick={handleNext}
                   disabled={!selectedAnswer}
                   className="w-full bg-indigo-600 hover:bg-indigo-700 font-outfit"
                   size="lg"

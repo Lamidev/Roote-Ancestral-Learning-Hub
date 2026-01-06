@@ -21,7 +21,7 @@ const Classes = () => {
       numberColor: "from-green-400 to-blue-400"
     },
     {
-      title: "Middle", 
+      title: "Middle",
       description: "Build conversational skills and grammar knowledge",
       features: [
         "Everyday conversations",
@@ -73,9 +73,9 @@ const Classes = () => {
   };
 
   return (
-    <div className="py-12 px-4">
+    <div className="py-8 sm:py-16 md:py-24 px-4 min-h-screen bg-linear-to-b from-indigo-50 to-white">
       <div className="container mx-auto max-w-6xl">
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ const Classes = () => {
           </Button>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid md:grid-cols-3 gap-6 mb-12"
           initial="hidden"
           whileInView="visible"
@@ -110,8 +110,8 @@ const Classes = () => {
                 <CardContent>
                   <ul className="space-y-3 mb-6">
                     {level.features.map((feature, featureIndex) => (
-                      <motion.li 
-                        key={featureIndex} 
+                      <motion.li
+                        key={featureIndex}
                         className="flex items-start text-gray-700"
                         whileHover={{ x: 5 }}
                         transition={{ type: "spring", stiffness: 400 }}

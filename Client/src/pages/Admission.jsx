@@ -3,7 +3,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -25,7 +25,7 @@ const Admission = () => {
       details: "Tell us a bit about yourself and take our friendly Yoruba placement quiz."
     },
     {
-      step: "2", 
+      step: "2",
       title: "Discover Your Level",
       description: "Get your personalized class placement",
       details: "Based on your results, we'll place you in the perfect Beginner, Middle, or Advanced class."
@@ -73,21 +73,21 @@ const Admission = () => {
 
   // Otherwise render the main admission page
   return (
-    <div className="py-12 px-4">
+    <div className="py-8 sm:py-16 md:py-24 px-4 min-h-screen bg-linear-to-b from-indigo-50 to-white">
       <div className="container mx-auto max-w-4xl">
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          <motion.h1 
+          <motion.h1
             variants={itemVariants}
             className="text-4xl font-bold text-indigo-900 mb-4 font-outfit"
           >
             Begin Your Yoruba Journey
           </motion.h1>
-          <motion.p 
+          <motion.p
             variants={itemVariants}
             className="text-xl text-gray-700 mb-8"
           >
@@ -100,7 +100,7 @@ const Admission = () => {
           </motion.div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid md:grid-cols-3 gap-6 mb-12"
           initial="hidden"
           whileInView="visible"
@@ -163,7 +163,7 @@ const Admission = () => {
           </Card>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="text-center mt-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
