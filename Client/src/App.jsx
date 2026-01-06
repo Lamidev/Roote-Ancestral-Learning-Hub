@@ -37,6 +37,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QuizProvider } from './contexts/quizContext';
 import Layout from './components/layoutView/Layout'
+import ScrollToTop from './components/layoutView/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Classes from './pages/Classes';
@@ -51,6 +52,7 @@ function App() {
   return (
     <QuizProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           {/* Pages with header and footer */}
           <Route path="/" element={<Layout />}>
@@ -59,13 +61,13 @@ function App() {
             <Route path="classes" element={<Classes />} />
             <Route path="admission/*" element={<Admission />} />
             <Route path="contact" element={<Contact />} />
-            
+
             {/* Payment routes - FIXED */}
             <Route path="payment-return" element={<PaymentReturn />} />
             <Route path="payment-success" element={<PaymentSuccess />} />
             <Route path="payment-failed" element={<PaymentFailed />} />
           </Route>
-          
+
           {/* Standalone pages (without header/footer) */}
           <Route path="/thank-you" element={<ThankYou />} />
         </Routes>

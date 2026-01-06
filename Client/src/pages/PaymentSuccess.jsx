@@ -22,13 +22,13 @@
 //         const response = await fetch(
 //           `${API_BASE_URL}/api/payments/check-email-status?session_id=${sessionId}&email=${studentEmail}`
 //         );
-        
+
 //         if (!response.ok) {
 //           throw new Error(`HTTP error! status: ${response.status}`);
 //         }
 
 //         const data = await response.json();
-        
+
 //         if (data.emailSent) {
 //           setEmailStatus('sent');
 //         } else if (checkCount >= 6) {
@@ -48,7 +48,7 @@
 
 //     if (sessionId && studentEmail) {
 //       checkEmailStatus();
-      
+
 //       const interval = setInterval(checkEmailStatus, 5000);
 //       const timeout = setTimeout(() => {
 //         clearInterval(interval);
@@ -165,7 +165,7 @@
 //                 Your payment was successful and your course access is activated!
 //               </p>
 //             </CardHeader>
-            
+
 //             <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6 pb-4 sm:pb-6">
 //               {renderEmailStatus()}
 
@@ -294,13 +294,13 @@ const PaymentSuccess = () => {
         const response = await fetch(
           `${API_BASE_URL}/api/payments/check-email-status?session_id=${sessionId}&email=${studentEmail}`
         );
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        
+
         if (data.emailSent) {
           setEmailStatus('sent');
         } else if (checkCount >= 6) {
@@ -320,7 +320,7 @@ const PaymentSuccess = () => {
 
     if (sessionId && studentEmail) {
       checkEmailStatus();
-      
+
       const interval = setInterval(checkEmailStatus, 5000);
       const timeout = setTimeout(() => {
         clearInterval(interval);
@@ -338,10 +338,6 @@ const PaymentSuccess = () => {
     }
   }, [sessionId, studentEmail, API_BASE_URL, checkCount, emailStatus]);
 
-  const handleDownloadApp = () => {
-    window.open('https://roote-ancestral-learning.wise.live/download', '_blank');
-  };
-
   const handleCheckEmail = () => {
     if (studentEmail) {
       window.location.href = `mailto:${studentEmail}`;
@@ -351,7 +347,7 @@ const PaymentSuccess = () => {
   };
 
   const handleContactSupport = () => {
-    window.location.href = 'mailto:admin@rooteancestrallearninghub.com?subject=Payment%20Confirmation%20Email%20Issue&body=Hello,%20I%20completed%20payment%20but%20did%20not%20receive%20my%20course%20codes.%20My%20email%20is:%20' + encodeURIComponent(studentEmail || '');
+    window.location.href = 'mailto:admin@rooteancestrallearninghub.com?subject=Payment%20Confirmation%20Email%20Issue&body=Hello,%20I%20completed%20payment%20but%20did%20not%20receive%20my%20class%20details.%20My%20email%20is:%20' + encodeURIComponent(studentEmail || '');
   };
 
   const renderEmailStatus = () => {
@@ -364,7 +360,7 @@ const PaymentSuccess = () => {
               <div className="flex-1">
                 <h3 className="text-blue-800 font-semibold font-outfit text-lg">Processing Your Enrollment</h3>
                 <p className="text-blue-700 text-sm mt-1">
-                  Your course codes are being activated and will be sent to your email shortly...
+                  Your class details are being activated and will be sent to your email shortly...
                   {checkCount > 0 && ` (Check ${checkCount}/6)`}
                 </p>
               </div>
@@ -383,7 +379,7 @@ const PaymentSuccess = () => {
               <div className="flex-1">
                 <h3 className="text-emerald-800 font-semibold font-outfit text-lg">Enrollment Email Sent!</h3>
                 <p className="text-emerald-700 text-sm mt-1 wrap-break-words">
-                  Your course codes have been delivered to {studentEmail || 'your email'}.
+                  Your direct class link has been delivered to {studentEmail || 'your email'}.
                 </p>
               </div>
             </div>
@@ -401,7 +397,7 @@ const PaymentSuccess = () => {
               <div className="flex-1">
                 <h3 className="text-amber-800 font-semibold font-outfit text-lg">Email Delivery Check</h3>
                 <p className="text-amber-700 text-sm mt-1">
-                  Your enrollment is confirmed! If you don't see the email within 5 minutes, check your spam folder or contact support.
+                  Your enrollment is confirmed! If you don't see the email within 5 minutes, please check your spam folder or contact support.
                 </p>
               </div>
             </div>
@@ -431,13 +427,13 @@ const PaymentSuccess = () => {
                 🎉
               </motion.div>
               <CardTitle className="text-3xl font-bold font-outfit">
-                Welcome to Roote!
+                Payment Successful!
               </CardTitle>
               <p className="text-indigo-800 text-lg mt-2">
-                Your payment was successful and your course access is activated!
+                Your Yoruba course access is now activated!
               </p>
             </CardHeader>
-            
+
             <CardContent className="space-y-6 p-6">
               {renderEmailStatus()}
 
@@ -449,9 +445,9 @@ const PaymentSuccess = () => {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-lg font-outfit">Payment Confirmed!</h3>
+                    <h3 className="font-semibold text-lg font-outfit">What Happens Next?</h3>
                     <p className="text-white/90 mt-1">
-                      CAD 100 payment processed successfully. Your Yoruba course access is now active.
+                      Check your email for your direct class link and session schedule. You can start learning immediately!
                     </p>
                     {sessionId && (
                       <p className="text-white/80 text-sm mt-2 break-all bg-white/10 rounded-lg px-3 py-2">
@@ -469,31 +465,13 @@ const PaymentSuccess = () => {
                   transition={{ type: "spring", stiffness: 400 }}
                 >
                   <Button
-                    onClick={handleDownloadApp}
+                    onClick={handleCheckEmail}
                     size="lg"
                     className="w-full bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold font-outfit py-6 text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 rounded-2xl"
                   >
                     <div className="flex items-center space-x-2">
-                      <span>📱</span>
-                      <span>Download Roote Learning App</span>
-                    </div>
-                  </Button>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <Button
-                    onClick={handleCheckEmail}
-                    variant="outline"
-                    size="lg"
-                    className="w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 font-semibold font-outfit py-6 text-lg transition-all duration-300 rounded-2xl"
-                  >
-                    <div className="flex items-center space-x-2">
                       <span>📧</span>
-                      <span>Check Your Email</span>
+                      <span>Go to Your Email</span>
                     </div>
                   </Button>
                 </motion.div>
@@ -519,11 +497,12 @@ const PaymentSuccess = () => {
                 )}
               </div>
 
+
               <div className="text-center pt-6 border-t border-gray-200">
                 <p className="text-sm text-gray-600 wrap-break-words">
                   Need help setting up? Contact us at{' '}
-                  <a 
-                    href="mailto:admin@rooteancestrallearninghub.com" 
+                  <a
+                    href="mailto:admin@rooteancestrallearninghub.com"
                     className="text-indigo-600 hover:text-indigo-700 font-semibold underline break-all"
                   >
                     admin@rooteancestrallearninghub.com

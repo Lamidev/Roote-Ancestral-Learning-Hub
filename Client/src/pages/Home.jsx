@@ -545,10 +545,10 @@ const Home = () => {
   };
 
   const imageVariants = {
-    hidden: { 
-      scale: 1.1, 
+    hidden: {
+      scale: 1.1,
       opacity: 0,
-      rotateY: 10 
+      rotateY: 10
     },
     visible: {
       scale: 1,
@@ -573,7 +573,7 @@ const Home = () => {
 
   const freeClassInfo = {
     title: "Free Yoruba Language Class",
-    date: "January 3, 2026",
+    date: "January 16, 2026",
     time: "12:00 PM CST",
     description: "Experience our teaching style and curriculum in a free introductory class!",
     features: [
@@ -583,7 +583,7 @@ const Home = () => {
       "Special enrollment offer for attendees"
     ],
     registrationLink: "/admission",
-    googleCalendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Free+Yoruba+Language+Class&details=Join+Roote+Ancestral+for+a+free+Yoruba+language+and+culture+class!&location=Online&dates=20260103T180000Z/20260103T190000Z"
+    googleCalendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Free+Yoruba+Language+Class&details=Join+Roote+Ancestral+for+a+free+Yoruba+language+and+culture+class!&location=Online&dates=20260116T180000Z/20260116T190000Z"
   };
 
   const learningAreas = [
@@ -605,17 +605,20 @@ const Home = () => {
   };
 
   const handleDirectLogin = () => {
-    window.open('https://roote-ancestral-learning.wise.live/login', '_blank');
+    // Redirecting to admission since we are removing Wise login
+    window.location.href = '/admission';
   };
 
   const handleDownloadApp = () => {
-    window.open('https://roote-ancestral-learning.wise.live/download', '_blank');
+    // Directing to contact/support for platform access info
+    window.location.href = '/contact';
   };
 
+
   return (
-    <div className="overflow-x-hidden">
-      <section className="bg-linear-to-br from-indigo-50 via-white to-indigo-50 py-8 sm:py-12 px-4">
-        <motion.div 
+    <div className="overflow-x-hidden min-h-screen">
+      <section className="bg-linear-to-br from-indigo-50 via-white to-indigo-50 py-10 sm:py-16 md:py-24 px-4">
+        <motion.div
           className="container mx-auto max-w-6xl"
           initial="hidden"
           animate="visible"
@@ -623,20 +626,20 @@ const Home = () => {
         >
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <motion.div variants={itemVariants} className="lg:order-1">
-              <motion.h1 
+              <motion.h1
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-indigo-900 mb-4 sm:mb-6 leading-tight font-outfit"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                Welcome to <motion.span 
+                Welcome to <motion.span
                   className="text-indigo-600 inline-block"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >Roote Ancestral</motion.span>
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6 leading-relaxed"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -644,7 +647,7 @@ const Home = () => {
               >
                 Where Kids Discover the Beauty of Yoruba Language and Culture!
               </motion.p>
-              <motion.p 
+              <motion.p
                 className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -652,7 +655,7 @@ const Home = () => {
               >
                 We make learning Yoruba exciting, interactive, and full of culture! Our fun online classes help children ages 2–18 speak, read, and write Yoruba while exploring the stories, songs, and traditions that make our heritage so special.
               </motion.p>
-              
+
               <motion.div
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -681,9 +684,9 @@ const Home = () => {
                         <Button asChild size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white">
                           <Link to={freeClassInfo.registrationLink}>Register for Free Class</Link>
                         </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="border-indigo-300 text-indigo-700 hover:bg-indigo-50"
                           onClick={scrollToExistingStudents}
                         >
@@ -720,8 +723,8 @@ const Home = () => {
                   </div>
                 </div>
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="flex flex-col sm:flex-row gap-4"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -749,22 +752,22 @@ const Home = () => {
                 </motion.div>
               </motion.div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="relative lg:order-2"
               variants={imageVariants}
               animate={floatingAnimation}
             >
-              <motion.img 
-                src={heroImg} 
-                alt="Children learning Yoruba language and culture" 
+              <motion.img
+                src={heroImg}
+                alt="Children learning Yoruba language and culture"
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover max-h-[500px]"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
                   transition: { duration: 0.3 }
                 }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute -top-4 -right-4 w-8 h-8 bg-indigo-400 rounded-full hidden sm:block"
                 animate={{
                   scale: [1, 1.2, 1],
@@ -776,7 +779,7 @@ const Home = () => {
                   ease: "easeInOut"
                 }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute -bottom-4 -left-4 w-6 h-6 bg-indigo-400 rounded-full hidden sm:block"
                 animate={{
                   scale: [1, 1.3, 1],
@@ -794,11 +797,11 @@ const Home = () => {
         </motion.div>
       </section>
 
-      <section id="onboarding-steps" className="py-12 sm:py-16 px-4 bg-white">
+      <section id="onboarding-steps" className="py-8 sm:py-16 md:py-24 px-4 bg-white">
         <OnboardingSteps />
       </section>
 
-      <section className="py-12 sm:py-16 px-4 bg-white">
+      <section className="py-8 sm:py-16 md:py-24 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -814,12 +817,12 @@ const Home = () => {
               From greetings and folktales to Oriki, proverbs, and essay writing in Yoruba
             </p>
           </motion.div>
-          
+
           <div className="bg-linear-to-r from-indigo-50 to-indigo-100 rounded-2xl p-6 sm:p-8">
             <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
               {learningAreas.map((area, index) => (
-                <motion.div 
-                  key={index} 
+                <motion.div
+                  key={index}
                   className="flex items-start gap-3"
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 400 }}
@@ -833,7 +836,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 px-4 bg-indigo-50">
+      <section className="py-8 sm:py-16 md:py-24 px-4 bg-indigo-50">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -849,7 +852,7 @@ const Home = () => {
               All levels included for just CAD $100 per month
             </p>
           </motion.div>
-          
+
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
@@ -859,7 +862,7 @@ const Home = () => {
                 color: "from-blue-400 to-indigo-400"
               },
               {
-                level: "Middle", 
+                level: "Middle",
                 description: "Building on existing knowledge",
                 features: ["Conversational skills", "Reading practice", "Folktales & stories", "Basic writing"],
                 color: "from-indigo-400 to-purple-400"
@@ -889,8 +892,8 @@ const Home = () => {
                   <CardContent>
                     <ul className="space-y-2">
                       {level.features.map((feature, featureIndex) => (
-                        <motion.li 
-                          key={featureIndex} 
+                        <motion.li
+                          key={featureIndex}
                           className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"
                           whileHover={{ x: 5 }}
                           transition={{ type: "spring", stiffness: 400 }}
@@ -905,7 +908,7 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -920,7 +923,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section id="existing-students" className="py-12 sm:py-16 px-4 bg-white">
+      <section id="existing-students" className="py-8 sm:py-16 md:py-24 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -936,7 +939,7 @@ const Home = () => {
               Quick access to your Yoruba learning platform
             </p>
           </motion.div>
-          
+
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -954,9 +957,9 @@ const Home = () => {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-600 mb-6">Perfect for desktop, laptop, or mobile browser use</p>
-                  <Button 
-                    onClick={handleDirectLogin} 
-                    size="lg" 
+                  <Button
+                    onClick={handleDirectLogin}
+                    size="lg"
                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
                   >
                     <LogIn className="w-5 h-5 mr-2" />
@@ -968,7 +971,7 @@ const Home = () => {
                 </CardContent>
               </Card>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -985,9 +988,9 @@ const Home = () => {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-600 mb-6">Download our app for the best mobile experience</p>
-                  <Button 
-                    onClick={handleDownloadApp} 
-                    size="lg" 
+                  <Button
+                    onClick={handleDownloadApp}
+                    size="lg"
                     variant="outline"
                     className="w-full border-indigo-200 text-indigo-700 hover:bg-indigo-50"
                   >
@@ -1001,7 +1004,7 @@ const Home = () => {
               </Card>
             </motion.div>
           </div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1020,8 +1023,8 @@ const Home = () => {
 
       <StudentReviewsCarousel />
 
-      <section className="bg-linear-to-r from-indigo-600 to-indigo-700 text-white py-12 sm:py-16 px-4">
-        <motion.div 
+      <section className="bg-linear-to-r from-indigo-600 to-indigo-700 text-white py-10 sm:py-16 md:py-24 px-4">
+        <motion.div
           className="container mx-auto max-w-4xl text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1038,7 +1041,7 @@ const Home = () => {
             Start your child's cultural journey today!
           </p>
           <Button asChild size="lg" className="bg-white text-indigo-700 hover:bg-indigo-50 px-6 sm:px-8 py-3 text-base sm:text-lg">
-            <Link to="/admission">Join Free Class on Jan 3, 2026</Link>
+            <Link to="/admission">Join Free Class on Jan 16, 2026</Link>
           </Button>
         </motion.div>
       </section>

@@ -1,7 +1,7 @@
 
 
 // const QuizResult = require('../models/quizResults');
-// const { sendAdminNotification, courseIds, instituteCode, sendWelcomeEmail } = require('./emailController');
+// const { sendAdminNotification, sendWelcomeEmail } = require('./emailController');
 
 // const saveQuizResult = async (req, res) => {
 //   try {
@@ -17,7 +17,7 @@
 //     }
 
 //     const validatedCourseId = courseId;
-    
+
 //     if (!validatedCourseId) {
 //       console.error('❌ No courseId provided:', courseId);
 //       return res.status(400).json({
@@ -99,14 +99,14 @@
 
 //   } catch (error) {
 //     console.error('❌ Error saving quiz result:', error);
-    
+
 //     if (error.name === 'ValidationError') {
 //       console.error('Validation errors:', Object.keys(error.errors).map(key => ({
 //         field: key,
 //         message: error.errors[key].message
 //       })));
 //     }
-    
+
 //     res.status(500).json({ 
 //       success: false, 
 //       error: 'Failed to save quiz result',
@@ -168,52 +168,39 @@
 
 
 const QuizResult = require('../models/quizResults');
-const { sendAdminNotification, courseIds, instituteCode, sendWelcomeEmail } = require('./emailController');
+const { sendAdminNotification, sendWelcomeEmail } = require('./emailController');
 const { isFreePeriodActive } = require('./freeDayController');
 
 const saveQuizResult = async (req, res) => {
   try {
-    const { studentEmail, fullName, score, level, wiseUrl, answers, courseId } = req.body;
+    const { studentEmail, fullName, phoneNumber, score, level, classUrl, answers } = req.body;
 
-    console.log('📥 Received quiz submission:', { studentEmail, fullName, score, level, courseId });
+    console.log('📥 Received quiz submission:', { studentEmail, fullName, score, level });
 
-    if (!studentEmail || !fullName || score === undefined || !level || !wiseUrl || !courseId) {
+    if (!studentEmail || !fullName || score === undefined || !level || !classUrl) {
       return res.status(400).json({
         success: false,
-        error: 'Missing required fields: studentEmail, fullName, score, level, wiseUrl, courseId'
+        error: 'Missing required fields: studentEmail, fullName, score, level, classUrl'
       });
     }
 
-    const validatedCourseId = courseId;
-    
-    if (!validatedCourseId) {
-      console.error('❌ No courseId provided:', courseId);
-      return res.status(400).json({
-        success: false,
-        error: 'Course ID is required'
-      });
-    }
-
-    console.log('🎯 Using course ID from frontend:', validatedCourseId, 'for level:', level);
-
-    const validatedAnswers = Array.isArray(answers) 
+    const validatedAnswers = Array.isArray(answers)
       ? answers.map((answer, index) => ({
-          questionId: answer.questionId || index + 1,
-          answerId: answer.answerId || "",
-          score: answer.score || 0,
-        }))
+        questionId: answer.questionId || index + 1,
+        answerId: answer.answerId || "",
+        score: answer.score || 0,
+      }))
       : [];
 
     const freePeriodActive = isFreePeriodActive();
-    
+
     const quizResult = new QuizResult({
       studentEmail: studentEmail.toLowerCase().trim(),
       fullName: fullName.trim(),
+      phoneNumber: phoneNumber,
       score: Math.max(0, Math.min(8, score)),
       level: level,
-      wiseUrl: wiseUrl,
-      courseId: validatedCourseId,
-      instituteCode: instituteCode,
+      classUrl: classUrl,
       answers: validatedAnswers,
       paymentStatus: freePeriodActive ? 'completed' : 'pending',
       transactionId: freePeriodActive ? `FREE_PERIOD_${Date.now()}` : null,
@@ -223,7 +210,7 @@ const saveQuizResult = async (req, res) => {
     });
 
     await quizResult.save();
-    console.log(`✅ Quiz result saved. Free Period Active: ${freePeriodActive}, Level: ${level}, CourseID: ${validatedCourseId}`);
+    console.log(`✅ Quiz result saved. Free Period Active: ${freePeriodActive}, Level: ${level}`);
 
     if (freePeriodActive) {
       try {
@@ -231,15 +218,12 @@ const saveQuizResult = async (req, res) => {
           studentEmail: studentEmail,
           fullName: fullName,
           level: level,
-          wiseUrl: wiseUrl,
           score: score,
-          courseId: validatedCourseId,
-          instituteCode: instituteCode,
           quizResultId: quizResult._id,
           paymentConfirmed: true,
           freePeriodActive: true
         });
-        
+
         await QuizResult.findByIdAndUpdate(quizResult._id, { emailSent: true });
         console.log(`✅ Welcome email sent to student. Free Period Active`);
       } catch (emailError) {
@@ -251,10 +235,7 @@ const saveQuizResult = async (req, res) => {
           studentEmail: studentEmail,
           fullName: fullName,
           level: level,
-          wiseUrl: wiseUrl,
           score: score,
-          courseId: validatedCourseId,
-          instituteCode: instituteCode,
           quizResultId: quizResult._id,
           paymentConfirmed: false,
           freePeriodActive: false
@@ -270,8 +251,7 @@ const saveQuizResult = async (req, res) => {
       fullName: fullName,
       level: level,
       score: score,
-      courseId: validatedCourseId,
-      instituteCode: instituteCode,
+      phoneNumber: phoneNumber,
       quizResultId: quizResult._id,
       totalQuestions: 8,
       paymentStatus: freePeriodActive ? 'completed' : 'pending',
@@ -280,20 +260,18 @@ const saveQuizResult = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: freePeriodActive 
-        ? 'Quiz result saved successfully - Welcome to your free class!' 
+      message: freePeriodActive
+        ? 'Quiz result saved successfully - Welcome to your free class!'
         : 'Quiz result saved successfully - Complete payment to receive course access',
       quizResultId: quizResult._id,
       isFreePeriodActive: freePeriodActive,
       paymentRequired: !freePeriodActive,
-      paymentUrl: wiseUrl,
-      data: { 
-        id: quizResult._id, 
-        level, 
-        score, 
-        paymentUrl: wiseUrl,
-        courseId: validatedCourseId,
-        instituteCode,
+      classUrl: classUrl,
+      data: {
+        id: quizResult._id,
+        level,
+        score,
+        classUrl: classUrl,
         isFreePeriodActive: freePeriodActive,
         paymentStatus: quizResult.paymentStatus
       }
@@ -301,18 +279,18 @@ const saveQuizResult = async (req, res) => {
 
   } catch (error) {
     console.error('❌ Error saving quiz result:', error);
-    
+
     if (error.name === 'ValidationError') {
       console.error('Validation errors:', Object.keys(error.errors).map(key => ({
         field: key,
         message: error.errors[key].message
       })));
     }
-    
-    res.status(500).json({ 
-      success: false, 
+
+    res.status(500).json({
+      success: false,
       error: 'Failed to save quiz result',
-      details: error.message 
+      details: error.message
     });
   }
 };
@@ -352,13 +330,13 @@ const getQuizAnalytics = async (req, res) => {
 
     res.json({
       success: true,
-      data: { 
-        levelDistribution, 
-        totalSubmissions, 
-        averageScore: averageScore[0]?.average || 0, 
+      data: {
+        levelDistribution,
+        totalSubmissions,
+        averageScore: averageScore[0]?.average || 0,
         paymentStats,
         enrollmentStats,
-        recentSubmissions 
+        recentSubmissions
       }
     });
 

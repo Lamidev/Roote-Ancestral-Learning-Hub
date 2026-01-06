@@ -33,12 +33,12 @@ const Header = () => {
 
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto md:px-4 px-2 flex items-center justify-between" style={{ minHeight: '72px' }}>
+      <div className="container mx-auto md:px-4 px-3 flex items-center justify-between min-h-[64px] md:min-h-[80px]">
         <Link to="/" className="flex items-center group z-10 -ml-2 md:ml-0">
           <motion.img
             src={rooteLogo}
             alt="Roote Logo"
-            className="h-13 w-auto md:h-13 object-contain" 
+            className="h-13 w-auto md:h-13 object-contain"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           />
@@ -48,9 +48,8 @@ const Header = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`font-medium transition-all duration-300 hover:text-indigo-600 relative ${
-                location.pathname === item.path ? 'text-indigo-600' : 'text-gray-900'
-              }`}
+              className={`font-medium transition-all duration-300 hover:text-indigo-600 relative ${location.pathname === item.path ? 'text-indigo-600' : 'text-gray-900'
+                }`}
             >
               {item.label}
               {location.pathname === item.path && (
@@ -86,19 +85,16 @@ const Header = () => {
         >
           <div className="w-6 h-6 flex flex-col justify-center space-y-1">
             <span
-              className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${
-                isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
-              }`}
+              className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+                }`}
             ></span>
             <span
-              className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${
-                isMobileMenuOpen ? 'opacity-0' : ''
-              }`}
+              className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''
+                }`}
             ></span>
             <span
-              className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${
-                isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-              }`}
+              className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                }`}
             ></span>
           </div>
         </button>
@@ -106,7 +102,7 @@ const Header = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.nav
-            className="md:hidden bg-white border-t mt-2 py-4 overflow-hidden"
+            className="md:hidden bg-white border-t px-4 py-4 overflow-hidden"
             initial="closed"
             animate="open"
             exit="closed"
@@ -117,11 +113,10 @@ const Header = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`block py-3 px-4 rounded-lg transition-all duration-300 text-lg font-outfit ${
-                    location.pathname === item.path
-                      ? 'bg-indigo-50 text-indigo-600 font-medium'
-                      : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'
-                  }`}
+                  className={`block py-3 px-4 rounded-lg transition-all duration-300 text-lg font-outfit ${location.pathname === item.path
+                    ? 'bg-indigo-50 text-indigo-600 font-medium'
+                    : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}

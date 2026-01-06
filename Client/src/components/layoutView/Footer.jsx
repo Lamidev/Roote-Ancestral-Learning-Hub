@@ -5,28 +5,28 @@ import rooteLogo from '@/assets/rooteLogo.jpg';
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-gray-800 py-12 mt-auto border-t">
-      <div className="container mx-auto px-0 md:px-4">
+    <footer className="bg-white text-gray-800 py-8 sm:py-12 mt-auto border-t">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <Link 
-              to="/" 
-              className="flex items-center mb-4 group pl-4 md:pl-0"
+            <Link
+              to="/"
+              className="flex items-center mb-4 group"
             >
-              <img 
-                src={rooteLogo} 
-                alt="Roote Logo" 
-                className="h-13 w-auto md:h-13 object-contain" 
+              <img
+                src={rooteLogo}
+                alt="Roote Logo"
+                className="h-13 w-auto md:h-13 object-contain"
               />
             </Link>
-            <p className="text-gray-600 max-w-md leading-relaxed pl-4 md:pl-0">
-              Preserving Yoruba heritage through language education. 
+            <p className="text-gray-600 max-w-md leading-relaxed">
+              Preserving Yoruba heritage through language education.
               Join us in connecting with your roots and discovering the beauty of Yoruba culture.
             </p>
-            <div className="flex space-x-4 mt-4 pl-4 md:pl-0">
-              <a 
-                href="https://www.instagram.com/yoruba_made_fun?igsh=eHltYnk1N256M2dz&utm_source=qr" 
-                target="_blank" 
+            <div className="flex space-x-4 mt-4">
+              <a
+                href="https://www.instagram.com/yoruba_made_fun?igsh=eHltYnk1N256M2dz&utm_source=qr"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-pink-600 transition-colors duration-300"
               >
@@ -34,7 +34,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div className="pl-4 md:pl-0">
+          <div>
             <h3 className="font-semibold mb-4 text-gray-900 font-outfit">Quick Links</h3>
             <ul className="space-y-2">
               <li><Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Home</Link></li>
@@ -43,7 +43,7 @@ const Footer = () => {
               <li><Link to="/contact" className="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Contact</Link></li>
             </ul>
           </div>
-          <div className="pl-4 md:pl-0">
+          <div>
             <h3 className="font-semibold mb-4 text-gray-900 font-outfit">Start Learning</h3>
             <ul className="space-y-2">
               <li><Link to="/admission" className="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Admission Process</Link></li>

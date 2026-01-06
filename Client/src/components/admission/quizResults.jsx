@@ -383,9 +383,8 @@ const QuizResult = () => {
   const savingRef = useRef(false);
 
   const result = calculateLevel(currentScore, studentInfo?.email);
-  const { level, courseId } = result;
-  const instituteCode = "roote-ancestral-learning";
-  const freeClassDate = "January 3, 2026";
+  const { level, classUrl } = result;
+  const freeClassDate = "January 16, 2026";
   const freeClassTime = "12:00 PM CST";
 
   const API_BASE_URL =
@@ -407,22 +406,19 @@ const QuizResult = () => {
     try {
       dispatch({ type: "SET_LEVEL", payload: result });
 
-      const browserAccessUrl = quizConfig.wiseUrls[level];
-      setBrowserUrl(browserAccessUrl);
-
       const quizData = {
         studentEmail: studentInfo.email,
         fullName: studentInfo.fullName,
+        phoneNumber: studentInfo.phoneNumber,
         score: typeof currentScore === "number" ? currentScore : 0,
         level: level || "beginner",
-        wiseUrl: browserAccessUrl,
-        courseId: courseId,
+        classUrl: classUrl,
         answers: Array.isArray(answers)
           ? answers.map((answer, index) => ({
-              questionId: answer.questionId ?? index + 1,
-              answerId: answer.answerId ?? "",
-              score: answer.score ?? 0,
-            }))
+            questionId: answer.questionId ?? index + 1,
+            answerId: answer.answerId ?? "",
+            score: answer.score ?? 0,
+          }))
           : [],
       };
 
@@ -463,7 +459,7 @@ const QuizResult = () => {
     currentScore,
     answers,
     level,
-    courseId,
+    classUrl,
     API_BASE_URL,
   ]);
 
@@ -479,16 +475,17 @@ const QuizResult = () => {
   };
 
   const handleStartLearning = () => {
-    if (browserUrl && !hasRedirected) {
+    if (classUrl && !hasRedirected) {
       setHasRedirected(true);
-      window.open(browserUrl, "_blank");
-      
+      window.open(classUrl, "_blank");
+
       setTimeout(() => {
         dispatch({ type: "RESET_QUIZ" });
         toast.info("Quiz completed! Feel free to take it again or explore our site.");
       }, 1000);
     }
   };
+
 
   const handleReturnHome = () => {
     dispatch({ type: "RESET_QUIZ" });
@@ -546,7 +543,7 @@ const QuizResult = () => {
                 </CardDescription>
               </div>
             </CardHeader>
-            
+
             <CardContent className="p-6 sm:p-8">
               {/* Level Display */}
               <div className="text-center mb-6 sm:mb-8">
@@ -603,56 +600,8 @@ const QuizResult = () => {
                 </div>
               </div>
 
-              {/* Access Codes */}
-              <div className="mb-6 sm:mb-8">
-                <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-5 font-outfit">Your Access Information</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="p-3 sm:p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
-                    <div className="flex items-center justify-between mb-2 sm:mb-3">
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <Key className="w-4 h-4 text-purple-600 shrink-0" />
-                        <span className="font-bold text-purple-800 text-sm sm:text-base truncate">Institute Code</span>
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleCopyCode(instituteCode, "Institute Code")}
-                        className="h-8 px-2 ml-2 text-purple-700 hover:bg-purple-100 shrink-0"
-                      >
-                        <Copy className="w-4 h-4" />
-                      </Button>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg sm:text-xl font-mono font-bold text-purple-800 bg-white p-2 sm:p-3 rounded border border-purple-300 inline-block min-w-[200px]">
-                        {instituteCode}
-                      </div>
-                    </div>
-                  </div>
+              {/* Access Information removed */}
 
-                  <div className="p-3 sm:p-4 bg-linear-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200">
-                    <div className="flex items-center justify-between mb-2 sm:mb-3">
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <Mail className="w-4 h-4 text-indigo-600 shrink-0" />
-                        <span className="font-bold text-indigo-800 text-sm sm:text-base truncate">Course ID</span>
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleCopyCode(courseId, "Course ID")}
-                        className="h-8 px-2 ml-2 text-indigo-700 hover:bg-indigo-100 shrink-0"
-                      >
-                        <Copy className="w-4 h-4" />
-                      </Button>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg sm:text-xl font-mono font-bold text-indigo-800 bg-white p-2 sm:p-3 rounded border border-indigo-300 inline-block min-w-[200px]">
-                        {courseId}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               {/* Email Confirmation */}
               <div className="p-4 sm:p-5 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200 mb-6 sm:mb-8">
@@ -695,8 +644,8 @@ const QuizResult = () => {
           <div className="mt-6 sm:mt-8 text-center">
             <p className="text-gray-600 text-xs sm:text-sm">
               Need help? Email{' '}
-              <a 
-                href="mailto:admin@rooteancestrallearninghub.com" 
+              <a
+                href="mailto:admin@rooteancestrallearninghub.com"
                 className="text-purple-600 hover:underline font-medium"
               >
                 admin@rooteancestrallearninghub.com

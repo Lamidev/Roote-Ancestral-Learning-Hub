@@ -28,7 +28,7 @@ const Contact = () => {
     },
     {
       icon: <Phone className="w-5 h-5" />,
-      title: "Call Us", 
+      title: "Call Us",
       description: "Mon to Fri, 9am to 5pm CST",
       details: "+1 (431) 554-1180",
       link: "tel:+14315541180",
@@ -36,7 +36,7 @@ const Contact = () => {
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
-      title: "WhatsApp", 
+      title: "WhatsApp",
       description: "Quick chat support",
       details: "+1 (204) 451-9525",
       link: "https://wa.me/12044519525?text=Hello%20Roote%20Ancestral%20Learning%20Hub!%20I'm%20interested%20in%20learning%20Yoruba%20and%20would%20like%20more%20information%20about%20your%20classes.",
@@ -69,7 +69,7 @@ const Contact = () => {
   ];
 
   const getContactStyle = (type) => {
-    switch(type) {
+    switch (type) {
       case 'whatsapp':
         return 'hover:bg-green-50 hover:border-green-200 text-green-700';
       case 'phone':
@@ -108,9 +108,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:py-12">
+    <div className="min-h-screen py-8 sm:py-16 md:py-24 px-4 bg-linear-to-b from-indigo-50 to-white">
       <div className="container mx-auto max-w-6xl">
-        <motion.div 
+        <motion.div
           className="text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -149,14 +149,13 @@ const Contact = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <div className={`mt-0.5 group-hover:scale-110 transition-transform duration-200 ${
-                        item.type === 'whatsapp' ? 'text-green-600' :
-                        item.type === 'phone' ? 'text-blue-600' :
-                        item.type === 'email' ? 'text-indigo-600' :
-                        item.type === 'instagram' ? 'text-pink-600' :
-                        item.type === 'address' ? 'text-purple-600' :
-                        'text-indigo-600'
-                      }`}>
+                      <div className={`mt-0.5 group-hover:scale-110 transition-transform duration-200 ${item.type === 'whatsapp' ? 'text-green-600' :
+                          item.type === 'phone' ? 'text-blue-600' :
+                            item.type === 'email' ? 'text-indigo-600' :
+                              item.type === 'instagram' ? 'text-pink-600' :
+                                item.type === 'address' ? 'text-purple-600' :
+                                  'text-indigo-600'
+                        }`}>
                         {item.icon}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -368,8 +367,8 @@ const ContactForm = () => {
         />
       </div>
 
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         className="w-full bg-indigo-600 hover:bg-indigo-700 font-outfit text-sm sm:text-base"
         disabled={isSubmitting}
         size="lg"

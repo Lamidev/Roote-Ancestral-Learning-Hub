@@ -12,17 +12,18 @@ const QuizStart = () => {
   const { dispatch } = useQuiz();
   const [studentInfo, setStudentInfo] = useState({
     email: '',
-    fullName: ''
+    fullName: '',
+    phoneNumber: ''
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    dispatch({ 
-      type: 'SET_STUDENT_INFO', 
-      payload: studentInfo 
+
+    dispatch({
+      type: 'SET_STUDENT_INFO',
+      payload: studentInfo
     });
-    
+
     navigate('/admission/questions');
   };
 
@@ -39,7 +40,7 @@ const QuizStart = () => {
   };
 
   return (
-    <div className="py-12 px-4">
+    <div className="py-8 sm:py-16 md:py-24 px-4 min-h-screen bg-linear-to-b from-indigo-50 to-white">
       <div className="container mx-auto max-w-2xl">
         <motion.div
           initial="hidden"
@@ -60,20 +61,33 @@ const QuizStart = () => {
                   <Input
                     id="fullName"
                     value={studentInfo.fullName}
-                    onChange={(e) => setStudentInfo({...studentInfo, fullName: e.target.value})}
+                    onChange={(e) => setStudentInfo({ ...studentInfo, fullName: e.target.value })}
                     placeholder="Enter your full name"
                     required
                     className="border-indigo-100 focus:border-indigo-300"
                   />
                 </div>
-                
+
+                <div className="space-y-2">
+                  <Label htmlFor="phoneNumber" className="font-outfit">Phone Number</Label>
+                  <Input
+                    id="phoneNumber"
+                    type="tel"
+                    value={studentInfo.phoneNumber}
+                    onChange={(e) => setStudentInfo({ ...studentInfo, phoneNumber: e.target.value })}
+                    placeholder="Enter your phone number"
+                    required
+                    className="border-indigo-100 focus:border-indigo-300"
+                  />
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="email" className="font-outfit">Email Address *</Label>
                   <Input
                     type="email"
                     id="email"
                     value={studentInfo.email}
-                    onChange={(e) => setStudentInfo({...studentInfo, email: e.target.value})}
+                    onChange={(e) => setStudentInfo({ ...studentInfo, email: e.target.value })}
                     placeholder="your.email@example.com"
                     required
                     className="border-indigo-100 focus:border-indigo-300"
@@ -83,8 +97,8 @@ const QuizStart = () => {
                   </p>
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full bg-indigo-600 hover:bg-indigo-700 font-outfit"
                   size="lg"
                 >

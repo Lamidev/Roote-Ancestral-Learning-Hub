@@ -69,22 +69,22 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen py-8 sm:py-12 px-4">
+    <div className="min-h-screen py-8 sm:py-16 md:py-24 px-4 bg-linear-to-b from-indigo-50 to-white">
       <div className="container mx-auto max-w-6xl">
         {/* Hero Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-12 sm:mb-16"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          <motion.h1 
+          <motion.h1
             variants={itemVariants}
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-900 mb-4 font-outfit"
           >
             About Roote Ancestral
           </motion.h1>
-          <motion.p 
+          <motion.p
             variants={itemVariants}
             className="text-lg sm:text-xl text-gray-700 font-outfit max-w-2xl mx-auto"
           >
@@ -109,12 +109,12 @@ const About = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-lg text-gray-700 leading-relaxed text-center">
-                  To nurture a love for the Yoruba language and culture in children through engaging, 
+                  To nurture a love for the Yoruba language and culture in children through engaging,
                   joyful, and meaningful learning experiences.
                 </p>
                 <div className="mt-6 p-4 bg-indigo-50 rounded-lg">
                   <p className="text-sm text-indigo-700 text-center">
-                    Roote Ancestral Learning Hub is dedicated to making Yoruba language and culture 
+                    Roote Ancestral Learning Hub is dedicated to making Yoruba language and culture
                     accessible to everyone in the diaspora.
                   </p>
                 </div>
@@ -137,7 +137,7 @@ const About = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-lg text-gray-700 leading-relaxed text-center">
-                  To see every child confidently speak, read, and celebrate Yoruba heritage keeping 
+                  To see every child confidently speak, read, and celebrate Yoruba heritage keeping
                   our culture alive for generations to come.
                 </p>
                 <div className="mt-6 p-4 bg-amber-50 rounded-lg">
@@ -234,23 +234,23 @@ const About = () => {
               <div className="grid md:grid-cols-2 gap-6 text-gray-700 leading-relaxed">
                 <div className="space-y-4">
                   <p>
-                    Yoruba is more than just a language—it's a gateway to understanding one of Africa's 
-                    most influential cultures. With over 40 million speakers worldwide, Yoruba culture 
+                    Yoruba is more than just a language—it's a gateway to understanding one of Africa's
+                    most influential cultures. With over 40 million speakers worldwide, Yoruba culture
                     has shaped art, music, religion, and traditions across the globe.
                   </p>
                   <p>
-                    For diaspora children, learning Yoruba builds cultural identity, family connections, 
+                    For diaspora children, learning Yoruba builds cultural identity, family connections,
                     and pride in their heritage.
                   </p>
                 </div>
                 <div className="space-y-4">
                   <p>
-                    By learning Yoruba, your child is not just acquiring language skills; they're connecting 
-                    with centuries of history, philosophy, and cultural wisdom that will help them understand 
+                    By learning Yoruba, your child is not just acquiring language skills; they're connecting
+                    with centuries of history, philosophy, and cultural wisdom that will help them understand
                     their place in the world.
                   </p>
                   <p>
-                    We combine modern teaching methods with traditional cultural knowledge, ensuring our 
+                    We combine modern teaching methods with traditional cultural knowledge, ensuring our
                     students not only learn the language but understand the context and beauty behind it.
                   </p>
                 </div>
@@ -280,9 +280,9 @@ const About = () => {
                   <h3 className="font-semibold text-lg font-outfit text-indigo-900">Opeyemi</h3>
                   <p className="text-gray-600 mb-3">Founder & Educational Director</p>
                   <p className="text-sm text-gray-500 leading-relaxed">
-                    Dedicated to making Yoruba language education accessible, engaging, and meaningful 
-                    for children growing up in the diaspora. With a passion for cultural preservation 
-                    and innovative teaching methods, Olujoke leads our mission to keep Yoruba heritage 
+                    Dedicated to making Yoruba language education accessible, engaging, and meaningful
+                    for children growing up in the diaspora. With a passion for cultural preservation
+                    and innovative teaching methods, Olujoke leads our mission to keep Yoruba heritage
                     alive for future generations.
                   </p>
                 </div>
@@ -292,7 +292,7 @@ const About = () => {
         </motion.div>
 
         {/* Final CTA */}
-        <motion.div 
+        <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
