@@ -43,7 +43,7 @@ const Header = () => {
             whileTap={{ scale: 0.97 }}
           />
         </Link>
-        <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
+        <nav className="hidden lg:flex items-center space-x-8 flex-1 justify-center">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -62,7 +62,7 @@ const Header = () => {
             </Link>
           ))}
         </nav>
-        <div className="hidden md:flex items-center">
+        <div className="hidden lg:flex items-center">
           {isHomePage ? (
             <Button
               asChild
@@ -80,7 +80,7 @@ const Header = () => {
           )}
         </div>
         <button
-          className="md:hidden p-2 rounded-lg hover:bg-indigo-50 transition-colors z-10"
+          className="lg:hidden p-2 rounded-lg hover:bg-indigo-50 transition-colors z-10"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <div className="w-6 h-6 flex flex-col justify-center space-y-1">
@@ -102,7 +102,7 @@ const Header = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.nav
-            className="md:hidden bg-white border-t px-4 py-4 overflow-hidden"
+            className="lg:hidden bg-white border-t px-4 py-4 overflow-hidden"
             initial="closed"
             animate="open"
             exit="closed"
