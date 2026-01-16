@@ -573,7 +573,7 @@ const Home = () => {
 
   const freeClassInfo = {
     title: "Free Yoruba Language Class",
-    date: "January 16, 2026",
+    date: "January 25, 2026",
     time: "12:00 PM CST",
     description: "Experience our teaching style and curriculum in a free introductory class!",
     features: [
@@ -611,7 +611,8 @@ const Home = () => {
 
   return (
     <div className="overflow-x-hidden min-h-screen">
-      <section className="bg-linear-to-br from-indigo-50 via-white to-indigo-50 py-10 sm:py-16 md:py-24 px-4">
+      <section className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-50 via-white to-white py-12 sm:py-20 md:py-32 px-4 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid-pattern.svg')] opacity-[0.03]"></div>
         <motion.div
           className="container mx-auto max-w-6xl"
           initial="hidden"
@@ -621,7 +622,7 @@ const Home = () => {
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <motion.div variants={itemVariants} className="lg:order-1">
               <motion.h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-indigo-900 mb-4 sm:mb-6 leading-tight font-outfit"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 leading-tight font-outfit tracking-tight"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
@@ -654,9 +655,11 @@ const Home = () => {
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.32 }}
-                className="mb-6"
+                className="mb-8"
               >
-                <div className="bg-linear-to-r from-indigo-50 to-indigo-100 rounded-xl p-4 border-2 border-indigo-300 shadow-lg">
+                <div className="backdrop-blur-md bg-white/70 rounded-2xl p-5 border border-indigo-100 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-linear-to-r from-indigo-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative z-10">
                   <div className="flex items-start gap-3">
                     <div className="bg-indigo-500 rounded-lg p-2 shrink-0">
                       <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
@@ -693,6 +696,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
+              </div>
               </motion.div>
 
               <motion.div
@@ -1002,8 +1006,8 @@ const Home = () => {
           <p className="text-base sm:text-lg md:text-lg text-indigo-200 mb-6 sm:mb-8 font-semibold">
             Start your child's cultural journey today!
           </p>
-          <Button asChild size="lg" className="bg-white text-indigo-700 hover:bg-indigo-50 px-6 sm:px-8 py-3 text-base sm:text-lg">
-            <Link to="/admission">Join Free Class on Jan 16, 2026</Link>
+          <Button asChild size="lg" className="bg-white text-indigo-700 hover:bg-slate-50 px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-indigo-100">
+            <Link to="/admission">Join Free Class on Jan 25, 2026</Link>
           </Button>
         </motion.div>
       </section>
