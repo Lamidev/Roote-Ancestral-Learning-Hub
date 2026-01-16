@@ -37,8 +37,8 @@ const sendWelcomeEmail = async (data) => {
     let subject, statusMessage, ctaText, ctaUrl, primaryButtonColor;
 
     if (freePeriodActive) {
-      subject = `🎉 Free Class Access - ${levelInfo.title} (Jan 16th, 2026 at 12 PM CST)`;
-      statusMessage = "You have been granted free access to the January 16th, 2026 Yoruba Class.";
+      subject = `🎉 Free Class Access - ${levelInfo.title} (Jan 25th, 2026 at 12 PM CST)`;
+      statusMessage = "You have been granted free access to the January 25th, 2026 Yoruba Class.";
       ctaText = "🎯 Join Your Class Now";
       ctaUrl = classUrl;
       primaryButtonColor = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
@@ -129,7 +129,7 @@ const sendWelcomeEmail = async (data) => {
           ${freePeriodActive || paymentConfirmed ? `
             <div class="highlight">
               <h3 style="margin:0 0 10px 0; color:#065f46;">✅ ${statusMessage}</h3>
-              ${freePeriodActive ? '<p style="margin:0; color:#065f46;"><strong>Date:</strong> January 16th, 2026 at 12 PM CST</p>' : ''}
+              ${freePeriodActive ? '<p style="margin:0; color:#065f46;"><strong>Date:</strong> January 25th, 2026 at 12 PM CST</p>' : ''}
             </div>
           ` : ''}
           
@@ -304,9 +304,9 @@ const sendAdminNotification = async (data) => {
           <div class="info-section">
             <h3 style="color:#4f46e5; margin:0 0 10px 0; font-size:18px;">💰 Payment Status</h3>
             ${enrollmentType === 'free_period' ? `
-              <div class="highlight-box">
+            <div class="highlight-box">
                 <p style="margin:0; color:#065f46;"><strong>🎉 Free Class Enrollment</strong></p>
-                <p style="margin:5px 0 0 0; color:#065f46; font-size:14px;">Date: January 16, 2026 • Time: 12:00 PM CST</p>
+                <p style="margin:5px 0 0 0; color:#065f46; font-size:14px;">Date: January 25, 2026 • Time: 12:00 PM CST</p>
               </div>
             ` : paymentStatus === 'completed' ? `
               <div class="highlight-box">
