@@ -105,12 +105,14 @@ const QuizResult = () => {
     API_BASE_URL,
   ]);
 
-  // Trigger save on mount
+  // No longer triggers save on mount as it is handled by the transition in QuizQuestions.jsx
+  // to ensure messages are delivered as fast as possible.
   useEffect(() => {
-    if (studentInfo?.email && !savingRef.current) {
-      saveQuizResult();
+    // Dispatch placement level if not already set (e.g. direct load or refresh)
+    if (!state.placementLevel) {
+      dispatch({ type: "SET_LEVEL", payload: result });
     }
-  }, [studentInfo?.email, saveQuizResult]);
+  }, [dispatch, result, state.placementLevel]);
 
   const handleStartLearning = () => {
     if (classUrl) {
@@ -174,17 +176,26 @@ const QuizResult = () => {
             <CardContent className="p-6 sm:p-8">
               {/* Level Display */}
               <div className="text-center mb-6 sm:mb-8">
-                <div className={`inline-block bg-linear-to-r ${getLevelColor(level)} text-white rounded-xl px-4 sm:px-6 py-2 sm:py-3 shadow-lg`}>
-                  <h2 className="text-lg sm:text-xl font-bold">Level: {level.charAt(0).toUpperCase() + level.slice(1)}</h2>
-                  <p className="text-sm sm:text-base opacity-90">Score: {currentScore} out of {quizConfig.totalQuestions}</p>
+                <div className={`inline-block bg-linear-to-r ${getLevelColor(level)} text-white rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg w-full sm:w-auto`}>
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1">Level: {level.charAt(0).toUpperCase() + level.slice(1)}</h2>
+                  <p className="text-sm sm:text-lg opacity-90">Score: {currentScore} / {quizConfig.totalQuestions}</p>
                 </div>
               </div>
 
               {/* Main Action Button */}
-              <div className="mb-6 sm:mb-8">
+              <div className="mb-6 sm:mb-8 text-center">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  animate={{ 
+                    boxShadow: ["0px 0px 0px rgba(79, 70, 229, 0)", "0px 0px 20px rgba(79, 70, 229, 0.4)", "0px 0px 0px rgba(79, 70, 229, 0)"]
+                  }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    duration: 2,
+                    ease: "easeInOut"
+                  }}
+                  className="rounded-lg"
                 >
                   <Button
                     size="lg"
@@ -231,9 +242,9 @@ const QuizResult = () => {
               <div className="p-4 sm:p-5 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200 mb-6 sm:mb-8">
                 <div className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className="font-bold text-purple-800 text-sm sm:text-base font-outfit">Email Sent</p>
-                    <p className="text-purple-700 text-xs sm:text-sm truncate">
+                    <p className="text-purple-700 text-xs sm:text-sm break-all sm:break-normal">
                       Complete instructions sent to <strong>{studentInfo?.email}</strong>
                     </p>
                   </div>

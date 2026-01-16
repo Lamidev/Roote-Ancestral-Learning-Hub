@@ -175,8 +175,6 @@ const saveQuizResult = async (req, res) => {
   try {
     const { studentEmail, fullName, phoneNumber, score, level, classUrl, answers } = req.body;
 
-    console.log('📥 Received quiz submission:', { studentEmail, fullName, score, level });
-
     if (!studentEmail || !fullName || score === undefined || !level || !classUrl) {
       return res.status(400).json({
         success: false,
@@ -194,8 +192,10 @@ const saveQuizResult = async (req, res) => {
 
     const freePeriodActive = isFreePeriodActive();
 
+    const cleanedEmail = studentEmail.toLowerCase().trim();
+
     const quizResult = new QuizResult({
-      studentEmail: studentEmail.toLowerCase().trim(),
+      studentEmail: cleanedEmail,
       fullName: fullName.trim(),
       phoneNumber: phoneNumber,
       score: Math.max(0, Math.min(8, score)),
@@ -210,12 +210,11 @@ const saveQuizResult = async (req, res) => {
     });
 
     await quizResult.save();
-    console.log(`✅ Quiz result saved. Free Period Active: ${freePeriodActive}, Level: ${level}`);
 
     if (freePeriodActive) {
       try {
         await sendWelcomeEmail({
-          studentEmail: studentEmail,
+          studentEmail: cleanedEmail,
           fullName: fullName,
           level: level,
           score: score,
@@ -225,14 +224,13 @@ const saveQuizResult = async (req, res) => {
         });
 
         await QuizResult.findByIdAndUpdate(quizResult._id, { emailSent: true });
-        console.log(`✅ Welcome email sent to student. Free Period Active`);
       } catch (emailError) {
         console.error('❌ Failed to send welcome email after quiz:', emailError);
       }
     } else {
       try {
         await sendWelcomeEmail({
-          studentEmail: studentEmail,
+          studentEmail: cleanedEmail,
           fullName: fullName,
           level: level,
           score: score,
@@ -240,14 +238,13 @@ const saveQuizResult = async (req, res) => {
           paymentConfirmed: false,
           freePeriodActive: false
         });
-        console.log('✅ Welcome email sent to student after quiz:', studentEmail);
       } catch (emailError) {
         console.error('❌ Failed to send welcome email after quiz:', emailError);
       }
     }
 
     sendAdminNotificationAsync({
-      studentEmail: studentEmail,
+      studentEmail: cleanedEmail,
       fullName: fullName,
       level: level,
       score: score,
@@ -298,7 +295,6 @@ const saveQuizResult = async (req, res) => {
 const sendAdminNotificationAsync = async (data) => {
   try {
     await sendAdminNotification(data);
-    console.log('✅ Admin notification sent for:', data.studentEmail);
   } catch (error) {
     console.error('❌ Failed to send admin notification:', error);
   }

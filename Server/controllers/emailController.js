@@ -11,8 +11,6 @@ const sendWelcomeEmail = async (data) => {
   try {
     const { studentEmail, fullName, level, score, freePeriodActive = false, paymentConfirmed } = data;
 
-    console.log('📧 Sending welcome email for:', studentEmail, 'Level:', level, 'Payment:', paymentConfirmed);
-
     const levelInfo = {
       beginner: {
         title: "Yoruba Beginner Level",
@@ -164,6 +162,7 @@ const sendWelcomeEmail = async (data) => {
     `;
 
 
+
     const { data: emailData, error } = await resend.emails.send({
       from: 'Roote Ancestral Learning Hub <contact@updates.rooteancestrallearninghub.com>',
       to: studentEmail,
@@ -177,9 +176,11 @@ const sendWelcomeEmail = async (data) => {
       ]
     });
 
-    if (error) throw error;
+    if (error) {
+      console.error('❌ Resend API Error (Student Welcome):', error);
+      throw error;
+    }
 
-    console.log('✅ Welcome email sent:', subject);
     return { success: true, emailId: emailData?.id };
 
   } catch (error) {
@@ -204,8 +205,6 @@ const sendAdminNotification = async (data) => {
       quizResultId,
       phoneNumber
     } = data;
-
-    console.log('📧 Sending admin notification for:', studentEmail);
 
     const subject = enrollmentType === 'free_period'
       ? `🎉 Free Class: ${fullName} - ${level} Level`
@@ -346,14 +345,16 @@ const sendAdminNotification = async (data) => {
     `;
 
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Roote Assessment System <contact@updates.rooteancestrallearninghub.com>',
+      from: 'Roote Ancestral Learning Hub <contact@updates.rooteancestrallearninghub.com>',
       to: process.env.ADMIN_EMAIL,
       subject: subject,
       html: emailHtml
     });
 
-    if (error) throw error;
-    console.log('✅ Admin notification sent');
+    if (error) {
+      console.error('❌ Resend API Error (Admin Notification):', error);
+      throw error;
+    }
 
   } catch (error) {
     console.error('❌ Error in sendAdminNotification:', error);

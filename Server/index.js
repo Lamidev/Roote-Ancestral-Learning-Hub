@@ -77,10 +77,6 @@ mongoose
 
     app.listen(PORT, () => {
       console.log(`🔥 Server running on port ${PORT}`);
-      console.log(`💰 Stripe webhook active`);
-       console.log(`📧 Email endpoints ready`);
-      console.log(`📝 Contact form endpoints ready`);
-      console.log(`🎯 Quiz endpoints ready`);
     });
   })
   .catch((error) => console.error("❌ MongoDB connection failed:", error));

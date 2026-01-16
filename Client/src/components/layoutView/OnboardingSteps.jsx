@@ -24,7 +24,7 @@ const OnboardingSteps = () => {
       icon: Calendar,
       title: "Join Class",
       description: "Attend free Yoruba class",
-      details: ["January 16, 2026", "12:00 PM CST", "100% free"]
+      details: ["January 25, 2026", "12:00 PM CST", "100% free"]
     }
   ];
 
@@ -101,7 +101,7 @@ const OnboardingSteps = () => {
               Ready to Start Learning?
             </h3>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              Join our free class on January 16, 2026 or get instant access to materials
+              Join our free class on January 25, 2026 or get instant access to materials
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
