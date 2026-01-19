@@ -3,7 +3,7 @@ const isFreePeriodActive = () => {
   const startDate = new Date();
   startDate.setHours(0, 0, 0, 0);
 
-  const endDate = new Date('2026-01-26T00:00:00');
+  const endDate = new Date('2026-01-25T00:00:00');
 
   return currentDate >= startDate && currentDate < endDate;
 };

@@ -32,7 +32,7 @@ const QuizResult = () => {
   const { level, classUrl } = result;
   
   // Updated Date to Jan 25, 2026
-  const freeClassDate = "January 25, 2026";
+  const freeClassDate = "January 24, 2026";
   const freeClassTime = "12:00 PM CST";
 
   const API_BASE_URL =

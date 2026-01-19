@@ -19,7 +19,7 @@ const createCheckoutSession = async (req, res) => {
     if (freePeriodActive) {
       return res.status(400).json({
         error: 'Free period active',
-        message: 'No payment required during free period (Register today until Jan 16th, 2026). You have been automatically enrolled in the January 16th, 2026 class at 12 PM CST.'
+        message: 'No payment required during free period (Register today until Jan 24th, 2026). You have been automatically enrolled in the January 24th, 2026 class at 12 PM CST.'
       });
     }
 
@@ -320,7 +320,7 @@ const updatePaymentStatus = async (req, res) => {
       return res.status(400).json({
         success: false,
         error: 'Free period active',
-        message: 'Manual payment updates disabled during free period (Until Jan 3rd, 2026)'
+        message: 'Manual payment updates disabled during free period (Until Jan 24th, 2026)'
       });
     }
 

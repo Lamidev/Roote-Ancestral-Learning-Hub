@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 import { ClipboardCheck, Zap, Calendar } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 const OnboardingSteps = () => {
   const steps = [
@@ -24,7 +26,7 @@ const OnboardingSteps = () => {
       icon: Calendar,
       title: "Join Class",
       description: "Attend free Yoruba class",
-      details: ["January 25, 2026", "12:00 PM CST", "100% free"]
+      details: ["January 24, 2026", "12:00 PM CST", "100% free"]
     }
   ];
 
@@ -101,25 +103,19 @@ const OnboardingSteps = () => {
               Ready to Start Learning?
             </h3>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              Join our free class on January 25, 2026 or get instant access to materials
+              Join our free class on January 24, 2026 or get instant access to materials
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
-                href="/admission"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-center"
-              >
-                Start Free Class
-              </motion.a>
-              <motion.a
-                href="/admission"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-purple-300 text-purple-700 hover:bg-purple-50 px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-center"
-              >
-                Learn More
-              </motion.a>
+              <Link to="/admission" className="w-full sm:w-auto">
+                <Button className="w-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-6 rounded-lg font-semibold transition-all duration-300">
+                  Start Free Class
+                </Button>
+              </Link>
+              <Link to="/admission" className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full border-2 border-purple-300 text-purple-700 hover:bg-purple-50 px-6 py-6 rounded-lg font-semibold transition-all duration-300">
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
         </motion.div>
