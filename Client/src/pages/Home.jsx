@@ -62,7 +62,7 @@ const Home = () => {
 
   const freeClassInfo = {
     title: "Free Yoruba Language Class",
-    date: "January 25, 2026",
+    date: "January 24, 2026",
     time: "12:00 PM CST",
     description: "Experience our teaching style and curriculum in a free introductory class!",
     features: [
@@ -72,7 +72,7 @@ const Home = () => {
       "Special enrollment offer for attendees"
     ],
     registrationLink: "/admission",
-    googleCalendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Free+Yoruba+Language+Class&details=Join+Roote+Ancestral+for+a+free+Yoruba+language+and+culture+class!&location=Online&dates=20260116T180000Z/20260116T190000Z"
+    googleCalendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Free+Yoruba+Language+Class&details=Join+Roote+Ancestral+for+a+free+Yoruba+language+and+culture+class!&location=Online&dates=20260124T180000Z/20260124T190000Z"
   };
 
   const learningAreas = [
@@ -101,7 +101,7 @@ const Home = () => {
   return (
     <div className="overflow-x-hidden min-h-screen">
       <section className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-50 via-white to-white py-12 sm:py-20 md:py-32 px-4 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid-pattern.svg')] opacity-[0.03]"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none"></div>
         <motion.div
           className="container mx-auto max-w-6xl"
           initial="hidden"
@@ -167,7 +167,7 @@ const Home = () => {
                       </div>
                       <p className="text-indigo-700 text-sm mb-3">{freeClassInfo.description}</p>
                       <div className="flex flex-col sm:flex-row gap-2">
-                        <Button asChild size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                        <Button asChild size="sm" className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white shadow-md">
                           <Link to={freeClassInfo.registrationLink}>Register for Free Class</Link>
                         </Button>
                         <Button
@@ -223,7 +223,7 @@ const Home = () => {
                   transition={{ type: "spring", stiffness: 400 }}
                   className="w-full sm:w-auto"
                 >
-                  <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full">
+                  <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full h-auto">
                     <Link to="/admission">Start Learning Today</Link>
                   </Button>
                 </motion.div>
@@ -233,7 +233,7 @@ const Home = () => {
                   transition={{ type: "spring", stiffness: 400 }}
                   className="w-full sm:w-auto"
                 >
-                  <Button asChild variant="outline" size="lg" className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg transition-all duration-300 w-full">
+                  <Button asChild variant="outline" size="lg" className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 px-6 sm:px-8 py-3 text-base sm:text-lg rounded-lg transition-all duration-300 w-full h-auto">
                     <Link to="/classes">View Classes</Link>
                   </Button>
                 </motion.div>
@@ -496,7 +496,7 @@ const Home = () => {
             Start your child's cultural journey today!
           </p>
           <Button asChild size="lg" className="bg-white text-indigo-700 hover:bg-slate-50 px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-indigo-100">
-            <Link to="/admission">Join Free Class on Jan 25, 2026</Link>
+            <Link to="/admission">Join Free Class on Jan 24, 2026</Link>
           </Button>
         </motion.div>
       </section>
