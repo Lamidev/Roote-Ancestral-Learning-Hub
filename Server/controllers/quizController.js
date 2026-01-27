@@ -211,50 +211,7 @@ const saveQuizResult = async (req, res) => {
 
     await quizResult.save();
 
-    if (freePeriodActive) {
-      try {
-        await sendWelcomeEmail({
-          studentEmail: cleanedEmail,
-          fullName: fullName,
-          level: level,
-          score: score,
-          quizResultId: quizResult._id,
-          paymentConfirmed: true,
-          freePeriodActive: true
-        });
-
-        await QuizResult.findByIdAndUpdate(quizResult._id, { emailSent: true });
-      } catch (emailError) {
-        console.error('❌ Failed to send welcome email after quiz:', emailError);
-      }
-    } else {
-      try {
-        await sendWelcomeEmail({
-          studentEmail: cleanedEmail,
-          fullName: fullName,
-          level: level,
-          score: score,
-          quizResultId: quizResult._id,
-          paymentConfirmed: false,
-          freePeriodActive: false
-        });
-      } catch (emailError) {
-        console.error('❌ Failed to send welcome email after quiz:', emailError);
-      }
-    }
-
-    sendAdminNotificationAsync({
-      studentEmail: cleanedEmail,
-      fullName: fullName,
-      level: level,
-      score: score,
-      phoneNumber: phoneNumber,
-      quizResultId: quizResult._id,
-      totalQuestions: 8,
-      paymentStatus: freePeriodActive ? 'completed' : 'pending',
-      enrollmentType: freePeriodActive ? 'free_period' : 'regular'
-    });
-
+    // Respond immediately to the client to make the UI feel instant
     res.status(201).json({
       success: true,
       message: freePeriodActive
@@ -273,6 +230,39 @@ const saveQuizResult = async (req, res) => {
         paymentStatus: quizResult.paymentStatus
       }
     });
+
+    // Fire off emails in the background
+    (async () => {
+      try {
+        await sendWelcomeEmail({
+          studentEmail: cleanedEmail,
+          fullName: fullName,
+          level: level,
+          score: score,
+          quizResultId: quizResult._id,
+          paymentConfirmed: freePeriodActive,
+          freePeriodActive: freePeriodActive
+        });
+
+        if (freePeriodActive) {
+          await QuizResult.findByIdAndUpdate(quizResult._id, { emailSent: true });
+        }
+
+        await sendAdminNotification({
+          studentEmail: cleanedEmail,
+          fullName: fullName,
+          level: level,
+          score: score,
+          phoneNumber: phoneNumber,
+          quizResultId: quizResult._id,
+          totalQuestions: 8,
+          paymentStatus: freePeriodActive ? 'completed' : 'pending',
+          enrollmentType: freePeriodActive ? 'free_period' : 'regular'
+        });
+      } catch (backgroundError) {
+        console.error('❌ Error processing background tasks:', backgroundError);
+      }
+    })();
 
   } catch (error) {
     console.error('❌ Error saving quiz result:', error);

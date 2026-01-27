@@ -86,7 +86,7 @@ const Classes = () => {
             Find the perfect level for your Yoruba learning journey
           </p>
           <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 font-outfit">
-            <Link to="/admission">Take Placement Quiz</Link>
+            <Link to="/admission">Join Free Discovery Class</Link>
           </Button>
         </motion.div>
 
@@ -145,7 +145,7 @@ const Classes = () => {
             </CardHeader>
             <CardContent>
               <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 font-outfit">
-                <Link to="/admission">Take Placement Quiz</Link>
+                <Link to="/admission">Join Free Class</Link>
               </Button>
             </CardContent>
           </Card>

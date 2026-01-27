@@ -85,17 +85,17 @@ const Admission = () => {
             variants={itemVariants}
             className="text-4xl font-bold text-indigo-900 mb-4 font-outfit"
           >
-            Begin Your Yoruba Journey
+            Join Our Free Yoruba Discovery Class
           </motion.h1>
           <motion.p
             variants={itemVariants}
             className="text-xl text-gray-700 mb-8"
           >
-            Start with our placement assessment to find your perfect class level
+            Welcome! For our upcoming free class on January 31st, we're placing all new students in our Beginner level to ensure everyone starts with a solid foundation.
           </motion.p>
           <motion.div variants={itemVariants}>
             <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 font-outfit">
-              <Link to="/admission/assessment">Start Placement Assessment</Link>
+              <Link to="/admission/assessment">Join Beginner Class Now</Link>
             </Button>
           </motion.div>
         </motion.div>
@@ -141,21 +141,21 @@ const Admission = () => {
             <CardContent>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1" className="border-indigo-100">
-                  <AccordionTrigger className="font-outfit hover:text-indigo-600">How long does the placement assessment take?</AccordionTrigger>
+                  <AccordionTrigger className="font-outfit hover:text-indigo-600">Why am I being placed in the Beginner class?</AccordionTrigger>
                   <AccordionContent>
-                    The assessment typically takes 5-10 minutes to complete. It's designed to be quick and straightforward.
+                    For our upcoming discovery session, we want to ensure all participants are on the same page. This level covers essential fundamentals that are beneficial for everyone starting their journey with us.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2" className="border-indigo-100">
-                  <AccordionTrigger className="font-outfit hover:text-indigo-600">What if I'm a complete beginner?</AccordionTrigger>
+                  <AccordionTrigger className="font-outfit hover:text-indigo-600">Can I move to a higher level later?</AccordionTrigger>
                   <AccordionContent>
-                    Perfect! Our Beginner class is designed specifically for those starting from scratch. The assessment will identify this and place you accordingly.
+                    Absolutely! After the discovery class, our teachers will evaluate each student and recommend the most appropriate level for their continued learning journey.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3" className="border-indigo-100">
-                  <AccordionTrigger className="font-outfit hover:text-indigo-600">When can I start classes after the assessment?</AccordionTrigger>
+                  <AccordionTrigger className="font-outfit hover:text-indigo-600">When does the free class start?</AccordionTrigger>
                   <AccordionContent>
-                    Immediately! Once you complete the assessment, you can create your account and start classes right away through our learning platform.
+                    The class holds on Saturday, January 31st, 2026 at 12:00 PM CST. Join via the link sent to your email after registration.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -173,13 +173,13 @@ const Admission = () => {
           <Card className="bg-linear-to-r from-indigo-50 to-amber-50 border-indigo-200">
             <CardContent className="pt-6">
               <h3 className="text-xl font-semibold text-indigo-900 mb-2 font-outfit">
-                Ready to Begin Your Yoruba Learning Journey?
+                Ready to Join the Free Class?
               </h3>
               <p className="text-gray-700 mb-4">
-                Take the first step with our placement assessment
+                Secure your spot in our Beginner level discovery session
               </p>
               <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 font-outfit">
-                <Link to="/admission/assessment">Start Assessment Now</Link>
+                <Link to="/admission/assessment">Enroll in Free Class</Link>
               </Button>
             </CardContent>
           </Card>

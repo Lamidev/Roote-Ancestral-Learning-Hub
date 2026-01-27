@@ -205,13 +205,13 @@ const Contact = () => {
                         Ready to Start Learning Immediately?
                       </h3>
                       <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
-                        Skip the wait and begin your Yoruba journey right now with our placement assessment.
+                        Skip the wait and begin your Yoruba journey right now by registering for our upcoming Discovery class.
                       </p>
                       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                         <Button asChild className="bg-indigo-600 hover:bg-indigo-700 text-sm sm:text-base">
                           <Link to="/admission">
                             <Send className="w-4 h-4 mr-2" />
-                            Take Placement Quiz
+                            Register for Free Class
                           </Link>
                         </Button>
                         <Button asChild variant="outline" className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 text-sm sm:text-base">
