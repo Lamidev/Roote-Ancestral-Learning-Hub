@@ -19,7 +19,7 @@ const createCheckoutSession = async (req, res) => {
     if (freePeriodActive) {
       return res.status(400).json({
         error: 'Free period active',
-        message: 'No payment required during free period (Register today until Jan 24th, 2026). You have been automatically enrolled in the January 24th, 2026 class at 12 PM CST.'
+        message: 'No payment required during free period (Register today until Jan 31st, 2026). You have been automatically enrolled in the January 31st, 2026 class at 12 PM CST.'
       });
     }
 
@@ -235,9 +235,9 @@ const processStripePayment = async (session) => {
       const levelFromStripe = session.metadata.course_level || 'beginner';
 
       const classUrls = {
-        beginner: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/beginner/home?invite=695be53d1017099e89f77002",
-        middle: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/middle-class/home?invite=695be5677c638a94320c9d3f",
-        advanced: "https://erkxaehwa051eqlmrdkv.app.clientclub.net/communities/groups/advanced-class/home?invite=695be586c22e3be091999a60"
+        beginner: "https://learning.rooteancestrallearninghub.com/communities/groups/beginner/home?invite=695d46543289ed25c07b1f56",
+        middle: "https://learning.rooteancestrallearninghub.com/communities/groups/middle-class/home?invite=695d46ad3289ed25c07bbd0e",
+        advanced: "https://learning.rooteancestrallearninghub.com/communities/groups/advanced-class/home?invite=695d46cf92dffd120de3ccb5"
       };
 
       quizResult = new QuizResult({
@@ -320,7 +320,7 @@ const updatePaymentStatus = async (req, res) => {
       return res.status(400).json({
         success: false,
         error: 'Free period active',
-        message: 'Manual payment updates disabled during free period (Until Jan 24th, 2026)'
+        message: 'Manual payment updates disabled during free period (Until Jan 31st, 2026)'
       });
     }
 

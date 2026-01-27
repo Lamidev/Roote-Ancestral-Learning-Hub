@@ -32,87 +32,8 @@ const QuizResult = () => {
   const { level, classUrl } = result;
   
   // Updated Date to Jan 25, 2026
-  const freeClassDate = "January 24, 2026";
+  const freeClassDate = "January 31, 2026";
   const freeClassTime = "12:00 PM CST";
-
-  const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL ||
-    (window.location.hostname === "localhost"
-      ? "http://localhost:7090"
-      : "https://api.rooteancestrallearninghub.com");
-
-  const saveQuizResult = useCallback(async () => {
-    // If already saving or no student info, skip
-    if (savingRef.current) return;
-
-    if (!studentInfo?.email || !studentInfo?.fullName) {
-      // Don't toast here to avoid spamming if user is just viewing
-      return;
-    }
-
-    savingRef.current = true;
-    try {
-      // Background save - doesn't block UI
-      
-      // Update context if needed
-      dispatch({ type: "SET_LEVEL", payload: result });
-
-      const quizData = {
-        studentEmail: studentInfo.email,
-        fullName: studentInfo.fullName,
-        phoneNumber: studentInfo.phoneNumber,
-        score: typeof currentScore === "number" ? currentScore : 0,
-        level: level || "beginner",
-        classUrl: classUrl,
-        answers: Array.isArray(answers)
-          ? answers.map((answer, index) => ({
-            questionId: answer.questionId ?? index + 1,
-            answerId: answer.answerId ?? "",
-            score: answer.score ?? 0,
-          }))
-          : [],
-      };
-
-      const response = await fetch(`${API_BASE_URL}/api/quiz/results`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(quizData),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSaveSuccess(true);
-        // Optional: toast success if you want user to know it's saved
-        // But since we showed the "Success" UI immediately, this is just backend confirmation
-      } 
-    } catch (err) {
-      console.error("Background save failed:", err);
-      // We don't block the user, they can still proceed with the local link
-    }
-  }, [
-    dispatch,
-    result,
-    studentInfo,
-    currentScore,
-    answers,
-    level,
-    classUrl,
-    API_BASE_URL,
-  ]);
-
-  // No longer triggers save on mount as it is handled by the transition in QuizQuestions.jsx
-  // to ensure messages are delivered as fast as possible.
-  useEffect(() => {
-    // Dispatch placement level if not already set (e.g. direct load or refresh)
-    if (!state.placementLevel) {
-      dispatch({ type: "SET_LEVEL", payload: result });
-    }
-  }, [dispatch, result, state.placementLevel]);
 
   const handleStartLearning = () => {
     if (classUrl) {
@@ -124,11 +45,9 @@ const QuizResult = () => {
       // Reset state for next time
       setTimeout(() => {
         dispatch({ type: "RESET_QUIZ" });
-        // Optional: Navigate home or show a specific "Bye" message
       }, 500);
     }
   };
-
 
   const handleReturnHome = () => {
     dispatch({ type: "RESET_QUIZ" });
@@ -165,10 +84,10 @@ const QuizResult = () => {
                   <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                 </div>
                 <CardTitle className="text-2xl sm:text-3xl lg:text-4xl font-outfit text-indigo-900 font-bold">
-                  Assessment Complete! 🎉
+                  Registration Successful! 🎉
                 </CardTitle>
                 <CardDescription className="text-base sm:text-lg text-gray-600 mt-2 max-w-md mx-auto">
-                  Your free class access is ready
+                  You're all set for the Yoruba Discovery Class
                 </CardDescription>
               </div>
             </CardHeader>
@@ -176,9 +95,9 @@ const QuizResult = () => {
             <CardContent className="p-6 sm:p-8">
               {/* Level Display */}
               <div className="text-center mb-6 sm:mb-8">
-                <div className={`inline-block bg-linear-to-r ${getLevelColor(level)} text-white rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg w-full sm:w-auto`}>
-                  <h2 className="text-xl sm:text-2xl font-bold mb-1">Level: {level.charAt(0).toUpperCase() + level.slice(1)}</h2>
-                  <p className="text-sm sm:text-lg opacity-90">Score: {currentScore} / {quizConfig.totalQuestions}</p>
+                <div className={`inline-block bg-linear-to-r ${getLevelColor('beginner')} text-white rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg w-full sm:w-auto`}>
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1">Level: Beginner</h2>
+                  <p className="text-sm sm:text-lg opacity-90">Discovery Class Placement</p>
                 </div>
               </div>
 
@@ -204,7 +123,7 @@ const QuizResult = () => {
                     disabled={hasRedirected}
                   >
                     <ExternalLink className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
-                    {hasRedirected ? "Class Opened!" : "Start Learning Now"}
+                    {hasRedirected ? "Class Opened!" : "Join Beginner Class Now"}
                   </Button>
                 </motion.div>
                 {hasRedirected && (
@@ -245,31 +164,21 @@ const QuizResult = () => {
                   <div className="min-w-0 flex-1">
                     <p className="font-bold text-purple-800 text-sm sm:text-base font-outfit">Email Sent</p>
                     <p className="text-purple-700 text-xs sm:text-sm break-all sm:break-normal">
-                      Complete instructions sent to <strong>{studentInfo?.email}</strong>
+                      Full access instructions sent to <strong>{studentInfo?.email}</strong>
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Navigation Options */}
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4">
+              <div className="text-center pt-4">
                 <Button
                   variant="outline"
-                  className="border-purple-200 text-purple-700 hover:bg-purple-50 text-sm sm:text-base h-12"
+                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 text-sm sm:text-base h-12"
                   onClick={handleReturnHome}
                 >
                   <Home className="mr-2 w-4 h-4" />
                   Return Home
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 text-sm sm:text-base h-12"
-                  onClick={() => {
-                    dispatch({ type: "RESET_QUIZ" });
-                    navigate("/admission");
-                  }}
-                >
-                  Take Quiz Again
                 </Button>
               </div>
             </CardContent>

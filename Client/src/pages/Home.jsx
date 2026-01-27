@@ -62,7 +62,7 @@ const Home = () => {
 
   const freeClassInfo = {
     title: "Free Yoruba Language Class",
-    date: "January 24, 2026",
+    date: "January 31, 2026",
     time: "12:00 PM CST",
     description: "Experience our teaching style and curriculum in a free introductory class!",
     features: [
@@ -72,7 +72,7 @@ const Home = () => {
       "Special enrollment offer for attendees"
     ],
     registrationLink: "/admission",
-    googleCalendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Free+Yoruba+Language+Class&details=Join+Roote+Ancestral+for+a+free+Yoruba+language+and+culture+class!&location=Online&dates=20260124T180000Z/20260124T190000Z"
+    googleCalendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Free+Yoruba+Language+Class&details=Join+Roote+Ancestral+for+a+free+Yoruba+language+and+culture+class!&location=Online&dates=20260131T180000Z/20260131T190000Z"
   };
 
   const learningAreas = [
@@ -496,7 +496,7 @@ const Home = () => {
             Start your child's cultural journey today!
           </p>
           <Button asChild size="lg" className="bg-white text-indigo-700 hover:bg-slate-50 px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-indigo-100">
-            <Link to="/admission">Join Free Class on Jan 24, 2026</Link>
+            <Link to="/admission">Join Free Class on Jan 31, 2026</Link>
           </Button>
         </motion.div>
       </section>
