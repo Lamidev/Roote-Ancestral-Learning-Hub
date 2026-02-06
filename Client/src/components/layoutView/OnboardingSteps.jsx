@@ -11,22 +11,22 @@ const OnboardingSteps = () => {
       number: 1,
       icon: ClipboardCheck,
       title: "Register Now",
-      description: "Sign up for our Discovery session",
+      description: "Sign up for our placement assessment",
       details: ["Quick signup", "Secure your spot", "Join the community"]
     },
     {
       number: 2,
       icon: Zap,
       title: "Get Access",
-      description: "Receive your class access instantly",
-      details: ["Direct course link", "Start immediately", "No setup needed"]
+      description: "Receive your class placement instantly",
+      details: ["Personalized level", "Start immediately", "No setup needed"]
     },
     {
       number: 3,
       icon: Calendar,
-      title: "Join Class",
-      description: "Attend free Yoruba class",
-      details: ["January 31, 2026", "12:00 PM CST", "100% free"]
+      title: "Start Learning",
+      description: "Join your class",
+      details: ["Weekly lessons", "Cultural activities", "Expert teachers"]
     }
   ];
 
@@ -41,10 +41,10 @@ const OnboardingSteps = () => {
           className="text-center mb-8 sm:mb-12"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-900 mb-4 font-outfit">
-            Simple 3-Step Onboarding
+            Simple 3-Step Enrollment
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-4">
-            Get instant access to your free Yoruba class
+            Get instant access to your Yoruba class
           </p>
         </motion.div>
 
@@ -103,12 +103,12 @@ const OnboardingSteps = () => {
               Ready to Start Learning?
             </h3>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              Join our free class on January 31, 2026 or get instant access to materials
+              Join our classes today and get instant access to materials
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/admission" className="w-full sm:w-auto">
                 <Button className="w-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-6 rounded-lg font-semibold transition-all duration-300">
-                  Start Free Class
+                  Enroll Now
                 </Button>
               </Link>
               <Link to="/admission" className="w-full sm:w-auto">

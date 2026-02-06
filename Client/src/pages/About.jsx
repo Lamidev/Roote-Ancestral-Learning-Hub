@@ -69,53 +69,57 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen py-8 sm:py-16 md:py-24 px-4 bg-linear-to-b from-indigo-50 to-white">
-      <div className="container mx-auto max-w-6xl">
-        {/* Hero Header */}
-        <motion.div
-          className="text-center mb-12 sm:mb-16"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
+    <div className="min-h-screen bg-slate-50 font-sans">
+      {/* Hero Header */}
+      <section className="relative pt-32 pb-20 px-4 bg-linear-to-br from-indigo-950 via-indigo-900 to-purple-900 text-white overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[128px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-[128px] pointer-events-none -translate-x-1/3 translate-y-1/3"></div>
+
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
           <motion.h1
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-900 mb-4 font-outfit"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-outfit"
           >
-            About Roote Ancestral
+            About <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-200 to-yellow-400">Roote Ancestral</span>
           </motion.h1>
           <motion.p
-            variants={itemVariants}
-            className="text-lg sm:text-xl text-gray-700 font-outfit max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg sm:text-xl text-indigo-100 max-w-2xl mx-auto font-light leading-relaxed"
           >
-            Preserving Yoruba heritage through joyful language education for diaspora children
+            Preserving Yoruba heritage through joyful, meaningful language education for children in the diaspora.
           </motion.p>
-        </motion.div>
+        </div>
+      </section>
 
+      <div className="container mx-auto max-w-6xl px-4 relative z-20 -mt-10 pb-20">
         {/* Mission & Vision Section */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-12 sm:mb-16">
+        <div className="grid lg:grid-cols-2 gap-8 mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="border-indigo-100 h-full hover:shadow-lg transition-all duration-300">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-linear-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Card className="border-0 shadow-lg h-full hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
+               <div className="h-2 bg-linear-to-r from-green-400 to-blue-400"></div>
+              <CardHeader className="text-center pt-8">
+                <div className="w-16 h-16 bg-linear-to-r from-green-400 to-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Target className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="font-outfit text-indigo-900">Our Mission</CardTitle>
+                <CardTitle className="font-outfit text-2xl text-indigo-900">Our Mission</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-lg text-gray-700 leading-relaxed text-center">
+              <CardContent className="px-8 pb-8 text-center">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   To nurture a love for the Yoruba language and culture in children through engaging,
                   joyful, and meaningful learning experiences.
                 </p>
-                <div className="mt-6 p-4 bg-indigo-50 rounded-lg">
-                  <p className="text-sm text-indigo-700 text-center">
-                    Roote Ancestral Learning Hub is dedicated to making Yoruba language and culture
-                    accessible to everyone in the diaspora.
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-sm text-indigo-800 font-medium">
+                    Making heritage accessible to everyone in the diaspora.
                   </p>
                 </div>
               </CardContent>
@@ -128,21 +132,22 @@ const About = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="border-amber-100 h-full hover:shadow-lg transition-all duration-300">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-linear-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Card className="border-0 shadow-lg h-full hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
+              <div className="h-2 bg-linear-to-r from-amber-400 to-orange-400"></div>
+              <CardHeader className="text-center pt-8">
+                <div className="w-16 h-16 bg-linear-to-r from-amber-400 to-orange-400 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Globe className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="font-outfit text-indigo-900">Our Vision</CardTitle>
+                <CardTitle className="font-outfit text-2xl text-indigo-900">Our Vision</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-lg text-gray-700 leading-relaxed text-center">
-                  To see every child confidently speak, read, and celebrate Yoruba heritage keeping
+              <CardContent className="px-8 pb-8 text-center">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  To see every child confidently speak, read, and celebrate Yoruba heritage, keeping
                   our culture alive for generations to come.
                 </p>
-                <div className="mt-6 p-4 bg-amber-50 rounded-lg">
-                  <p className="text-sm text-amber-700 text-center">
-                    Creating a global community of Yoruba speakers deeply connected to their cultural heritage.
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-sm text-amber-800 font-medium">
+                    Creating a global community deeply connected to their roots.
                   </p>
                 </div>
               </CardContent>
@@ -156,16 +161,16 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-12 sm:mb-16"
+          className="mb-20"
         >
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-indigo-900 mb-4 font-outfit">Our Core Values</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-indigo-900 mb-4 font-outfit">Our Core Values</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               The principles that guide everything we do at Roote Ancestral
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {coreValues.map((value, index) => (
               <motion.div
                 key={index}
@@ -174,14 +179,15 @@ const About = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="border-gray-100 hover:border-indigo-200 transition-all duration-300 hover:shadow-md h-full text-center">
+                <Card className="border-0 shadow-md hover:shadow-xl transition-all duration-300 h-full text-center bg-white group overflow-hidden">
+                  <div className={`h-1 w-full bg-linear-to-r ${value.color} scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}></div>
                   <CardContent className="p-6">
-                    <div className={`w-12 h-12 bg-linear-to-r ${value.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                    <div className={`w-14 h-14 bg-linear-to-r ${value.color} rounded-2xl flex items-center justify-center mx-auto mb-4 transform group-hover:rotate-12 transition-transform duration-300`}>
                       <div className="text-white">
                         {value.icon}
                       </div>
                     </div>
-                    <h3 className="font-semibold text-indigo-900 mb-2 font-outfit">{value.title}</h3>
+                    <h3 className="font-semibold text-lg text-indigo-900 mb-2 font-outfit">{value.title}</h3>
                     <p className="text-sm text-gray-600 leading-relaxed">{value.description}</p>
                   </CardContent>
                 </Card>
@@ -196,11 +202,12 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-12 sm:mb-16"
+          className="mb-20"
         >
-          <Card className="bg-linear-to-r from-indigo-500 to-purple-600 text-white border-0">
-            <CardContent className="p-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <Card className="bg-linear-to-r from-indigo-900 to-purple-800 text-white border-0 shadow-2xl relative overflow-hidden rounded-3xl">
+             <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
+            <CardContent className="p-10 sm:p-14 relative z-10">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-indigo-800/50">
                 {impactStats.map((stat, index) => (
                   <motion.div
                     key={index}
@@ -208,9 +215,10 @@ const About = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
+                    className="px-4"
                   >
-                    <div className="text-2xl sm:text-3xl font-bold font-outfit">{stat.number}</div>
-                    <div className="text-indigo-100 text-sm">{stat.label}</div>
+                    <div className="text-3xl sm:text-4xl font-bold font-outfit text-amber-400 mb-2">{stat.number}</div>
+                    <div className="text-indigo-200 text-sm font-medium tracking-wide uppercase">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -219,20 +227,15 @@ const About = () => {
         </motion.div>
 
         {/* Why Yoruba Matters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-12 sm:mb-16"
-        >
-          <Card className="border-indigo-100">
-            <CardHeader className="text-center">
-              <CardTitle className="font-outfit text-indigo-900">Why Yoruba Matters for Diaspora Children</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-6 text-gray-700 leading-relaxed">
-                <div className="space-y-4">
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+            <motion.div
+               initial={{ opacity: 0, x: -20 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               transition={{ duration: 0.6 }}
+               viewport={{ once: true }}
+            >
+               <h2 className="text-3xl sm:text-4xl font-bold text-indigo-900 mb-6 font-outfit leading-tight">Why Yoruba Matters for <span className="text-purple-600">Diaspora Children</span></h2>
+               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                   <p>
                     Yoruba is more than just a language—it's a gateway to understanding one of Africa's
                     most influential cultures. With over 40 million speakers worldwide, Yoruba culture
@@ -240,24 +243,24 @@ const About = () => {
                   </p>
                   <p>
                     For diaspora children, learning Yoruba builds cultural identity, family connections,
-                    and pride in their heritage.
+                    and pride in their heritage, helping them understand their place in the world.
                   </p>
-                </div>
-                <div className="space-y-4">
-                  <p>
-                    By learning Yoruba, your child is not just acquiring language skills; they're connecting
-                    with centuries of history, philosophy, and cultural wisdom that will help them understand
-                    their place in the world.
-                  </p>
-                  <p>
-                    We combine modern teaching methods with traditional cultural knowledge, ensuring our
-                    students not only learn the language but understand the context and beauty behind it.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+               </div>
+            </motion.div>
+            <motion.div
+               initial={{ opacity: 0, x: 20 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               transition={{ duration: 0.6 }}
+               viewport={{ once: true }}
+               className="bg-indigo-50 rounded-3xl p-8 border border-indigo-100"
+            >
+               <h3 className="text-xl font-bold text-indigo-900 mb-4 font-outfit">Our Approach</h3>
+               <p className="text-gray-700 mb-6">We combine modern teaching methods with traditional cultural knowledge, ensuring our students not only learn the language but understand the context and beauty behind it.</p>
+               <Button asChild variant="outline" className="border-indigo-600 text-indigo-700 hover:bg-indigo-600 hover:text-white font-bold w-full sm:w-auto">
+                 <Link to="/classes">Explore Curriculum</Link>
+               </Button>
+            </motion.div>
+        </div>
 
         {/* Founder Section */}
         <motion.div
@@ -265,60 +268,68 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-12 sm:mb-16"
+          className="mb-20"
         >
-          <Card className="border-indigo-100">
-            <CardHeader className="text-center">
-              <CardTitle className="font-outfit text-indigo-900">Meet Our Founder</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex justify-center">
-                <div className="text-center max-w-md">
-                  <div className="w-24 h-24 bg-linear-to-r from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 group hover:scale-105 transition-transform duration-300">
-                    <span className="text-white font-bold text-2xl font-outfit">O</span>
-                  </div>
-                  <h3 className="font-semibold text-lg font-outfit text-indigo-900">Opeyemi</h3>
-                  <p className="text-gray-600 mb-3">Founder & Educational Director</p>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    Dedicated to making Yoruba language education accessible, engaging, and meaningful
-                    for children growing up in the diaspora. With a passion for cultural preservation
-                    and innovative teaching methods, Olujoke leads our mission to keep Yoruba heritage
-                    alive for future generations.
-                  </p>
+          <div className="max-w-4xl mx-auto">
+              <Card className="border-0 shadow-xl overflow-hidden bg-white">
+                <div className="flex flex-col md:flex-row">
+                   <div className="md:w-1/3 bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center p-8">
+                      <div className="w-32 h-32 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white text-4xl font-bold border-4 border-white/30">
+                         O
+                      </div>
+                   </div>
+                   <div className="md:w-2/3 p-8 md:p-12">
+                      <h3 className="text-sm font-bold text-orange-500 uppercase tracking-widest mb-1">Meet the Founder</h3>
+                      <h2 className="text-3xl font-bold text-slate-900 font-outfit mb-4">Opeyemi</h2>
+                      <p className="text-slate-600 leading-relaxed mb-6">
+                        "Dedicated to making Yoruba language education accessible, engaging, and meaningful
+                        for children growing up in the diaspora. With a passion for cultural preservation
+                        and innovative teaching methods, we are on a mission to keep Yoruba heritage
+                        alive for future generations."
+                      </p>
+                      <div className="flex items-center gap-4">
+                         <Button asChild size="sm" variant="ghost" className="bg-slate-100 hover:bg-slate-200 text-slate-700">
+                           <Link to="/contact">Get in Touch</Link>
+                         </Button>
+                      </div>
+                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </Card>
+          </div>
         </motion.div>
 
         {/* Final CTA */}
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <Card className="bg-linear-to-r from-indigo-50 to-amber-50 border-indigo-200">
-            <CardContent className="pt-8 pb-8">
-              <Award className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
-              <h3 className="text-xl sm:text-2xl font-semibold text-indigo-900 mb-4 font-outfit">
-                Ready to Start Your Child's Yoruba Journey?
-              </h3>
-              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-                Join our community of diaspora families and help your child connect with their heritage
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild className="bg-indigo-600 hover:bg-indigo-700">
-                  <Link to="/admission">Start Learning Today</Link>
-                </Button>
-                <Button asChild variant="outline" className="border-indigo-200 text-indigo-700 hover:bg-indigo-50">
-                  <Link to="/contact">Contact Us</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+           className="text-center pb-20"
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.6 }}
+           viewport={{ once: true }}
+         >
+           <div className="bg-linear-to-r from-indigo-900 to-indigo-950 rounded-3xl p-8 sm:p-16 text-white shadow-2xl relative overflow-hidden">
+             <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
+             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px]"></div>
+             <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/20 rounded-full blur-[80px]"></div>
+             
+             <div className="relative z-10">
+               <Award className="w-16 h-16 text-amber-400 mx-auto mb-6" />
+               <h3 className="text-3xl sm:text-4xl font-bold mb-6 font-outfit">
+                 Start Your Child's Yoruba Journey
+               </h3>
+               <p className="text-indigo-200 mb-10 max-w-2xl mx-auto text-lg">
+                 Join our community of diaspora families and help your child connect with their heritage today.
+               </p>
+               <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                 <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold px-10 py-6 text-lg rounded-xl shadow-lg">
+                   <Link to="/admission/assessment">Start Learning Today</Link>
+                 </Button>
+                 <Button asChild variant="outline" size="lg" className="border-indigo-400 text-indigo-100 hover:bg-white/10 bg-transparent px-10 py-6 text-lg rounded-xl">
+                   <Link to="/contact">Contact Us</Link>
+                 </Button>
+               </div>
+             </div>
+           </div>
+         </motion.div>
       </div>
     </div>
   );

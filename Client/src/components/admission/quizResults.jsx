@@ -26,14 +26,9 @@ const QuizResult = () => {
   const [hasRedirected, setHasRedirected] = useState(false);
   const savingRef = useRef(false);
 
-  // Calculate result locally - available immediately
-  // Pass student Email if available to help with tracking logic if needed, though strictly calc level is score based.
+  // Result is calculated locally for immediate feedback
   const result = calculateLevel(currentScore, studentInfo?.email);
   const { level, classUrl } = result;
-  
-  // Updated Date to Jan 25, 2026
-  const freeClassDate = "January 31, 2026";
-  const freeClassTime = "12:00 PM CST";
 
   const handleStartLearning = () => {
     if (classUrl) {
@@ -57,147 +52,97 @@ const QuizResult = () => {
   const getLevelColor = (level) => {
     switch (level) {
       case "beginner":
-        return "from-purple-500 to-indigo-500";
+        return "from-green-400 to-emerald-600";
       case "middle":
-        return "from-indigo-500 to-purple-500";
+        return "from-blue-400 to-indigo-600";
       case "advanced":
-        return "from-purple-600 to-indigo-600";
+        return "from-purple-400 to-pink-600";
       default:
         return "from-indigo-500 to-purple-500";
     }
   };
 
-  // No loading state return - show content immediately
-
   return (
-    <div className="py-8 sm:py-12 px-4 bg-linear-to-b from-indigo-50 to-white min-h-screen">
-      <div className="container mx-auto max-w-lg sm:max-w-2xl lg:max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Card className="border-indigo-200 shadow-2xl overflow-hidden">
-            <CardHeader className="text-center pb-6 sm:pb-8 bg-linear-to-r from-purple-50 to-indigo-50">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
-                  <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                </div>
-                <CardTitle className="text-2xl sm:text-3xl lg:text-4xl font-outfit text-indigo-900 font-bold">
-                  Registration Successful! 🎉
-                </CardTitle>
-                <CardDescription className="text-base sm:text-lg text-gray-600 mt-2 max-w-md mx-auto">
-                  You're all set for the Yoruba Discovery Class
-                </CardDescription>
-              </div>
-            </CardHeader>
+    <div className="min-h-screen py-12 px-4 bg-linear-to-br from-indigo-950 to-purple-900 flex items-center justify-center">
+      <motion.div 
+        className="w-full max-w-2xl"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Card className="border-0 shadow-2xl overflow-hidden bg-white/95 backdrop-blur-sm">
+          {/* Decorative Header */}
+          <div className="h-32 bg-linear-to-r from-indigo-600 via-purple-600 to-indigo-600 relative overflow-hidden flex items-center justify-center">
+            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20"></div>
+             <motion.div 
+               initial={{ scale: 0 }}
+               animate={{ scale: 1 }}
+               transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
+               className="bg-white p-4 rounded-full shadow-lg relative z-10"
+             >
+                <CheckCircle className="w-12 h-12 text-green-500" />
+             </motion.div>
+          </div>
+          
+          <CardContent className="pt-12 pb-10 px-6 sm:px-12 text-center">
+             <motion.div
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ delay: 0.4 }}
+             >
+               <h2 className="text-3xl sm:text-4xl font-bold text-indigo-900 font-outfit mb-2">Placement Complete! 🎉</h2>
+               <p className="text-gray-600 text-lg mb-8">We've found the perfect class level for your child.</p>
 
-            <CardContent className="p-6 sm:p-8">
-              {/* Level Display */}
-              <div className="text-center mb-6 sm:mb-8">
-                <div className={`inline-block bg-linear-to-r ${getLevelColor('beginner')} text-white rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-lg w-full sm:w-auto`}>
-                  <h2 className="text-xl sm:text-2xl font-bold mb-1">Level: Beginner</h2>
-                  <p className="text-sm sm:text-lg opacity-90">Discovery Class Placement</p>
-                </div>
-              </div>
+               {/* Result Badge */}
+               <div className="mb-10 relative inline-block">
+                 <div className={`absolute inset-0 bg-linear-to-r ${getLevelColor(level)} blur-xl opacity-30 rounded-full`}></div>
+                 <div className={`relative bg-linear-to-r ${getLevelColor(level)} text-white px-8 py-4 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300`}>
+                   <span className="block text-xs uppercase tracking-widest opacity-90 mb-1">Recommended Level</span>
+                   <span className="block text-3xl font-bold font-outfit tracking-wide">{level ? level.charAt(0).toUpperCase() + level.slice(1) : 'Beginner'}</span>
+                 </div>
+               </div>
 
-              {/* Main Action Button */}
-              <div className="mb-6 sm:mb-8 text-center">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  animate={{ 
-                    boxShadow: ["0px 0px 0px rgba(79, 70, 229, 0)", "0px 0px 20px rgba(79, 70, 229, 0.4)", "0px 0px 0px rgba(79, 70, 229, 0)"]
-                  }}
-                  transition={{ 
-                    repeat: Infinity, 
-                    duration: 2,
-                    ease: "easeInOut"
-                  }}
-                  className="rounded-lg"
-                >
-                  <Button
-                    size="lg"
-                    className="w-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-4 sm:py-6 text-base sm:text-xl font-bold shadow-lg rounded-lg h-auto"
+               {/* Action Area */}
+               <div className="space-y-4 max-w-md mx-auto">
+                  <Button 
+                    size="lg" 
                     onClick={handleStartLearning}
                     disabled={hasRedirected}
+                    className="w-full bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold h-14 text-lg shadow-lg hover:shadow-xl transition-all"
                   >
-                    <ExternalLink className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
-                    {hasRedirected ? "Class Opened!" : "Join Beginner Class Now"}
+                     <ExternalLink className="mr-2 w-5 h-5" />
+                     {hasRedirected ? "Portal Opened!" : "Access Student Portal"}
                   </Button>
-                </motion.div>
-                {hasRedirected && (
-                  <p className="text-center text-purple-600 text-xs sm:text-sm mt-2">
-                    Your class has been opened in a new tab. You can close this page.
-                  </p>
-                )}
-              </div>
+                  
+                   {hasRedirected && (
+                    <motion.p 
+                      initial={{ opacity: 0 }} 
+                      animate={{ opacity: 1 }}
+                      className="text-indigo-600 text-sm font-medium"
+                    >
+                      Class portal opened in a new tab!
+                    </motion.p>
+                  )}
 
-              {/* Class Details */}
-              <div className="mb-6 sm:mb-8 p-4 sm:p-5 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
-                <h3 className="text-base sm:text-lg font-bold text-purple-900 mb-3 sm:mb-4 flex items-center gap-2 font-outfit">
-                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 shrink-0" />
-                  Free Class Details
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="p-3 sm:p-4 bg-white rounded border border-purple-100 text-center">
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <Calendar className="w-4 h-4 text-purple-600" />
-                      <span className="font-semibold text-purple-800 text-xs sm:text-sm">Date</span>
-                    </div>
-                    <p className="text-base sm:text-lg font-bold text-purple-900">{freeClassDate}</p>
+                  <Button 
+                    variant="ghost" 
+                    onClick={handleReturnHome}
+                    className="text-gray-500 hover:text-indigo-600 hover:bg-indigo-50"
+                  >
+                    Return to Homepage
+                  </Button>
+               </div>
+
+               <div className="mt-8 pt-8 border-t border-gray-100">
+                  <div className="flex items-center justify-center gap-2 text-sm text-gray-500 bg-gray-50 py-2 rounded-lg inline-flex px-4">
+                    <Mail className="w-4 h-4" />
+                    <span>Confirmation sent to <strong>{studentInfo?.email}</strong></span>
                   </div>
-                  <div className="p-3 sm:p-4 bg-white rounded border border-purple-100 text-center">
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <Clock className="w-4 h-4 text-purple-600" />
-                      <span className="font-semibold text-purple-800 text-xs sm:text-sm">Time</span>
-                    </div>
-                    <p className="text-base sm:text-lg font-bold text-purple-900">{freeClassTime}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Email Confirmation */}
-              <div className="p-4 sm:p-5 bg-linear-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200 mb-6 sm:mb-8">
-                <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
-                  <div className="min-w-0 flex-1">
-                    <p className="font-bold text-purple-800 text-sm sm:text-base font-outfit">Email Sent</p>
-                    <p className="text-purple-700 text-xs sm:text-sm break-all sm:break-normal">
-                      Full access instructions sent to <strong>{studentInfo?.email}</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Navigation Options */}
-              <div className="text-center pt-4">
-                <Button
-                  variant="outline"
-                  className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 text-sm sm:text-base h-12"
-                  onClick={handleReturnHome}
-                >
-                  <Home className="mr-2 w-4 h-4" />
-                  Return Home
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Support Section */}
-          <div className="mt-6 sm:mt-8 text-center">
-            <p className="text-gray-600 text-xs sm:text-sm">
-              Need help? Email{' '}
-              <a
-                href="mailto:admin@rooteancestrallearninghub.com"
-                className="text-purple-600 hover:underline font-medium"
-              >
-                admin@rooteancestrallearninghub.com
-              </a>
-            </p>
-          </div>
-        </motion.div>
-      </div>
+               </div>
+             </motion.div>
+          </CardContent>
+        </Card>
+      </motion.div>
     </div>
   );
 };

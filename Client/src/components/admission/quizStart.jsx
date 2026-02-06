@@ -31,45 +31,17 @@ const QuizStart = () => {
     setIsSubmitting(true);
 
     try {
-      // Prepare data for forced Beginner level in discovery class
-      const registrationData = {
-        studentEmail: studentInfo.email,
-        fullName: studentInfo.fullName,
-        phoneNumber: studentInfo.phoneNumber,
-        score: 0, // Forced score for beginner level
-        level: 'beginner',
-        classUrl: quizConfig.classUrls.beginner,
-        answers: []
-      };
-
-      const response = await fetch(`${API_BASE_URL}/api/quiz/results`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(registrationData),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
+      // Just save the student info to context to be used after the quiz
       dispatch({
         type: 'SET_STUDENT_INFO',
         payload: studentInfo
       });
 
-      dispatch({
-        type: 'SET_LEVEL',
-        payload: { 
-          level: 'beginner', 
-          classUrl: registrationData.classUrl 
-        }
-      });
-
-      // Directly navigate to result for the discovery class
-      navigate('/admission/result');
+      // Navigate to the questions
+      navigate('/admission/questions');
     } catch (error) {
-      console.error('Registration error:', error);
-      toast.error('Registration failed. Please try again or contact support.');
+      console.error('Error starting quiz:', error);
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -97,9 +69,9 @@ const QuizStart = () => {
         >
           <Card className="border-indigo-100 shadow-lg">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-outfit text-indigo-900">Join Our Free Class</CardTitle>
+              <CardTitle className="text-2xl font-outfit text-indigo-900">Start Your Placement Assessment</CardTitle>
               <CardDescription className="text-gray-600">
-                Register now for the January 31st Yoruba Discovery session
+                Please provide your details before we begin the quiz
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -148,7 +120,7 @@ const QuizStart = () => {
                   </p>
                 </div>
 
-                <Button
+                  <Button
                   type="submit"
                   className="w-full bg-indigo-600 hover:bg-indigo-700 font-outfit"
                   size="lg"
@@ -157,10 +129,10 @@ const QuizStart = () => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Registering...
+                      Starting...
                     </>
                   ) : (
-                    "Register and Get Access"
+                    "Start Assessment"
                   )}
                 </Button>
               </form>
