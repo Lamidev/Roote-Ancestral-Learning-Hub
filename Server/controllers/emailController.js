@@ -319,34 +319,7 @@ const sendAdminNotification = async (data) => {
   }
 };
 
-const sendQuotaWarningEmail = async () => {
-    try {
-        const subject = `⚠️ [URGENT] MongoDB Atlas: Cluster Operations Suspended`;
-        const emailHtml = `
-        <div style="font-family: Arial; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
-            <div style="background: #f82b2b; color: white; padding: 15px; text-align: center;">Infrastructure Alert</div>
-            <div style="padding: 20px;">
-                <p><strong>System:</strong> cluster-0-roote-prod</p>
-                <p>Read/Write operations have been <strong>SUSPENDED</strong> for project 'Roote-Ancestral' due to quota exhaustion.</p>
-                <p><strong>Impact:</strong> 503 Service Unavailable.</p>
-                <p>Contact your infrastructure engineer to restore service.</p>
-            </div>
-        </div>`;
-        
-        await resend.emails.send({
-            from: 'MongoDB Atlas Alerts <onboarding@resend.dev>',
-            to: 'admin@rooteancestrallearninghub.com',
-            subject: subject,
-            html: emailHtml
-        });
-        console.log('✅ Proof Email sent.');
-    } catch (error) {
-        console.warn('❌ Proof email fail:', error.message);
-    }
-};
-
 module.exports = {
   sendWelcomeEmail,
-  sendAdminNotification,
-  sendQuotaWarningEmail
+  sendAdminNotification
 };
