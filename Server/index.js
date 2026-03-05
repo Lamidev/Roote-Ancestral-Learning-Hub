@@ -9,22 +9,11 @@ const dbURL = process.env.MONGODB_URL;
 const app = express();
 const PORT = process.env.PORT || 7090;
 
-const emailController = require('./controllers/emailController');
-let quotaAlertSent = false;
-
-const triggerProofEmail = () => {
-    if (!quotaAlertSent && emailController.sendQuotaWarningEmail) {
-        emailController.sendQuotaWarningEmail();
-        quotaAlertSent = true;
-    }
-};
-
 // Start MongoDB Connection
 mongoose.connect(dbURL)
     .then(() => console.log("✅ Connected to MongoDB"))
     .catch((error) => {
         console.error("❌ MongoDB connection failed:", error);
-        triggerProofEmail();
     });
 
 // CORS SETUP
@@ -42,24 +31,6 @@ app.post("/api/payments/webhook/payments", express.raw({ type: "application/json
 
 app.use(express.json());
 app.use(cookieParser());
-
-// QUOTA CHECK MIDDLEWARE
-app.use(async (req, res, next) => {
-    if (req.path === '/api/health') return next();
-    
-    // HARDCODED SUSPENSION
-    const isSuspended = true; 
-    
-    if (isSuspended) {
-        triggerProofEmail();
-        return res.status(503).json({
-            error: "Quota Exceeded",
-            code: "DB_QUOTA_EXCEEDED",
-            message: "Database cluster operations have been suspended by the infrastructure provider."
-        });
-    }
-    next();
-});
 
 // ROUTES
 app.use("/api/contact", require("./routes/contactRoutes"));
